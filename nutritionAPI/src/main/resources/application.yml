@@ -1,0 +1,22 @@
+logging:
+  level:
+    blog: WARN
+    org: WARN
+    org.hibernate.SQL: DEBUG
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: 12345
+    url: jdbc:mysql://localhost:3306/nutritionApi?createDatabaseIfNotExist=true
+    username: root
+  jpa:
+    hibernate:
+
+      ddl-auto: update
+    spring:
+      jpa:
+        show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
