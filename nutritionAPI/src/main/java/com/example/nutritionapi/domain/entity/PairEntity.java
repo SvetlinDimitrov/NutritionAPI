@@ -10,9 +10,9 @@ public class PairEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "pair_key")
     private String key;
-    @Column
+    @Column(columnDefinition = "TEXT" ,name = "pair_value")
     private String value;
 
     public Long getId() {

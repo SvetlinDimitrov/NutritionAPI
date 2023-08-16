@@ -2,6 +2,7 @@ package com.example.nutritionapi.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -21,11 +22,23 @@ public class RecordEntity {
     @OneToMany(mappedBy = "record")
     private List<ElectrolyteEntity> electrolytes;
 
+    @Column
+    private BigDecimal dailyCalories;
+
     @ManyToOne
     private UserEntity user;
 
     public Long getId() {
         return id;
+    }
+
+    public BigDecimal getDailyCalories() {
+        return dailyCalories;
+    }
+
+    public RecordEntity setDailyCalories(BigDecimal dailyCalories) {
+        this.dailyCalories = dailyCalories;
+        return this;
     }
 
     public RecordEntity setId(Long id) {
