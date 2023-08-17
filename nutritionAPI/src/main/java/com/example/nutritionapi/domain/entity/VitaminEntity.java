@@ -24,9 +24,9 @@ public class VitaminEntity{
     private List<PairEntity> sources;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    private DailyIntake female;
+    private DailyIntakeEntity female;
     @OneToOne(cascade = CascadeType.PERSIST)
-    private DailyIntake male;
+    private DailyIntakeEntity male;
     @ManyToOne
     private RecordEntity record;
 
@@ -96,20 +96,20 @@ public class VitaminEntity{
         return this;
     }
 
-    public DailyIntake getFemale() {
+    public DailyIntakeEntity getFemale() {
         return female;
     }
 
-    public VitaminEntity setFemale(DailyIntake female) {
+    public VitaminEntity setFemale(DailyIntakeEntity female) {
         this.female = female;
         return this;
     }
 
-    public DailyIntake getMale() {
+    public DailyIntakeEntity getMale() {
         return male;
     }
 
-    public VitaminEntity setMale(DailyIntake male) {
+    public VitaminEntity setMale(DailyIntakeEntity male) {
         this.male = male;
         return this;
     }

@@ -1,6 +1,6 @@
 package com.example.nutritionapi.web;
 
-import com.example.nutritionapi.domain.dtos.VitaminView;
+import com.example.nutritionapi.domain.dtos.viewDtos.VitaminView;
 import com.example.nutritionapi.exceptions.VitaminNotFound;
 import com.example.nutritionapi.service.VitaminServiceImp;
 import org.springframework.http.HttpStatus;

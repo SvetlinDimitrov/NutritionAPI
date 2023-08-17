@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "dailyIntakes")
-public class DailyIntake {
+public class DailyIntakeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,7 +37,7 @@ public class DailyIntake {
         return lowerBound;
     }
 
-    public DailyIntake setLowerBound(BigDecimal lowerBound) {
+    public DailyIntakeEntity setLowerBound(BigDecimal lowerBound) {
         this.lowerBound = lowerBound;
         return this;
     }
@@ -46,7 +46,7 @@ public class DailyIntake {
         return UpperBound;
     }
 
-    public DailyIntake setUpperBound(BigDecimal upperBound) {
+    public DailyIntakeEntity setUpperBound(BigDecimal upperBound) {
         UpperBound = upperBound;
         return this;
     }
@@ -55,7 +55,7 @@ public class DailyIntake {
         return gender;
     }
 
-    public DailyIntake setGender(Gender gender) {
+    public DailyIntakeEntity setGender(Gender gender) {
         this.gender = gender;
         return this;
     }
@@ -64,7 +64,7 @@ public class DailyIntake {
         return measureUnit;
     }
 
-    public DailyIntake setMeasureUnit(String measureUnit) {
+    public DailyIntakeEntity setMeasureUnit(String measureUnit) {
         this.measureUnit = measureUnit;
         return this;
     }

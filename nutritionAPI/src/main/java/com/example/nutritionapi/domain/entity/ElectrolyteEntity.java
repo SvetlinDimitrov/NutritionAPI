@@ -25,9 +25,9 @@ public class ElectrolyteEntity{
     private List<PairEntity> healthConsiderations;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    private DailyIntake female;
+    private DailyIntakeEntity female;
     @OneToOne(cascade = CascadeType.PERSIST)
-    private DailyIntake male;
+    private DailyIntakeEntity male;
 
     @Column
     private BigDecimal dailyTook;
@@ -86,20 +86,20 @@ public class ElectrolyteEntity{
         return this;
     }
 
-    public DailyIntake getFemale() {
+    public DailyIntakeEntity getFemale() {
         return female;
     }
 
-    public ElectrolyteEntity setFemale(DailyIntake female) {
+    public ElectrolyteEntity setFemale(DailyIntakeEntity female) {
         this.female = female;
         return this;
     }
 
-    public DailyIntake getMale() {
+    public DailyIntakeEntity getMale() {
         return male;
     }
 
-    public ElectrolyteEntity setMale(DailyIntake male) {
+    public ElectrolyteEntity setMale(DailyIntakeEntity male) {
         this.male = male;
         return this;
     }

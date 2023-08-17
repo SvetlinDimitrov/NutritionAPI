@@ -1,7 +1,9 @@
 package com.example.nutritionapi.domain.entity;
 
+import com.example.nutritionapi.domain.constants.WorkoutState;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -12,7 +14,7 @@ public class UserEntity {
     private Long id;
 
     @Column
-    private String name;
+    private String username;
 
     @Column
     private String email;
@@ -20,11 +22,36 @@ public class UserEntity {
     @Column
     private String password;
 
+    @Column
+    private BigDecimal kilograms;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private WorkoutState workoutState;
+
     @OneToMany(mappedBy = "user")
     private List<RecordEntity> records;
 
-    public String getName() {
-        return name;
+    public BigDecimal getKilograms() {
+        return kilograms;
+    }
+
+    public UserEntity setKilograms(BigDecimal kilograms) {
+        this.kilograms = kilograms;
+        return this;
+    }
+
+    public WorkoutState getWorkoutState() {
+        return workoutState;
+    }
+
+    public UserEntity setWorkoutState(WorkoutState workoutState) {
+        this.workoutState = workoutState;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public List<RecordEntity> getRecords() {
@@ -36,8 +63,8 @@ public class UserEntity {
         return this;
     }
 
-    public UserEntity setName(String name) {
-        this.name = name;
+    public UserEntity setUsername(String name) {
+        this.username = name;
         return this;
     }
 

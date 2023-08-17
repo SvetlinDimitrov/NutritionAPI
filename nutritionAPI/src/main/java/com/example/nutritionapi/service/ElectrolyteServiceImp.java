@@ -1,15 +1,19 @@
 package com.example.nutritionapi.service;
 
 import com.example.nutritionapi.domain.constants.Gender;
-import com.example.nutritionapi.domain.entity.DailyIntake;
+import com.example.nutritionapi.domain.dtos.viewDtos.ElectrolyteView;
+import com.example.nutritionapi.domain.entity.DailyIntakeEntity;
 import com.example.nutritionapi.domain.entity.ElectrolyteEntity;
 import com.example.nutritionapi.domain.entity.PairEntity;
+import com.example.nutritionapi.exceptions.ElectrolyteNotFound;
 import com.example.nutritionapi.repos.ElectrolyteRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ElectrolyteServiceImp {
@@ -17,6 +21,27 @@ public class ElectrolyteServiceImp {
 
     public ElectrolyteServiceImp(ElectrolyteRepository electrolyteRepository) {
         this.electrolyteRepository = electrolyteRepository;
+    }
+
+    @Cacheable("electrolytes")
+    public List<ElectrolyteView> getAllViewElectrolytes() {
+        return electrolyteRepository.findAll()
+                .stream()
+                .map(ElectrolyteView::new)
+                .toList();
+    }
+    @Cacheable("electrolytes")
+    public ElectrolyteView getElectrolyteViewByName(String name) throws ElectrolyteNotFound {
+        return electrolyteRepository.findByName(name)
+                .map(ElectrolyteView::new)
+                .orElseThrow(() -> new ElectrolyteNotFound(name , getAllElectrolytesNames()));
+    }
+    @Cacheable("electrolytes")
+    public String getAllElectrolytesNames() {
+        return electrolyteRepository.findAll()
+                .stream()
+                .map(ElectrolyteEntity::getName)
+                .collect(Collectors.joining(","));
     }
 
     @PostConstruct
@@ -64,12 +89,12 @@ public class ElectrolyteServiceImp {
                                             new PairEntity()
                                                     .setKey("Fluid Retention")
                                                     .setValue("Excess sodium can lead to water retention, causing swelling and bloating.")))
-                                    .setMale(new DailyIntake()
+                                    .setMale(new DailyIntakeEntity()
                                             .setGender(Gender.MALE)
                                             .setLowerBound(new BigDecimal("2300"))
                                             .setUpperBound(new BigDecimal("2300"))
                                             .setMeasureUnit("milligrams (mg)"))
-                                    .setFemale(new DailyIntake()
+                                    .setFemale(new DailyIntakeEntity()
                                             .setGender(Gender.FEMALE)
                                             .setLowerBound(new BigDecimal("2300"))
                                             .setUpperBound(new BigDecimal("2300"))
@@ -118,12 +143,12 @@ public class ElectrolyteServiceImp {
                                             new PairEntity()
                                                     .setKey("-")
                                                     .setValue("Maintaining a proper balance of potassium is important for overall health, but excessive intake of potassium supplements can be harmful, especially for individuals with certain medical conditions like kidney problems. Kidneys play a critical role in regulating potassium levels in the body, and compromised kidney function can lead to potassium imbalances.")))
-                                    .setMale(new DailyIntake()
+                                    .setMale(new DailyIntakeEntity()
                                             .setGender(Gender.MALE)
                                             .setLowerBound(new BigDecimal("3500"))
                                             .setUpperBound(new BigDecimal("4700"))
                                             .setMeasureUnit("milligrams (mg)"))
-                                    .setFemale(new DailyIntake()
+                                    .setFemale(new DailyIntakeEntity()
                                             .setGender(Gender.FEMALE)
                                             .setLowerBound(new BigDecimal("3500"))
                                             .setUpperBound(new BigDecimal("4700"))
@@ -171,12 +196,12 @@ public class ElectrolyteServiceImp {
                                             new PairEntity()
                                                     .setKey("-")
                                                     .setValue("Calcium intake is essential, but other factors can influence its absorption and utilization in the body. For instance, vitamin D is crucial for calcium absorption in the intestines. Additionally, certain conditions like lactose intolerance or dairy allergies may require alternative sources of calcium.")))
-                                    .setMale(new DailyIntake()
+                                    .setMale(new DailyIntakeEntity()
                                             .setGender(Gender.MALE)
                                             .setLowerBound(new BigDecimal("1000"))
                                             .setUpperBound(new BigDecimal("1000"))
                                             .setMeasureUnit("milligrams (mg)"))
-                                    .setFemale(new DailyIntake()
+                                    .setFemale(new DailyIntakeEntity()
                                             .setGender(Gender.FEMALE)
                                             .setLowerBound(new BigDecimal("1000"))
                                             .setUpperBound(new BigDecimal("1000"))
@@ -232,12 +257,12 @@ public class ElectrolyteServiceImp {
                                             new PairEntity()
                                                     .setKey("-")
                                                     .setValue("Magnesium deficiency can lead to a range of health issues, including muscle cramps, fatigue, weakness, and abnormal heart rhythms. Certain medical conditions and medications can interfere with magnesium absorption or increase its excretion, leading to deficiency.")))
-                                    .setMale(new DailyIntake()
+                                    .setMale(new DailyIntakeEntity()
                                             .setGender(Gender.MALE)
                                             .setLowerBound(new BigDecimal("400"))
                                             .setUpperBound(new BigDecimal("420"))
                                             .setMeasureUnit("milligrams (mg)"))
-                                    .setFemale(new DailyIntake()
+                                    .setFemale(new DailyIntakeEntity()
                                             .setGender(Gender.FEMALE)
                                             .setLowerBound(new BigDecimal("310"))
                                             .setUpperBound(new BigDecimal("320"))
@@ -277,12 +302,12 @@ public class ElectrolyteServiceImp {
                                             new PairEntity()
                                                     .setKey("-")
                                                     .setValue("Chloride imbalances are relatively rare and often associated with imbalances in other electrolytes, such as sodium or potassium. Excessive sodium consumption, often in the form of sodium chloride, can lead to high levels of sodium and chloride in the body, potentially contributing to issues like high blood pressure and fluid retention.")))
-                                    .setMale(new DailyIntake()
+                                    .setMale(new DailyIntakeEntity()
                                             .setGender(Gender.MALE)
                                             .setLowerBound(new BigDecimal("2300"))
                                             .setUpperBound(new BigDecimal("2300"))
                                             .setMeasureUnit("milligrams (mg)"))
-                                    .setFemale(new DailyIntake()
+                                    .setFemale(new DailyIntakeEntity()
                                             .setGender(Gender.FEMALE)
                                             .setLowerBound(new BigDecimal("2300"))
                                             .setUpperBound(new BigDecimal("2300"))
@@ -340,12 +365,12 @@ public class ElectrolyteServiceImp {
 //                                            new PairEntity()
 //                                                    .setKey("")
 //                                                    .setValue("")))
-//                                    .setMale(new DailyIntake()
+//                                    .setMale(new DailyIntakeEntity()
 //                                            .setGender(Gender.MALE)
 //                                            .setLowerBound(new BigDecimal(""))
 //                                            .setUpperBound(new BigDecimal(""))
 //                                            .setMeasureUnit(""))
-//                                    .setFemale(new DailyIntake()
+//                                    .setFemale(new DailyIntakeEntity()
 //                                            .setGender(Gender.FEMALE)
 //                                            .setLowerBound(new BigDecimal(""))
 //                                            .setUpperBound(new BigDecimal(""))

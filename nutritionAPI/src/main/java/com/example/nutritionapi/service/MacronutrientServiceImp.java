@@ -1,13 +1,16 @@
 package com.example.nutritionapi.service;
 
-import com.example.nutritionapi.domain.constants.WorkoutState;
+import com.example.nutritionapi.domain.dtos.viewDtos.MacronutrientView;
 import com.example.nutritionapi.domain.entity.MacronutrientEntity;
 import com.example.nutritionapi.domain.entity.PairEntity;
+import com.example.nutritionapi.exceptions.MacronutrientNotFound;
 import com.example.nutritionapi.repos.MacronutrientRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MacronutrientServiceImp {
@@ -16,6 +19,30 @@ public class MacronutrientServiceImp {
     public MacronutrientServiceImp(MacronutrientRepository macronutrientRepository) {
         this.macronutrientRepository = macronutrientRepository;
     }
+
+    @Cacheable("macros")
+    public List<MacronutrientView> getAllMacrosView(){
+        return macronutrientRepository.findAll()
+                .stream()
+                .map(MacronutrientView::new)
+                .toList();
+    }
+
+    @Cacheable("macros")
+    public MacronutrientView getMacroViewByName(String name) throws MacronutrientNotFound {
+        return macronutrientRepository.findByName(name)
+                .map(MacronutrientView::new)
+                .orElseThrow(() -> new MacronutrientNotFound(name , getAllMacrosNames()));
+    }
+
+    @Cacheable("macros")
+    public String getAllMacrosNames() {
+        return macronutrientRepository.findAll()
+                .stream()
+                .map(MacronutrientEntity::getName)
+                .collect(Collectors.joining(","));
+    }
+
 
     @PostConstruct
     public void initData() {
