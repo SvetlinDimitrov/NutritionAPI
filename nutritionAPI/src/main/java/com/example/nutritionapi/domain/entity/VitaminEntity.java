@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "vitamins")
-public class VitaminEntity{
+public class VitaminEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,41 +15,22 @@ public class VitaminEntity{
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;
-    @Column
-    private BigDecimal dailyTook;
-
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PairEntity> functions;
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PairEntity> sources;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private DailyIntakeEntity female;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private DailyIntakeEntity male;
-    @ManyToOne
-    private RecordEntity record;
+    @Column
+    private BigDecimal maleLowerBoundIntake;
+    @Column
+    private BigDecimal maleHigherBoundIntake;
+    @Column
+    private BigDecimal femaleLowerBoundIntake;
+    @Column
+    private BigDecimal femaleHigherBoundIntake;
+    @Column
+    private String measure;
 
-    public VitaminEntity() {
-    }
-
-    public BigDecimal getDailyTook() {
-        return dailyTook;
-    }
-
-    public VitaminEntity setDailyTook(BigDecimal dailyTook) {
-        this.dailyTook = dailyTook;
-        return this;
-    }
-
-    public RecordEntity getRecord() {
-        return record;
-    }
-
-    public VitaminEntity setRecord(RecordEntity record) {
-        this.record = record;
-        return this;
-    }
 
     public Long getId() {
         return id;
@@ -96,21 +77,48 @@ public class VitaminEntity{
         return this;
     }
 
-    public DailyIntakeEntity getFemale() {
-        return female;
+    public BigDecimal getMaleLowerBoundIntake() {
+        return maleLowerBoundIntake;
     }
 
-    public VitaminEntity setFemale(DailyIntakeEntity female) {
-        this.female = female;
+    public VitaminEntity setMaleLowerBoundIntake(BigDecimal maleLowerBoundIntake) {
+        this.maleLowerBoundIntake = maleLowerBoundIntake;
         return this;
     }
 
-    public DailyIntakeEntity getMale() {
-        return male;
+    public BigDecimal getMaleHigherBoundIntake() {
+        return maleHigherBoundIntake;
     }
 
-    public VitaminEntity setMale(DailyIntakeEntity male) {
-        this.male = male;
+    public VitaminEntity setMaleHigherBoundIntake(BigDecimal maleHigherBoundIntake) {
+        this.maleHigherBoundIntake = maleHigherBoundIntake;
+        return this;
+    }
+
+    public BigDecimal getFemaleLowerBoundIntake() {
+        return femaleLowerBoundIntake;
+    }
+
+    public VitaminEntity setFemaleLowerBoundIntake(BigDecimal femaleLowerBoundIntake) {
+        this.femaleLowerBoundIntake = femaleLowerBoundIntake;
+        return this;
+    }
+
+    public BigDecimal getFemaleHigherBoundIntake() {
+        return femaleHigherBoundIntake;
+    }
+
+    public VitaminEntity setFemaleHigherBoundIntake(BigDecimal femaleHigherBoundIntake) {
+        this.femaleHigherBoundIntake = femaleHigherBoundIntake;
+        return this;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
+
+    public VitaminEntity setMeasure(String measure) {
+        this.measure = measure;
         return this;
     }
 }

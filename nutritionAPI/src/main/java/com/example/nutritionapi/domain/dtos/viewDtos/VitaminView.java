@@ -2,6 +2,7 @@ package com.example.nutritionapi.domain.dtos.viewDtos;
 
 import com.example.nutritionapi.domain.entity.VitaminEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class VitaminView {
@@ -9,8 +10,11 @@ public class VitaminView {
     private String description;
     private List<PairView> functions;
     private List<PairView> sources;
-    private DailyIntakeView female;
-    private DailyIntakeView male;
+    private BigDecimal maleLowerBoundIntake;
+    private BigDecimal maleHigherBoundIntake;
+    private BigDecimal femaleLowerBoundIntake;
+    private BigDecimal femaleHigherBoundIntake;
+    private String measure;
 
     public VitaminView() {}
 
@@ -20,8 +24,11 @@ public class VitaminView {
         this.description = entity.getDescription();
         this.functions = entity.getFunctions().stream().map(PairView::new).toList();
         this.sources = entity.getFunctions().stream().map(PairView::new).toList();
-        this.female = new DailyIntakeView(entity.getFemale());
-        this.male = new DailyIntakeView(entity.getMale());
+        this.maleHigherBoundIntake = entity.getMaleHigherBoundIntake();
+        this.maleLowerBoundIntake = entity.getMaleLowerBoundIntake();
+        this.femaleHigherBoundIntake = entity.getFemaleHigherBoundIntake();
+        this.femaleLowerBoundIntake = entity.getFemaleLowerBoundIntake();
+        this.measure = entity.getMeasure();
     }
 
     public String getName() {
@@ -60,21 +67,48 @@ public class VitaminView {
         return this;
     }
 
-    public DailyIntakeView getFemale() {
-        return female;
+    public BigDecimal getMaleLowerBoundIntake() {
+        return maleLowerBoundIntake;
     }
 
-    public VitaminView setFemale(DailyIntakeView female) {
-        this.female = female;
+    public VitaminView setMaleLowerBoundIntake(BigDecimal maleLowerBoundIntake) {
+        this.maleLowerBoundIntake = maleLowerBoundIntake;
         return this;
     }
 
-    public DailyIntakeView getMale() {
-        return male;
+    public BigDecimal getMaleHigherBoundIntake() {
+        return maleHigherBoundIntake;
     }
 
-    public VitaminView setMale(DailyIntakeView male) {
-        this.male = male;
+    public VitaminView setMaleHigherBoundIntake(BigDecimal maleHigherBoundIntake) {
+        this.maleHigherBoundIntake = maleHigherBoundIntake;
+        return this;
+    }
+
+    public BigDecimal getFemaleLowerBoundIntake() {
+        return femaleLowerBoundIntake;
+    }
+
+    public VitaminView setFemaleLowerBoundIntake(BigDecimal femaleLowerBoundIntake) {
+        this.femaleLowerBoundIntake = femaleLowerBoundIntake;
+        return this;
+    }
+
+    public BigDecimal getFemaleHigherBoundIntake() {
+        return femaleHigherBoundIntake;
+    }
+
+    public VitaminView setFemaleHigherBoundIntake(BigDecimal femaleHigherBoundIntake) {
+        this.femaleHigherBoundIntake = femaleHigherBoundIntake;
+        return this;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
+
+    public VitaminView setMeasure(String measure) {
+        this.measure = measure;
         return this;
     }
 }

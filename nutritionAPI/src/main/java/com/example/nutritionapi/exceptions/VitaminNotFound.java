@@ -1,7 +1,5 @@
 package com.example.nutritionapi.exceptions;
 
-import com.example.nutritionapi.service.VitaminServiceImp;
-
 public class VitaminNotFound extends Exception{
 
     public VitaminNotFound(String name, String vitaminNames) {

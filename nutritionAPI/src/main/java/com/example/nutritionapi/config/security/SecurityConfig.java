@@ -1,7 +1,9 @@
 package com.example.nutritionapi.config.security;
 
+import com.example.nutritionapi.domain.constants.UserDetails;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -17,23 +19,28 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity , JwtAuthorizationFilter filter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtAuthorizationFilter filter) throws Exception {
         return httpSecurity
-                .addFilterBefore(filter , UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
-                .sessionManagement(s-> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .securityMatcher("/nutritionApi/**")
                 .authorizeHttpRequests(
                         request -> request
                                 .requestMatchers(
                                         "/nutritionApi/user/register",
-                                        "/nutritionApi/electrolyte/**",
-                                        "/nutritionApi/macronutrient/**",
-                                        "/nutritionApi/vitamin/**",
-                                        "/nutritionApi/user/login"
+                                        "/nutritionApi/user/login",
+                                        "/nutritionApi/electrolyte",
+                                        "/nutritionApi/electrolyte/{name}",
+                                        "/nutritionApi/macronutrient",
+                                        "/nutritionApi/macronutrient/{name}",
+                                        "/nutritionApi/vitamin",
+                                        "/nutritionApi/vitamin/{name}"
+
                                 ).permitAll()
+                                .requestMatchers("/nutritionApi/records/**").hasRole(UserDetails.COMPLETED.name())
                                 .anyRequest().authenticated()
                 )
 
@@ -47,8 +54,9 @@ public class SecurityConfig {
 //                                .permitAll())
                 .build();
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

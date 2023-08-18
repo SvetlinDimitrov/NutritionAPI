@@ -1,14 +1,12 @@
 package com.example.nutritionapi.domain.entity;
 
-import com.example.nutritionapi.domain.constants.WorkoutState;
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "macronutrients")
-public class MacronutrientEntity{
+public class MacronutrientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,13 +14,10 @@ public class MacronutrientEntity{
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;
-
     @Column
     private Double activeState ;
     @Column
     private Double inactiveState ;
-    @Column
-    private BigDecimal dailyTook;
 
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PairEntity> functions;
@@ -30,39 +25,9 @@ public class MacronutrientEntity{
     private List<PairEntity> sources;
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PairEntity> types;
-
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PairEntity> dietaryConsiderations;
 
-    @ManyToOne
-    private RecordEntity record;
-
-    public BigDecimal getDailyTook() {
-        return dailyTook;
-    }
-
-    public MacronutrientEntity setDailyTook(BigDecimal dailyTook) {
-        this.dailyTook = dailyTook;
-        return this;
-    }
-
-    public RecordEntity getRecord() {
-        return record;
-    }
-
-    public MacronutrientEntity setRecord(RecordEntity record) {
-        this.record = record;
-        return this;
-    }
-
-    public MacronutrientEntity setTypes(List<PairEntity> types) {
-        this.types = types;
-        return this;
-    }
-
-    public List<PairEntity> getTypes() {
-        return types;
-    }
 
     public Long getId() {
         return id;
@@ -91,6 +56,24 @@ public class MacronutrientEntity{
         return this;
     }
 
+    public Double getActiveState() {
+        return activeState;
+    }
+
+    public MacronutrientEntity setActiveState(Double activeState) {
+        this.activeState = activeState;
+        return this;
+    }
+
+    public Double getInactiveState() {
+        return inactiveState;
+    }
+
+    public MacronutrientEntity setInactiveState(Double inactiveState) {
+        this.inactiveState = inactiveState;
+        return this;
+    }
+
     public List<PairEntity> getFunctions() {
         return functions;
     }
@@ -109,21 +92,13 @@ public class MacronutrientEntity{
         return this;
     }
 
-    public Double getActiveState() {
-        return activeState;
+
+    public List<PairEntity> getTypes() {
+        return types;
     }
 
-    public MacronutrientEntity setActiveState(Double activeState) {
-        this.activeState = activeState;
-        return this;
-    }
-
-    public Double getInactiveState() {
-        return inactiveState;
-    }
-
-    public MacronutrientEntity setInactiveState(Double inactiveState) {
-        this.inactiveState = inactiveState;
+    public MacronutrientEntity setTypes(List<PairEntity> types) {
+        this.types = types;
         return this;
     }
 

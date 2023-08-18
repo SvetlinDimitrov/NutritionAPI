@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "electrolytes")
-public class ElectrolyteEntity{
+public class ElectrolyteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,31 +15,23 @@ public class ElectrolyteEntity{
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;
-
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PairEntity> functions;
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PairEntity> sources;
-
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<PairEntity> healthConsiderations;
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private DailyIntakeEntity female;
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private DailyIntakeEntity male;
-
     @Column
-    private BigDecimal dailyTook;
+    private BigDecimal maleLowerBoundIntake;
+    @Column
+    private BigDecimal maleHigherBoundIntake;
+    @Column
+    private BigDecimal femaleLowerBoundIntake;
+    @Column
+    private BigDecimal femaleHigherBoundIntake;
+    @Column
+    private String measure;
 
-    public BigDecimal getDailyTook() {
-        return dailyTook;
-    }
-
-    public ElectrolyteEntity setDailyTook(BigDecimal dailyTook) {
-        this.dailyTook = dailyTook;
-        return this;
-    }
 
     public Long getId() {
         return id;
@@ -86,42 +78,57 @@ public class ElectrolyteEntity{
         return this;
     }
 
-    public DailyIntakeEntity getFemale() {
-        return female;
-    }
-
-    public ElectrolyteEntity setFemale(DailyIntakeEntity female) {
-        this.female = female;
-        return this;
-    }
-
-    public DailyIntakeEntity getMale() {
-        return male;
-    }
-
-    public ElectrolyteEntity setMale(DailyIntakeEntity male) {
-        this.male = male;
-        return this;
-    }
-
-    @ManyToOne
-    private RecordEntity record;
-
-    public RecordEntity getRecord() {
-        return record;
-    }
-
-    public ElectrolyteEntity setRecord(RecordEntity record) {
-        this.record = record;
-        return this;
-    }
-
     public List<PairEntity> getHealthConsiderations() {
         return healthConsiderations;
     }
 
     public ElectrolyteEntity setHealthConsiderations(List<PairEntity> healthConsiderations) {
         this.healthConsiderations = healthConsiderations;
+        return this;
+    }
+
+    public BigDecimal getMaleLowerBoundIntake() {
+        return maleLowerBoundIntake;
+    }
+
+    public ElectrolyteEntity setMaleLowerBoundIntake(BigDecimal maleLowerBoundIntake) {
+        this.maleLowerBoundIntake = maleLowerBoundIntake;
+        return this;
+    }
+
+    public BigDecimal getMaleHigherBoundIntake() {
+        return maleHigherBoundIntake;
+    }
+
+    public ElectrolyteEntity setMaleHigherBoundIntake(BigDecimal maleHigherBoundIntake) {
+        this.maleHigherBoundIntake = maleHigherBoundIntake;
+        return this;
+    }
+
+    public BigDecimal getFemaleLowerBoundIntake() {
+        return femaleLowerBoundIntake;
+    }
+
+    public ElectrolyteEntity setFemaleLowerBoundIntake(BigDecimal femaleLowerBoundIntake) {
+        this.femaleLowerBoundIntake = femaleLowerBoundIntake;
+        return this;
+    }
+
+    public BigDecimal getFemaleHigherBoundIntake() {
+        return femaleHigherBoundIntake;
+    }
+
+    public ElectrolyteEntity setFemaleHigherBoundIntake(BigDecimal femaleHigherBoundIntake) {
+        this.femaleHigherBoundIntake = femaleHigherBoundIntake;
+        return this;
+    }
+
+    public String getMeasure() {
+        return measure;
+    }
+
+    public ElectrolyteEntity setMeasure(String measure) {
+        this.measure = measure;
         return this;
     }
 }

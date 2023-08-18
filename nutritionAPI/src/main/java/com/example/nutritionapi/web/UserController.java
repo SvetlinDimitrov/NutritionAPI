@@ -1,18 +1,21 @@
 package com.example.nutritionapi.web;
 
 import com.example.nutritionapi.config.security.JwtUtil;
+import com.example.nutritionapi.config.security.UserDetailsImp;
+import com.example.nutritionapi.domain.dtos.user.EditUserDto;
+import com.example.nutritionapi.domain.dtos.user.LoginUserDto;
 import com.example.nutritionapi.domain.dtos.user.RegisterUserDto;
-import com.example.nutritionapi.domain.dtos.user.UserView;
+import com.example.nutritionapi.config.security.UserPrincipal;
+import com.example.nutritionapi.domain.dtos.viewDtos.UserView;
+import com.example.nutritionapi.exceptions.WrongUserCredentials;
 import com.example.nutritionapi.service.UserServiceImp;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/nutritionApi/user")
@@ -29,12 +32,9 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> createUserAccount(@Valid @RequestBody RegisterUserDto userDto,
-                                                        BindingResult result){
+                                                        BindingResult result) throws WrongUserCredentials {
         if(result.hasErrors()){
-            return new ResponseEntity<>(result.getFieldErrors()
-                    .stream()
-                    .map(error -> error.getField() + " : "+ error.getDefaultMessage())
-                    .collect(Collectors.joining("\n")), HttpStatus.BAD_REQUEST);
+            throw new WrongUserCredentials(result.getFieldErrors());
         }
 
         userServiceImp.register(userDto);
@@ -43,14 +43,43 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login (){
-        return new ResponseEntity<>(jwtUtil.createJwtToken(1L) , HttpStatus.OK);
+    public ResponseEntity<String> login (@Valid @RequestBody LoginUserDto userDto,
+                                         BindingResult result) throws WrongUserCredentials {
+
+        if(!userServiceImp.login(userDto)){
+            result.addError(new FieldError("username_password", "password" , "wrong username or password"));
+        }
+
+        if(result.hasErrors()){
+            throw new WrongUserCredentials(result.getFieldErrors());
+        }
+        Long userID = userServiceImp.findByEmail(userDto.getEmail()).getId();
+
+        return new ResponseEntity<>(jwtUtil.createJwtToken(userID) , HttpStatus.OK);
     }
 
 
     @GetMapping("/details")
-    public ResponseEntity<UserView> getUserDetails(@AuthenticationPrincipal UserView userView){
-        //TODO:check if the user will be changed after time
-        return new ResponseEntity<>(userView , HttpStatus.OK);
+    public ResponseEntity<UserView> getUserDetails(@AuthenticationPrincipal UserPrincipal userPrincipal){
+        UserView userView = userServiceImp.getUserViewById(userPrincipal.getId());
+        return new ResponseEntity<>(userView, HttpStatus.OK);
+    }
+
+    @PatchMapping("/details/{userId}")
+    public ResponseEntity<UserView> editUserProfile(@RequestBody EditUserDto userDto,
+                                                    @PathVariable Long userId){
+
+
+        userServiceImp.editUserEntity(userDto , userId);
+        UserView userView = userServiceImp.getUserViewById(userId);
+
+        UserDetailsImp.updateAuthorities();
+
+        return new ResponseEntity<>(userView , HttpStatus.ACCEPTED);
+
+    }
+    @ExceptionHandler(WrongUserCredentials.class)
+    public ResponseEntity<String> wrongCredentialsErrorCaught(WrongUserCredentials e){
+        return new ResponseEntity<>(e.getMessageWithErrors() , HttpStatus.BAD_REQUEST);
     }
 }

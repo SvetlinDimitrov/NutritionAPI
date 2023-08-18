@@ -1,9 +1,12 @@
 package com.example.nutritionapi.domain.entity;
 
+import com.example.nutritionapi.domain.constants.Gender;
+import com.example.nutritionapi.domain.constants.UserDetails;
 import com.example.nutritionapi.domain.constants.WorkoutState;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,13 +27,52 @@ public class UserEntity {
 
     @Column
     private BigDecimal kilograms;
+    @Column
+    private BigDecimal height;
+    @Column
+    private Integer age;
 
     @Column
     @Enumerated(EnumType.STRING)
     private WorkoutState workoutState;
 
-    @OneToMany(mappedBy = "user")
-    private List<RecordEntity> records;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private UserDetails userDetails = UserDetails.NOT_COMPLETED;
+
+    @OneToMany(mappedBy = "user" , cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private List<RecordEntity> records = new ArrayList<>();
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public UserEntity setAge(Integer age) {
+        this.age = age;
+        return this;
+    }
+
+    public BigDecimal getHeight() {
+        return height;
+    }
+
+    public UserEntity setHeight(BigDecimal height) {
+        this.height = height;
+        return this;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public UserEntity setGender(Gender gender) {
+        this.gender = gender;
+        return this;
+    }
 
     public BigDecimal getKilograms() {
         return kilograms;
@@ -94,4 +136,12 @@ public class UserEntity {
         return id;
     }
 
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public UserEntity setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+        return this;
+    }
 }
