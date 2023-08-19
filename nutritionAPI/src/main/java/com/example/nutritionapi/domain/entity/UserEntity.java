@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -143,5 +144,18 @@ public class UserEntity {
     public UserEntity setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserEntity user = (UserEntity) o;
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(kilograms, user.kilograms) && Objects.equals(height, user.height) && Objects.equals(age, user.age) && workoutState == user.workoutState && gender == user.gender && userDetails == user.userDetails && Objects.equals(records, user.records);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, email, password, kilograms, height, age, workoutState, gender, userDetails, records);
     }
 }

@@ -4,6 +4,7 @@ import com.example.nutritionapi.domain.entity.RecordEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 public class RecordView {
     private Long day;
@@ -73,5 +74,18 @@ public class RecordView {
     public RecordView setUserName(String userName) {
         this.userName = userName;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RecordView that = (RecordView) o;
+        return Objects.equals(day, that.day) && Objects.equals(dailyIntakeViews, that.dailyIntakeViews) && Objects.equals(dailyCaloriesToConsume, that.dailyCaloriesToConsume) && Objects.equals(userID, that.userID) && Objects.equals(userName, that.userName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(day, dailyIntakeViews, dailyCaloriesToConsume, userID, userName);
     }
 }

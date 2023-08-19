@@ -4,6 +4,7 @@ import com.example.nutritionapi.domain.constants.entity.Vitamin;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 public class VitaminView {
     private String name;
@@ -110,5 +111,18 @@ public class VitaminView {
     public VitaminView setMeasure(String measure) {
         this.measure = measure;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VitaminView that = (VitaminView) o;
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(functions, that.functions) && Objects.equals(sources, that.sources) && Objects.equals(maleLowerBoundIntake, that.maleLowerBoundIntake) && Objects.equals(maleHigherBoundIntake, that.maleHigherBoundIntake) && Objects.equals(femaleLowerBoundIntake, that.femaleLowerBoundIntake) && Objects.equals(femaleHigherBoundIntake, that.femaleHigherBoundIntake) && Objects.equals(measure, that.measure);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, functions, sources, maleLowerBoundIntake, maleHigherBoundIntake, femaleLowerBoundIntake, femaleHigherBoundIntake, measure);
     }
 }

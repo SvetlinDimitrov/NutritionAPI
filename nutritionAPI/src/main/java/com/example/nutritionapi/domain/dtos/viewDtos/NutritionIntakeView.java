@@ -3,6 +3,7 @@ package com.example.nutritionapi.domain.dtos.viewDtos;
 import com.example.nutritionapi.domain.entity.NutritionIntakeEntity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class NutritionIntakeView {
     private Long id;
@@ -103,5 +104,18 @@ public class NutritionIntakeView {
     public NutritionIntakeView setRecordId(Long recordId) {
         this.recordId = recordId;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NutritionIntakeView that = (NutritionIntakeView) o;
+        return Objects.equals(id, that.id) && Objects.equals(nutrientName, that.nutrientName) && Objects.equals(nutrientType, that.nutrientType) && Objects.equals(lowerBoundIntake, that.lowerBoundIntake) && Objects.equals(upperBoundIntake, that.upperBoundIntake) && Objects.equals(dailyConsumed, that.dailyConsumed) && Objects.equals(measurement, that.measurement) && Objects.equals(recordId, that.recordId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nutrientName, nutrientType, lowerBoundIntake, upperBoundIntake, dailyConsumed, measurement, recordId);
     }
 }

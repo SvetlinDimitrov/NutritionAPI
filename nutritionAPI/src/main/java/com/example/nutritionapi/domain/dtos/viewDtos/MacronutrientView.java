@@ -3,6 +3,7 @@ package com.example.nutritionapi.domain.dtos.viewDtos;
 import com.example.nutritionapi.domain.constants.entity.Macronutrient;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MacronutrientView {
 
@@ -97,5 +98,19 @@ public class MacronutrientView {
     public MacronutrientView setDietaryConsiderations(List<PairView> dietaryConsiderations) {
         this.dietaryConsiderations = dietaryConsiderations;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MacronutrientView that = (MacronutrientView) o;
+        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(activeState, that.activeState) && Objects.equals(inactiveState, that.inactiveState) && Objects.equals(functions, that.functions) && Objects.equals(sources, that.sources) && Objects.equals(types, that.types) && Objects.equals(dietaryConsiderations, that.dietaryConsiderations);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, activeState, inactiveState, functions, sources, types, dietaryConsiderations);
     }
 }

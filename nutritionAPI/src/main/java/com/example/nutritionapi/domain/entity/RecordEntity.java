@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "records")
@@ -57,5 +58,18 @@ public class RecordEntity {
     public RecordEntity setDailyIntakeViews(List<NutritionIntakeEntity> dailyIntakeViews) {
         this.dailyIntakeViews = dailyIntakeViews;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RecordEntity record = (RecordEntity) o;
+        return Objects.equals(id, record.id) && Objects.equals(dailyIntakeViews, record.dailyIntakeViews) && Objects.equals(dailyCalories, record.dailyCalories) && Objects.equals(user, record.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, dailyIntakeViews, dailyCalories, user);
     }
 }

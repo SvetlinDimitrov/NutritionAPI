@@ -6,6 +6,7 @@ import com.example.nutritionapi.domain.constants.enums.WorkoutState;
 import com.example.nutritionapi.domain.entity.UserEntity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class UserView {
     private Long id;
@@ -116,5 +117,18 @@ public class UserView {
     public UserView setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserView userView = (UserView) o;
+        return Objects.equals(id, userView.id) && Objects.equals(username, userView.username) && Objects.equals(email, userView.email) && Objects.equals(kilograms, userView.kilograms) && Objects.equals(height, userView.height) && workoutState == userView.workoutState && gender == userView.gender && userDetails == userView.userDetails && Objects.equals(age, userView.age);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, email, kilograms, height, workoutState, gender, userDetails, age);
     }
 }

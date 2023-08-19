@@ -2,6 +2,7 @@ package com.example.nutritionapi.domain.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "nutritionIntake")
@@ -94,5 +95,18 @@ public class NutritionIntakeEntity {
     public NutritionIntakeEntity setMeasurement(String measurement) {
         this.measurement = measurement;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NutritionIntakeEntity that = (NutritionIntakeEntity) o;
+        return Objects.equals(id, that.id) && Objects.equals(nutrientName, that.nutrientName) && Objects.equals(nutrientType, that.nutrientType) && Objects.equals(dailyConsumed, that.dailyConsumed) && Objects.equals(lowerBoundIntake, that.lowerBoundIntake) && Objects.equals(upperBoundIntake, that.upperBoundIntake) && Objects.equals(measurement, that.measurement) && Objects.equals(record, that.record);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nutrientName, nutrientType, dailyConsumed, lowerBoundIntake, upperBoundIntake, measurement, record);
     }
 }
