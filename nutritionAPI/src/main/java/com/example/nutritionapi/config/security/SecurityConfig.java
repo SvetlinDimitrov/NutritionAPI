@@ -38,7 +38,6 @@ public class SecurityConfig {
                                         "/nutritionApi/macronutrient/{name}",
                                         "/nutritionApi/vitamin",
                                         "/nutritionApi/vitamin/{name}"
-
                                 ).permitAll()
                                 .requestMatchers("/nutritionApi/records/**").hasRole(UserDetails.COMPLETED.name())
                                 .anyRequest().authenticated()

@@ -51,25 +51,17 @@ public class RecordNutritionController {
     }
 
 
-    @PatchMapping("/endDay")
-    public ResponseEntity<String> createNewRecord(){
-        //TODO:: createNewRecord
-        return null;
-    }
-    @PatchMapping("/delete/{day}")
-    public ResponseEntity<String> deleteRecord(@PathVariable String day){
-        //TODO:: deleteRecord
-        return null;
+    @PostMapping("/endDay")
+    public ResponseEntity<RecordView> createNewRecord(@AuthenticationPrincipal UserPrincipal principal){
+        RecordView view = recordService.addNewRecordByUserId(principal.getId());
+        return new ResponseEntity<>(view , HttpStatus.CREATED);
     }
 
 
-    @ExceptionHandler(RecordNotFound.class)
-    public ResponseEntity<String> catchRecordNotFoundException(RecordNotFound e){
-        return new ResponseEntity<>(e.getMessage() , HttpStatus.NOT_FOUND);
+    @DeleteMapping("/delete/{day}")
+    public ResponseEntity<String> deleteRecord(@PathVariable Long day) throws RecordNotFound {
+        recordService.deleteById(day);
+        return ResponseEntity.ok().body("Successfully deleted");
     }
 
-    @ExceptionHandler(IncorrectNutrientChange.class)
-    public ResponseEntity<String> catchIncorrectNutrientChangeException(IncorrectNutrientChange e){
-        return new ResponseEntity<>(e.getMessage() , HttpStatus.NOT_FOUND);
-    }
 }

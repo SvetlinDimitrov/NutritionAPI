@@ -29,8 +29,4 @@ public class MacronutrientController {
         return new ResponseEntity<>(macronutrientService.getMacroViewByName(name) , HttpStatus.FOUND);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<String> catchMacroNotFoundError(MacronutrientNotFound e){
-        return new ResponseEntity<>(e.getMessage() , HttpStatus.NOT_FOUND);
-    }
 }

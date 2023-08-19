@@ -78,8 +78,5 @@ public class UserController {
         return new ResponseEntity<>(userView , HttpStatus.ACCEPTED);
 
     }
-    @ExceptionHandler(WrongUserCredentials.class)
-    public ResponseEntity<String> wrongCredentialsErrorCaught(WrongUserCredentials e){
-        return new ResponseEntity<>(e.getMessageWithErrors() , HttpStatus.BAD_REQUEST);
-    }
+
 }

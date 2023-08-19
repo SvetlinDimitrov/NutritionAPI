@@ -29,9 +29,4 @@ public class VitaminController {
         return new ResponseEntity<>(vitaminView, HttpStatus.FOUND);
     }
 
-    @ExceptionHandler(VitaminNotFound.class)
-    public ResponseEntity<String> notFoundVitamin(VitaminNotFound exception){
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
 }

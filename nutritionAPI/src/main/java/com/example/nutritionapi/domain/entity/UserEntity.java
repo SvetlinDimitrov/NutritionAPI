@@ -44,7 +44,7 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserDetails userDetails = UserDetails.NOT_COMPLETED;
 
-    @OneToMany(mappedBy = "user" , cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @OneToMany(mappedBy = "user" , cascade = {CascadeType.PERSIST,CascadeType.MERGE , CascadeType.REMOVE})
     private List<RecordEntity> records = new ArrayList<>();
 
     public Integer getAge() {

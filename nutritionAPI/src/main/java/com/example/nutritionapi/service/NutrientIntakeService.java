@@ -33,6 +33,7 @@ public class NutrientIntakeService {
                     NutritionIntake intake = new NutritionIntake();
                     intake.setNutrientName(macro.getName());
                     intake.setMeasurement("grams (g)");
+                    intake.setNutrientType("Macronutrient");
                     intake.setLowerBoundIntake(inactiveState(state) ?
                             caloriesPerDay.multiply(BigDecimal.valueOf(macro.getInactiveState()))
                             : caloriesPerDay.multiply(BigDecimal.valueOf(macro.getActiveState())));
@@ -49,6 +50,7 @@ public class NutrientIntakeService {
                         intake.setLowerBoundIntake(intake.getLowerBoundIntake().divide(new BigDecimal("4"), RoundingMode.HALF_UP));
                     }
 
+
                     nutritionIntakes.add(intake);
                 });
         return nutritionIntakes;
@@ -58,18 +60,16 @@ public class NutrientIntakeService {
         List<NutritionIntake> nutritionIntakes = new ArrayList<>();
 
         vitaminRepository.findAll().forEach(vitamin -> {
-            String type = vitamin.getClass().getSimpleName();
             BigDecimal lowerBoundIntake = gender.equals(Gender.MALE) ? vitamin.getMaleLowerBoundIntake() : vitamin.getFemaleLowerBoundIntake();
             BigDecimal upperBoundIntake = gender.equals(Gender.MALE) ? vitamin.getMaleHigherBoundIntake() : vitamin.getFemaleHigherBoundIntake();
-            nutritionIntakes.add(createNutritionIntake(vitamin.getName(), type,
+            nutritionIntakes.add(createNutritionIntake(vitamin.getName(), "Vitamin",
                     vitamin.getMeasure(), lowerBoundIntake, upperBoundIntake , record));
         });
 
         electrolyteRepository.findAll().forEach(electrolyte -> {
-            String type = electrolyte.getClass().getSimpleName();
             BigDecimal lowerBoundIntake = gender.equals(Gender.MALE) ? electrolyte.getMaleLowerBoundIntake() : electrolyte.getFemaleLowerBoundIntake();
             BigDecimal upperBoundIntake = gender.equals(Gender.MALE) ? electrolyte.getMaleHigherBoundIntake() : electrolyte.getFemaleHigherBoundIntake();
-            nutritionIntakes.add(createNutritionIntake(electrolyte.getName(), type,
+            nutritionIntakes.add(createNutritionIntake(electrolyte.getName(), "Electrolyte",
                     electrolyte.getMeasure(), lowerBoundIntake, upperBoundIntake ,record));
         });
 

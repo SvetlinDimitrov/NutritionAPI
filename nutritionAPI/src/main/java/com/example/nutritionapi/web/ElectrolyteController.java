@@ -29,8 +29,4 @@ public class ElectrolyteController {
         return new ResponseEntity<>(electrolyteService.getElectrolyteViewByName(name) , HttpStatus.FOUND);
     }
 
-    @ExceptionHandler(ElectrolyteNotFound.class)
-    public ResponseEntity<String> catchElectrolyteNotFound(ElectrolyteNotFound e){
-        return new ResponseEntity<>(e.getMessage() , HttpStatus.NOT_FOUND);
-    }
 }
