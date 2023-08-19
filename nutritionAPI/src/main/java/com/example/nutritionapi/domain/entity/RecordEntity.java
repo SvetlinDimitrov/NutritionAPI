@@ -14,7 +14,7 @@ public class RecordEntity {
     private Long id;
 
     @OneToMany(mappedBy = "record" , cascade = {CascadeType.PERSIST, CascadeType.MERGE , CascadeType.REMOVE})
-    private List<NutritionIntake> dailyIntakeViews;
+    private List<NutritionIntakeEntity> dailyIntakeViews;
 
     @Column
     private BigDecimal dailyCalories;
@@ -50,11 +50,11 @@ public class RecordEntity {
         return this;
     }
 
-    public List<NutritionIntake> getDailyIntakeViews() {
+    public List<NutritionIntakeEntity> getDailyIntakeViews() {
         return dailyIntakeViews;
     }
 
-    public RecordEntity setDailyIntakeViews(List<NutritionIntake> dailyIntakeViews) {
+    public RecordEntity setDailyIntakeViews(List<NutritionIntakeEntity> dailyIntakeViews) {
         this.dailyIntakeViews = dailyIntakeViews;
         return this;
     }

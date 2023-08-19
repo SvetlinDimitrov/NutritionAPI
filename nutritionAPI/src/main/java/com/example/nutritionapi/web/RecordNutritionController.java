@@ -4,8 +4,8 @@ import com.example.nutritionapi.config.security.UserPrincipal;
 import com.example.nutritionapi.domain.dtos.NutrientChangeDto;
 import com.example.nutritionapi.domain.dtos.viewDtos.NutritionIntakeView;
 import com.example.nutritionapi.domain.dtos.viewDtos.RecordView;
-import com.example.nutritionapi.exceptions.IncorrectNutrientChange;
-import com.example.nutritionapi.exceptions.RecordNotFound;
+import com.example.nutritionapi.exceptions.IncorrectNutrientChangeException;
+import com.example.nutritionapi.exceptions.RecordNotFoundException;
 import com.example.nutritionapi.service.RecordServiceImp;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,7 @@ public class RecordNutritionController {
     }
 
     @GetMapping("/{day}")
-    public ResponseEntity<RecordView> getById(@PathVariable Long day) throws RecordNotFound {
+    public ResponseEntity<RecordView> getById(@PathVariable Long day) throws RecordNotFoundException {
         RecordView record = recordService.getViewByRecordId(day);
         return new ResponseEntity<>(record , HttpStatus.FOUND);
     }
@@ -41,9 +41,9 @@ public class RecordNutritionController {
     @PatchMapping("/edit/{day}")
     public ResponseEntity<NutritionIntakeView> changeNutrientByRecordDay(@Valid @RequestBody NutrientChangeDto dto,
                                                                          BindingResult result,
-                                                                         @PathVariable Long day) throws IncorrectNutrientChange, RecordNotFound {
+                                                                         @PathVariable Long day) throws IncorrectNutrientChangeException, RecordNotFoundException {
         if(result.hasErrors()){
-            throw new IncorrectNutrientChange(result.getFieldErrors());
+            throw new IncorrectNutrientChangeException(result.getFieldErrors());
         }
 
         NutritionIntakeView changedNutrient = recordService.updateRecordById(day , dto);
@@ -59,7 +59,7 @@ public class RecordNutritionController {
 
 
     @DeleteMapping("/delete/{day}")
-    public ResponseEntity<String> deleteRecord(@PathVariable Long day) throws RecordNotFound {
+    public ResponseEntity<String> deleteRecord(@PathVariable Long day) throws RecordNotFoundException {
         recordService.deleteById(day);
         return ResponseEntity.ok().body("Successfully deleted");
     }

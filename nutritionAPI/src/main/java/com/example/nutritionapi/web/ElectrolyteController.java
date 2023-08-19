@@ -1,7 +1,7 @@
 package com.example.nutritionapi.web;
 
 import com.example.nutritionapi.domain.dtos.viewDtos.ElectrolyteView;
-import com.example.nutritionapi.exceptions.ElectrolyteNotFound;
+import com.example.nutritionapi.exceptions.ElectrolyteNotFoundException;
 import com.example.nutritionapi.service.ElectrolyteServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class ElectrolyteController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<ElectrolyteView> getElectrolyteByName(@PathVariable String name) throws ElectrolyteNotFound {
+    public ResponseEntity<ElectrolyteView> getElectrolyteByName(@PathVariable String name) throws ElectrolyteNotFoundException {
         return new ResponseEntity<>(electrolyteService.getElectrolyteViewByName(name) , HttpStatus.FOUND);
     }
 

@@ -1,6 +1,6 @@
 package com.example.nutritionapi.domain.dtos.viewDtos;
 
-import com.example.nutritionapi.domain.entity.MacronutrientEntity;
+import com.example.nutritionapi.domain.constants.entity.Macronutrient;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class MacronutrientView {
     private List<PairView> dietaryConsiderations;
 
     public MacronutrientView() {}
-    public MacronutrientView(MacronutrientEntity entity) {
+    public MacronutrientView(Macronutrient entity) {
         this.name = entity.getName();
         this.description = entity.getDescription();
         this.activeState = entity.getActiveState();

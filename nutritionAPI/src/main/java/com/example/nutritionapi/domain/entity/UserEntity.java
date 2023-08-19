@@ -1,8 +1,8 @@
 package com.example.nutritionapi.domain.entity;
 
-import com.example.nutritionapi.domain.constants.Gender;
-import com.example.nutritionapi.domain.constants.UserDetails;
-import com.example.nutritionapi.domain.constants.WorkoutState;
+import com.example.nutritionapi.domain.constants.enums.Gender;
+import com.example.nutritionapi.domain.constants.enums.UserDetails;
+import com.example.nutritionapi.domain.constants.enums.WorkoutState;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;

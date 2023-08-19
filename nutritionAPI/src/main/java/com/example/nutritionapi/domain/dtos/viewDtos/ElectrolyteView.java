@@ -1,6 +1,6 @@
 package com.example.nutritionapi.domain.dtos.viewDtos;
 
-import com.example.nutritionapi.domain.entity.ElectrolyteEntity;
+import com.example.nutritionapi.domain.constants.entity.Electrolyte;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -19,7 +19,7 @@ public class ElectrolyteView {
     private String measure;
 
     public ElectrolyteView() {}
-    public ElectrolyteView(ElectrolyteEntity entity) {
+    public ElectrolyteView(Electrolyte entity) {
         this.name = entity.getName();
         this.description = entity.getDescription();
         this.functions = entity.getFunctions().stream().map(PairView::new).toList();

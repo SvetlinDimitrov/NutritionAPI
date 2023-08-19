@@ -1,41 +1,24 @@
-package com.example.nutritionapi.domain.dtos.viewDtos;
-
-import com.example.nutritionapi.domain.constants.entity.Vitamin;
+package com.example.nutritionapi.domain.constants.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
+public class Vitamin {
 
-public class VitaminView {
     private String name;
     private String description;
-    private List<PairView> functions;
-    private List<PairView> sources;
+    private List<Pair> functions;
+    private List<Pair> sources;
     private BigDecimal maleLowerBoundIntake;
     private BigDecimal maleHigherBoundIntake;
     private BigDecimal femaleLowerBoundIntake;
     private BigDecimal femaleHigherBoundIntake;
     private String measure;
 
-    public VitaminView() {}
-
-    public VitaminView(Vitamin entity) {
-
-        this.name = entity.getName();
-        this.description = entity.getDescription();
-        this.functions = entity.getFunctions().stream().map(PairView::new).toList();
-        this.sources = entity.getFunctions().stream().map(PairView::new).toList();
-        this.maleHigherBoundIntake = entity.getMaleHigherBoundIntake();
-        this.maleLowerBoundIntake = entity.getMaleLowerBoundIntake();
-        this.femaleHigherBoundIntake = entity.getFemaleHigherBoundIntake();
-        this.femaleLowerBoundIntake = entity.getFemaleLowerBoundIntake();
-        this.measure = entity.getMeasure();
-    }
-
     public String getName() {
         return name;
     }
 
-    public VitaminView setName(String name) {
+    public Vitamin setName(String name) {
         this.name = name;
         return this;
     }
@@ -44,25 +27,25 @@ public class VitaminView {
         return description;
     }
 
-    public VitaminView setDescription(String description) {
+    public Vitamin setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public List<PairView> getFunctions() {
+    public List<Pair> getFunctions() {
         return functions;
     }
 
-    public VitaminView setFunctions(List<PairView> functions) {
+    public Vitamin setFunctions(List<Pair> functions) {
         this.functions = functions;
         return this;
     }
 
-    public List<PairView> getSources() {
+    public List<Pair> getSources() {
         return sources;
     }
 
-    public VitaminView setSources(List<PairView> sources) {
+    public Vitamin setSources(List<Pair> sources) {
         this.sources = sources;
         return this;
     }
@@ -71,7 +54,7 @@ public class VitaminView {
         return maleLowerBoundIntake;
     }
 
-    public VitaminView setMaleLowerBoundIntake(BigDecimal maleLowerBoundIntake) {
+    public Vitamin setMaleLowerBoundIntake(BigDecimal maleLowerBoundIntake) {
         this.maleLowerBoundIntake = maleLowerBoundIntake;
         return this;
     }
@@ -80,7 +63,7 @@ public class VitaminView {
         return maleHigherBoundIntake;
     }
 
-    public VitaminView setMaleHigherBoundIntake(BigDecimal maleHigherBoundIntake) {
+    public Vitamin setMaleHigherBoundIntake(BigDecimal maleHigherBoundIntake) {
         this.maleHigherBoundIntake = maleHigherBoundIntake;
         return this;
     }
@@ -89,7 +72,7 @@ public class VitaminView {
         return femaleLowerBoundIntake;
     }
 
-    public VitaminView setFemaleLowerBoundIntake(BigDecimal femaleLowerBoundIntake) {
+    public Vitamin setFemaleLowerBoundIntake(BigDecimal femaleLowerBoundIntake) {
         this.femaleLowerBoundIntake = femaleLowerBoundIntake;
         return this;
     }
@@ -98,7 +81,7 @@ public class VitaminView {
         return femaleHigherBoundIntake;
     }
 
-    public VitaminView setFemaleHigherBoundIntake(BigDecimal femaleHigherBoundIntake) {
+    public Vitamin setFemaleHigherBoundIntake(BigDecimal femaleHigherBoundIntake) {
         this.femaleHigherBoundIntake = femaleHigherBoundIntake;
         return this;
     }
@@ -107,7 +90,7 @@ public class VitaminView {
         return measure;
     }
 
-    public VitaminView setMeasure(String measure) {
+    public Vitamin setMeasure(String measure) {
         this.measure = measure;
         return this;
     }

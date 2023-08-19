@@ -1,12 +1,9 @@
 package com.example.nutritionapi.service;
 
-import com.example.nutritionapi.domain.constants.Gender;
-import com.example.nutritionapi.domain.constants.WorkoutState;
-import com.example.nutritionapi.domain.entity.NutritionIntake;
+import com.example.nutritionapi.domain.constants.enums.Gender;
+import com.example.nutritionapi.domain.constants.enums.WorkoutState;
+import com.example.nutritionapi.domain.entity.NutritionIntakeEntity;
 import com.example.nutritionapi.domain.entity.RecordEntity;
-import com.example.nutritionapi.repos.ElectrolyteRepository;
-import com.example.nutritionapi.repos.MacronutrientRepository;
-import com.example.nutritionapi.repos.VitaminRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,21 +13,21 @@ import java.util.List;
 
 @Service
 public class NutrientIntakeService {
-    private final VitaminRepository vitaminRepository;
-    private final MacronutrientRepository macronutrientRepository;
-    private final ElectrolyteRepository electrolyteRepository;
+    private final VitaminServiceImp vitaminService;
+    private final MacronutrientServiceImp macroService;
+    private final ElectrolyteServiceImp electrolyteService;
 
-    public NutrientIntakeService(VitaminRepository vitaminRepository, MacronutrientRepository macronutrientRepository, ElectrolyteRepository electrolyteRepository) {
-        this.vitaminRepository = vitaminRepository;
-        this.macronutrientRepository = macronutrientRepository;
-        this.electrolyteRepository = electrolyteRepository;
+    public NutrientIntakeService(VitaminServiceImp vitaminService, MacronutrientServiceImp macroService, ElectrolyteServiceImp electrolyteService) {
+        this.vitaminService = vitaminService;
+        this.macroService = macroService;
+        this.electrolyteService = electrolyteService;
     }
 
-    public List<NutritionIntake> create(Gender gender, BigDecimal caloriesPerDay, WorkoutState state , RecordEntity record) {
-        List<NutritionIntake> nutritionIntakes = fillDailyIntake(gender ,record);
-        macronutrientRepository.findAll()
+    public List<NutritionIntakeEntity> create(Gender gender, BigDecimal caloriesPerDay, WorkoutState state , RecordEntity record) {
+        List<NutritionIntakeEntity> nutritionIntakeEntities = fillDailyIntake(gender ,record);
+        macroService.findAll()
                 .forEach(macro -> {
-                    NutritionIntake intake = new NutritionIntake();
+                    NutritionIntakeEntity intake = new NutritionIntakeEntity();
                     intake.setNutrientName(macro.getName());
                     intake.setMeasurement("grams (g)");
                     intake.setNutrientType("Macronutrient");
@@ -51,34 +48,34 @@ public class NutrientIntakeService {
                     }
 
 
-                    nutritionIntakes.add(intake);
+                    nutritionIntakeEntities.add(intake);
                 });
-        return nutritionIntakes;
+        return nutritionIntakeEntities;
     }
 
-    private List<NutritionIntake> fillDailyIntake(Gender gender , RecordEntity record) {
-        List<NutritionIntake> nutritionIntakes = new ArrayList<>();
+    private List<NutritionIntakeEntity> fillDailyIntake(Gender gender , RecordEntity record) {
+        List<NutritionIntakeEntity> nutritionIntakeEntities = new ArrayList<>();
 
-        vitaminRepository.findAll().forEach(vitamin -> {
+        vitaminService.findAll().forEach(vitamin -> {
             BigDecimal lowerBoundIntake = gender.equals(Gender.MALE) ? vitamin.getMaleLowerBoundIntake() : vitamin.getFemaleLowerBoundIntake();
             BigDecimal upperBoundIntake = gender.equals(Gender.MALE) ? vitamin.getMaleHigherBoundIntake() : vitamin.getFemaleHigherBoundIntake();
-            nutritionIntakes.add(createNutritionIntake(vitamin.getName(), "Vitamin",
+            nutritionIntakeEntities.add(createNutritionIntake(vitamin.getName(), "Vitamin",
                     vitamin.getMeasure(), lowerBoundIntake, upperBoundIntake , record));
         });
 
-        electrolyteRepository.findAll().forEach(electrolyte -> {
+        electrolyteService.findAll().forEach(electrolyte -> {
             BigDecimal lowerBoundIntake = gender.equals(Gender.MALE) ? electrolyte.getMaleLowerBoundIntake() : electrolyte.getFemaleLowerBoundIntake();
             BigDecimal upperBoundIntake = gender.equals(Gender.MALE) ? electrolyte.getMaleHigherBoundIntake() : electrolyte.getFemaleHigherBoundIntake();
-            nutritionIntakes.add(createNutritionIntake(electrolyte.getName(), "Electrolyte",
+            nutritionIntakeEntities.add(createNutritionIntake(electrolyte.getName(), "Electrolyte",
                     electrolyte.getMeasure(), lowerBoundIntake, upperBoundIntake ,record));
         });
 
-        return nutritionIntakes;
+        return nutritionIntakeEntities;
     }
 
-    private NutritionIntake createNutritionIntake(String nutrientName, String nutrientType, String measurement,
-                                                  BigDecimal lowerBoundIntake, BigDecimal upperBoundIntake , RecordEntity record) {
-        return new NutritionIntake()
+    private NutritionIntakeEntity createNutritionIntake(String nutrientName, String nutrientType, String measurement,
+                                                        BigDecimal lowerBoundIntake, BigDecimal upperBoundIntake , RecordEntity record) {
+        return new NutritionIntakeEntity()
                 .setNutrientName(nutrientName)
                 .setNutrientType(nutrientType)
                 .setMeasurement(measurement)

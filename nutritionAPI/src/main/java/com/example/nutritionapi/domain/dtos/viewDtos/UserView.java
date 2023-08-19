@@ -1,8 +1,8 @@
 package com.example.nutritionapi.domain.dtos.viewDtos;
 
-import com.example.nutritionapi.domain.constants.Gender;
-import com.example.nutritionapi.domain.constants.UserDetails;
-import com.example.nutritionapi.domain.constants.WorkoutState;
+import com.example.nutritionapi.domain.constants.enums.Gender;
+import com.example.nutritionapi.domain.constants.enums.UserDetails;
+import com.example.nutritionapi.domain.constants.enums.WorkoutState;
 import com.example.nutritionapi.domain.entity.UserEntity;
 
 import java.math.BigDecimal;

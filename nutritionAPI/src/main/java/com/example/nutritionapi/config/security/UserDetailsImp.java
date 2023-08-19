@@ -34,7 +34,7 @@ public class UserDetailsImp implements UserDetailsService {
 
             UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
 
-            List<GrantedAuthority> newAuthorities = List.of(new SimpleGrantedAuthority("ROLE_" + com.example.nutritionapi.domain.constants.UserDetails.COMPLETED.name()));
+            List<GrantedAuthority> newAuthorities = List.of(new SimpleGrantedAuthority("ROLE_" + com.example.nutritionapi.domain.constants.enums.UserDetails.COMPLETED.name()));
             userDetails.setAuthorities(newAuthorities);
 
             Authentication newAuthentication = new UsernamePasswordAuthenticationToken(

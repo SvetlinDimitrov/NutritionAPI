@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "nutritionIntake")
-public class NutritionIntake {
+public class NutritionIntakeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,12 +32,12 @@ public class NutritionIntake {
         return dailyConsumed;
     }
 
-    public NutritionIntake setDailyConsumed(BigDecimal dailyConsumed) {
+    public NutritionIntakeEntity setDailyConsumed(BigDecimal dailyConsumed) {
         this.dailyConsumed = dailyConsumed;
         return this;
     }
 
-    public NutritionIntake setRecord(RecordEntity record) {
+    public NutritionIntakeEntity setRecord(RecordEntity record) {
         this.record = record;
         return this;
     }
@@ -46,7 +46,7 @@ public class NutritionIntake {
         return id;
     }
 
-    public NutritionIntake setId(Long id) {
+    public NutritionIntakeEntity setId(Long id) {
         this.id = id;
         return this;
     }
@@ -55,7 +55,7 @@ public class NutritionIntake {
         return nutrientName;
     }
 
-    public NutritionIntake setNutrientName(String nutrientName) {
+    public NutritionIntakeEntity setNutrientName(String nutrientName) {
         this.nutrientName = nutrientName;
         return this;
     }
@@ -64,7 +64,7 @@ public class NutritionIntake {
         return nutrientType;
     }
 
-    public NutritionIntake setNutrientType(String nutrientType) {
+    public NutritionIntakeEntity setNutrientType(String nutrientType) {
         this.nutrientType = nutrientType;
         return this;
     }
@@ -73,7 +73,7 @@ public class NutritionIntake {
         return lowerBoundIntake;
     }
 
-    public NutritionIntake setLowerBoundIntake(BigDecimal lowerBoundIntake) {
+    public NutritionIntakeEntity setLowerBoundIntake(BigDecimal lowerBoundIntake) {
         this.lowerBoundIntake = lowerBoundIntake;
         return this;
     }
@@ -82,7 +82,7 @@ public class NutritionIntake {
         return upperBoundIntake;
     }
 
-    public NutritionIntake setUpperBoundIntake(BigDecimal upperBoundIntake) {
+    public NutritionIntakeEntity setUpperBoundIntake(BigDecimal upperBoundIntake) {
         this.upperBoundIntake = upperBoundIntake;
         return this;
     }
@@ -91,7 +91,7 @@ public class NutritionIntake {
         return measurement;
     }
 
-    public NutritionIntake setMeasurement(String measurement) {
+    public NutritionIntakeEntity setMeasurement(String measurement) {
         this.measurement = measurement;
         return this;
     }

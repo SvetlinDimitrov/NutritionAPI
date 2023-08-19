@@ -1,51 +1,25 @@
-package com.example.nutritionapi.domain.entity;
-
-import jakarta.persistence.*;
+package com.example.nutritionapi.domain.constants.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Entity
-@Table(name = "vitamins")
-public class VitaminEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column
+public class Electrolyte {
     private String name;
-    @Column(columnDefinition = "TEXT")
     private String description;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<PairEntity> functions;
-    @OneToMany(cascade = CascadeType.PERSIST)
-    private List<PairEntity> sources;
-
-    @Column
+    private List<Pair> functions;
+    private List<Pair> sources;
+    private List<Pair> healthConsiderations;
     private BigDecimal maleLowerBoundIntake;
-    @Column
     private BigDecimal maleHigherBoundIntake;
-    @Column
     private BigDecimal femaleLowerBoundIntake;
-    @Column
     private BigDecimal femaleHigherBoundIntake;
-    @Column
     private String measure;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public VitaminEntity setId(Long id) {
-        this.id = id;
-        return this;
-    }
 
     public String getName() {
         return name;
     }
 
-    public VitaminEntity setName(String name) {
+    public Electrolyte setName(String name) {
         this.name = name;
         return this;
     }
@@ -54,26 +28,35 @@ public class VitaminEntity {
         return description;
     }
 
-    public VitaminEntity setDescription(String description) {
+    public Electrolyte setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public List<PairEntity> getFunctions() {
+    public List<Pair> getFunctions() {
         return functions;
     }
 
-    public VitaminEntity setFunctions(List<PairEntity> functions) {
+    public Electrolyte setFunctions(List<Pair> functions) {
         this.functions = functions;
         return this;
     }
 
-    public List<PairEntity> getSources() {
+    public List<Pair> getSources() {
         return sources;
     }
 
-    public VitaminEntity setSources(List<PairEntity> sources) {
+    public Electrolyte setSources(List<Pair> sources) {
         this.sources = sources;
+        return this;
+    }
+
+    public List<Pair> getHealthConsiderations() {
+        return healthConsiderations;
+    }
+
+    public Electrolyte setHealthConsiderations(List<Pair> healthConsiderations) {
+        this.healthConsiderations = healthConsiderations;
         return this;
     }
 
@@ -81,7 +64,7 @@ public class VitaminEntity {
         return maleLowerBoundIntake;
     }
 
-    public VitaminEntity setMaleLowerBoundIntake(BigDecimal maleLowerBoundIntake) {
+    public Electrolyte setMaleLowerBoundIntake(BigDecimal maleLowerBoundIntake) {
         this.maleLowerBoundIntake = maleLowerBoundIntake;
         return this;
     }
@@ -90,7 +73,7 @@ public class VitaminEntity {
         return maleHigherBoundIntake;
     }
 
-    public VitaminEntity setMaleHigherBoundIntake(BigDecimal maleHigherBoundIntake) {
+    public Electrolyte setMaleHigherBoundIntake(BigDecimal maleHigherBoundIntake) {
         this.maleHigherBoundIntake = maleHigherBoundIntake;
         return this;
     }
@@ -99,7 +82,7 @@ public class VitaminEntity {
         return femaleLowerBoundIntake;
     }
 
-    public VitaminEntity setFemaleLowerBoundIntake(BigDecimal femaleLowerBoundIntake) {
+    public Electrolyte setFemaleLowerBoundIntake(BigDecimal femaleLowerBoundIntake) {
         this.femaleLowerBoundIntake = femaleLowerBoundIntake;
         return this;
     }
@@ -108,7 +91,7 @@ public class VitaminEntity {
         return femaleHigherBoundIntake;
     }
 
-    public VitaminEntity setFemaleHigherBoundIntake(BigDecimal femaleHigherBoundIntake) {
+    public Electrolyte setFemaleHigherBoundIntake(BigDecimal femaleHigherBoundIntake) {
         this.femaleHigherBoundIntake = femaleHigherBoundIntake;
         return this;
     }
@@ -117,7 +100,7 @@ public class VitaminEntity {
         return measure;
     }
 
-    public VitaminEntity setMeasure(String measure) {
+    public Electrolyte setMeasure(String measure) {
         this.measure = measure;
         return this;
     }

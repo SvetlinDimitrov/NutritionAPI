@@ -1,7 +1,7 @@
 package com.example.nutritionapi.domain.dtos.user;
 
-import com.example.nutritionapi.domain.constants.Gender;
-import com.example.nutritionapi.domain.constants.WorkoutState;
+import com.example.nutritionapi.domain.constants.enums.Gender;
+import com.example.nutritionapi.domain.constants.enums.WorkoutState;
 import com.example.nutritionapi.exceptions.emailChecker.NotUsedEmailConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

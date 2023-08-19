@@ -1,15 +1,14 @@
 package com.example.nutritionapi.service;
 
-import com.example.nutritionapi.domain.constants.AllNutrientsNames;
-import com.example.nutritionapi.domain.constants.Gender;
+import com.example.nutritionapi.domain.constants.enums.Gender;
 import com.example.nutritionapi.domain.dtos.NutrientChangeDto;
 import com.example.nutritionapi.domain.dtos.viewDtos.NutritionIntakeView;
 import com.example.nutritionapi.domain.dtos.viewDtos.RecordView;
-import com.example.nutritionapi.domain.entity.NutritionIntake;
+import com.example.nutritionapi.domain.entity.NutritionIntakeEntity;
 import com.example.nutritionapi.domain.entity.RecordEntity;
 import com.example.nutritionapi.domain.entity.UserEntity;
-import com.example.nutritionapi.exceptions.IncorrectNutrientChange;
-import com.example.nutritionapi.exceptions.RecordNotFound;
+import com.example.nutritionapi.exceptions.IncorrectNutrientChangeException;
+import com.example.nutritionapi.exceptions.RecordNotFoundException;
 import com.example.nutritionapi.repos.RecordRepository;
 import com.example.nutritionapi.repos.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -38,22 +37,22 @@ public class RecordServiceImp {
                 .toList();
     }
 
-    public RecordView getViewByRecordId(Long day) throws RecordNotFound {
+    public RecordView getViewByRecordId(Long day) throws RecordNotFoundException {
         return recordRepository.findById(day)
                 .map(RecordView::new)
-                .orElseThrow(() -> new RecordNotFound(day.toString()));
+                .orElseThrow(() -> new RecordNotFoundException(day.toString()));
     }
 
     @Transactional
-    public NutritionIntakeView updateRecordById(Long day, NutrientChangeDto dto) throws RecordNotFound, IncorrectNutrientChange {
+    public NutritionIntakeView updateRecordById(Long day, NutrientChangeDto dto) throws RecordNotFoundException, IncorrectNutrientChangeException {
 
-        RecordEntity record = recordRepository.findById(day).orElseThrow(() -> new RecordNotFound(day.toString()));
+        RecordEntity record = recordRepository.findById(day).orElseThrow(() -> new RecordNotFoundException(day.toString()));
 
-        NutritionIntake intake = record.getDailyIntakeViews()
+        NutritionIntakeEntity intake = record.getDailyIntakeViews()
                 .stream()
                 .filter(nutrient -> nutrient.getNutrientName().equals(dto.getName()))
                 .findFirst()
-                .orElseThrow(() -> new IncorrectNutrientChange("This does not match any nutrient in the dalyRecord/dataBase \n"+ AllNutrientsNames.getAllNutritionNames()));
+                .orElseThrow(() -> new IncorrectNutrientChangeException("catch me"));
 
         intake.setDailyConsumed(intake.getDailyConsumed().add(dto.getMeasure()));
         recordRepository.save(record);
@@ -103,9 +102,9 @@ public class RecordServiceImp {
     }
 
     @Transactional
-    public void deleteById(Long day) throws RecordNotFound {
+    public void deleteById(Long day) throws RecordNotFoundException {
 
-        RecordEntity record = recordRepository.findById(day).orElseThrow(() -> new RecordNotFound(day.toString()));
+        RecordEntity record = recordRepository.findById(day).orElseThrow(() -> new RecordNotFoundException(day.toString()));
 
         recordRepository.deleteById(day);
     }

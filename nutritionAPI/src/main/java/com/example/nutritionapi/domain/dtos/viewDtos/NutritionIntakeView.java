@@ -1,6 +1,6 @@
 package com.example.nutritionapi.domain.dtos.viewDtos;
 
-import com.example.nutritionapi.domain.entity.NutritionIntake;
+import com.example.nutritionapi.domain.entity.NutritionIntakeEntity;
 
 import java.math.BigDecimal;
 
@@ -22,7 +22,7 @@ public class NutritionIntakeView {
 
     public NutritionIntakeView() {}
 
-    public NutritionIntakeView(NutritionIntake entity) {
+    public NutritionIntakeView(NutritionIntakeEntity entity) {
         this.id = entity.getId();
         this.nutrientName = entity.getNutrientName();
         this.nutrientType = entity.getNutrientType();

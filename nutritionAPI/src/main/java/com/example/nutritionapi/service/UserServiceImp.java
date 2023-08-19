@@ -1,6 +1,6 @@
 package com.example.nutritionapi.service;
 
-import com.example.nutritionapi.domain.constants.UserDetails;
+import com.example.nutritionapi.domain.constants.enums.UserDetails;
 import com.example.nutritionapi.domain.dtos.user.EditUserDto;
 import com.example.nutritionapi.domain.dtos.user.LoginUserDto;
 import com.example.nutritionapi.domain.dtos.user.RegisterUserDto;

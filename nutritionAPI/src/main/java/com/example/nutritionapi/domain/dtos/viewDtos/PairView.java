@@ -1,13 +1,13 @@
 package com.example.nutritionapi.domain.dtos.viewDtos;
 
-import com.example.nutritionapi.domain.entity.PairEntity;
+import com.example.nutritionapi.domain.constants.entity.Pair;
 
 public class PairView {
     private String key;
     private String value;
 
     public PairView() {}
-    public PairView(PairEntity entity) {
+    public PairView(Pair entity) {
         this.key = entity.getKey();
         this.value = entity.getValue();
     }

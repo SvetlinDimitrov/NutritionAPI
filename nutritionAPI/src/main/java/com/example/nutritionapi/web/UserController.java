@@ -7,7 +7,7 @@ import com.example.nutritionapi.domain.dtos.user.LoginUserDto;
 import com.example.nutritionapi.domain.dtos.user.RegisterUserDto;
 import com.example.nutritionapi.config.security.UserPrincipal;
 import com.example.nutritionapi.domain.dtos.viewDtos.UserView;
-import com.example.nutritionapi.exceptions.WrongUserCredentials;
+import com.example.nutritionapi.exceptions.WrongUserCredentialsException;
 import com.example.nutritionapi.service.UserServiceImp;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -32,9 +32,9 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> createUserAccount(@Valid @RequestBody RegisterUserDto userDto,
-                                                        BindingResult result) throws WrongUserCredentials {
+                                                        BindingResult result) throws WrongUserCredentialsException {
         if(result.hasErrors()){
-            throw new WrongUserCredentials(result.getFieldErrors());
+            throw new WrongUserCredentialsException(result.getFieldErrors());
         }
 
         userServiceImp.register(userDto);
@@ -44,14 +44,14 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login (@Valid @RequestBody LoginUserDto userDto,
-                                         BindingResult result) throws WrongUserCredentials {
+                                         BindingResult result) throws WrongUserCredentialsException {
 
         if(!userServiceImp.login(userDto)){
             result.addError(new FieldError("username_password", "password" , "wrong username or password"));
         }
 
         if(result.hasErrors()){
-            throw new WrongUserCredentials(result.getFieldErrors());
+            throw new WrongUserCredentialsException(result.getFieldErrors());
         }
         Long userID = userServiceImp.findByEmail(userDto.getEmail()).getId();
 
