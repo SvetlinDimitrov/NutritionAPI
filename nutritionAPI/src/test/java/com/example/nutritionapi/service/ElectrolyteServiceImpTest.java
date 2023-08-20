@@ -3,6 +3,7 @@ package com.example.nutritionapi.service;
 import com.example.nutritionapi.domain.constants.entity.Electrolyte;
 import com.example.nutritionapi.domain.constants.entity.Pair;
 import com.example.nutritionapi.domain.dtos.viewDtos.ElectrolyteView;
+import com.example.nutritionapi.exceptions.ElectrolyteNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,17 +14,20 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ElectrolyteServiceImpTest {
 
     @Mock
-    private  Map<String, Electrolyte> electrolyteEntityMap;
+    private Map<String, Electrolyte> electrolyteEntityMap;
     @InjectMocks
     private ElectrolyteServiceImp electrolyteServiceImp;
 
@@ -85,7 +89,7 @@ class ElectrolyteServiceImpTest {
                                 .setMaleHigherBoundIntake(new BigDecimal("2300"))
                                 .setMaleLowerBoundIntake(new BigDecimal("2300"))
                                 .setMeasure("milligrams (mg)"),
-                       new Electrolyte()
+                        new Electrolyte()
                                 .setName("Sodium2")
                                 .setDescription("Sodium is a vital mineral and electrolyte that plays a central role in maintaining various physiological functions in the body. It's essential for regulating fluid balance, nerve transmission, muscle function, and blood pressure. While sodium is important for health, excessive intake can lead to health issues like high blood pressure and increased risk of heart disease.")
                                 .setFunctions(List.of(
@@ -146,17 +150,57 @@ class ElectrolyteServiceImpTest {
 
         List<ElectrolyteView> result = electrolyteServiceImp.getAllViewElectrolytes();
 
-        assertEquals(electrolyteViewsList , result);
-
+        assertEquals(electrolyteViewsList, result);
         verify(electrolyteEntityMap, times(1)).values();
     }
 
     @Test
-    void getElectrolyteViewByName() {
+    void getElectrolyteViewByName_validName_successful() throws ElectrolyteNotFoundException {
+        String VALID_NAME = "valid";
+        when(electrolyteEntityMap.containsKey(VALID_NAME)).thenReturn(true);
+        when(electrolyteEntityMap.get(VALID_NAME)).thenReturn(electrolyteList.get(0));
+
+        ElectrolyteView result = electrolyteServiceImp.getElectrolyteViewByName(VALID_NAME);
+
+        ElectrolyteView expected = electrolyteViewsList.get(0);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getElectrolyteViewByName_invalidName_throwsElectrolyteNotFoundException() {
+        String INVALID_NAME = "NOT VALID";
+        when(electrolyteEntityMap.containsKey(INVALID_NAME)).thenReturn(false);
+
+        ElectrolyteNotFoundException exception = assertThrows(ElectrolyteNotFoundException.class,
+                () -> electrolyteServiceImp.getElectrolyteViewByName(INVALID_NAME));
+
+        assertEquals(exception.getMessage(), INVALID_NAME);
+    }
+
+    @Test
+    void getAllElectrolytesNames_formatTest_Successful() {
+        when(electrolyteEntityMap.keySet())
+                .thenReturn(electrolyteList
+                        .stream()
+                        .map(Electrolyte::getName)
+                        .collect(Collectors.toCollection(LinkedHashSet::new)));
+
+        String expected = electrolyteList.stream()
+                .map(Electrolyte::getName)
+                .collect(Collectors.joining(","));
+
+        String result = electrolyteServiceImp.getAllElectrolytesNames();
+
+        assertEquals(expected , result);
 
     }
 
     @Test
-    void getAllElectrolytesNames() {
+    void findAll_returnAllValues_successful(){
+        when(electrolyteEntityMap.values()).thenReturn(electrolyteList);
+
+        List<Electrolyte> result = electrolyteServiceImp.findAll();
+
+        assertEquals(electrolyteList , result);
     }
 }

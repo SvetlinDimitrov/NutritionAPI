@@ -1,20 +1,20 @@
 package com.example.nutritionapi.service;
 
-import com.example.nutritionapi.domain.dtos.viewDtos.MacronutrientView;
 import com.example.nutritionapi.domain.constants.entity.Macronutrient;
 import com.example.nutritionapi.domain.constants.entity.Pair;
+import com.example.nutritionapi.domain.dtos.viewDtos.MacronutrientView;
 import com.example.nutritionapi.exceptions.MacronutrientNotFoundException;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class MacronutrientServiceImp {
 
-    private final Map<String, Macronutrient> macronutrientMap = new HashMap<>();
+    private final Map<String, Macronutrient> macronutrientMap = new LinkedHashMap<>();
 
     public List<MacronutrientView> getAllMacrosView() {
         return macronutrientMap

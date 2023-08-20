@@ -8,13 +8,13 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class VitaminServiceImp {
-    private final Map<String, Vitamin> vitaminMap = new HashMap<>();
+    private final Map<String, Vitamin> vitaminMap = new LinkedHashMap<>();
 
     public List<VitaminView> getVitamins() {
         return vitaminMap
