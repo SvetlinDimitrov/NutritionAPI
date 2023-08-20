@@ -26,7 +26,7 @@ public class VitaminController {
     @GetMapping("/{name}")
     public ResponseEntity<VitaminView> getVitaminByName(@PathVariable String name) throws VitaminNotFoundException {
         VitaminView vitaminView = vitaminService.getVitaminViewByName(name);
-        return new ResponseEntity<>(vitaminView, HttpStatus.FOUND);
+        return new ResponseEntity<>(vitaminView, HttpStatus.OK);
     }
 
 }

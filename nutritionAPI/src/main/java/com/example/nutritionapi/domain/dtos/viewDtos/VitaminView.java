@@ -24,7 +24,7 @@ public class VitaminView {
         this.name = entity.getName();
         this.description = entity.getDescription();
         this.functions = entity.getFunctions().stream().map(PairView::new).toList();
-        this.sources = entity.getFunctions().stream().map(PairView::new).toList();
+        this.sources = entity.getSources().stream().map(PairView::new).toList();
         this.maleHigherBoundIntake = entity.getMaleHigherBoundIntake();
         this.maleLowerBoundIntake = entity.getMaleLowerBoundIntake();
         this.femaleHigherBoundIntake = entity.getFemaleHigherBoundIntake();

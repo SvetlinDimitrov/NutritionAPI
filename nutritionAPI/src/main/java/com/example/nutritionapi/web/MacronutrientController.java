@@ -21,12 +21,12 @@ public class MacronutrientController {
 
     @GetMapping
     public ResponseEntity<List<MacronutrientView>> getAllMacrosView(){
-        return new ResponseEntity<>(macronutrientService.getAllMacrosView() , HttpStatus.FOUND);
+        return new ResponseEntity<>(macronutrientService.getAllMacrosView() , HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
     public ResponseEntity<MacronutrientView> getMacroViewByName(@PathVariable String name) throws MacronutrientNotFoundException {
-        return new ResponseEntity<>(macronutrientService.getMacroViewByName(name) , HttpStatus.FOUND);
+        return new ResponseEntity<>(macronutrientService.getMacroViewByName(name) , HttpStatus.OK);
     }
 
 }

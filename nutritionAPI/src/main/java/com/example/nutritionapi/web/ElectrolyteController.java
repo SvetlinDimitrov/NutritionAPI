@@ -21,12 +21,12 @@ public class ElectrolyteController {
 
     @GetMapping
     public ResponseEntity<List<ElectrolyteView>> getAllElectrolytes(){
-        return new ResponseEntity<>(electrolyteService.getAllViewElectrolytes() , HttpStatus.FOUND);
+        return new ResponseEntity<>(electrolyteService.getAllViewElectrolytes() , HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
     public ResponseEntity<ElectrolyteView> getElectrolyteByName(@PathVariable String name) throws ElectrolyteNotFoundException {
-        return new ResponseEntity<>(electrolyteService.getElectrolyteViewByName(name) , HttpStatus.FOUND);
+        return new ResponseEntity<>(electrolyteService.getElectrolyteViewByName(name) , HttpStatus.OK);
     }
 
 }
