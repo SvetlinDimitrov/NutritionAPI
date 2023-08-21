@@ -1,19 +1,17 @@
 package com.example.nutritionapi.web;
 
 import com.example.nutritionapi.config.security.JwtUtil;
-import com.example.nutritionapi.config.security.UserPrincipal;
 import com.example.nutritionapi.domain.constants.enums.Gender;
-import com.example.nutritionapi.domain.constants.enums.UserDetails;
 import com.example.nutritionapi.domain.constants.enums.WorkoutState;
 import com.example.nutritionapi.domain.dtos.user.EditUserDto;
 import com.example.nutritionapi.domain.dtos.user.LoginUserDto;
 import com.example.nutritionapi.domain.dtos.user.RegisterUserDto;
 
-import com.example.nutritionapi.domain.entity.UserEntity;
+
 import com.example.nutritionapi.repos.UserRepository;
 import com.example.nutritionapi.service.UserServiceImp;
 
-import com.example.nutritionapi.setUp.WithMockUserPrincipal;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,12 +21,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.security.Principal;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -156,13 +154,21 @@ class UserControllerTest {
     }
 
     @Test
-    @DirtiesContext
-    @WithMockUserPrincipal(username = "valid")
+    @Transactional
+    @WithMockUser(username = "valid@abv.bg")
     void getUserDetails_withAuthorizeUser_successful() throws Exception {
+
+        Principal principal = new Principal() {
+            @Override
+            public String getName() {
+                return "valid@abv.bg";
+            }
+        };
 
         userServiceImp.register(createValidRegisterUser());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/nutritionApi/user/details"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/nutritionApi/user/details")
+                        .principal(principal))
                 .andExpect(status().isOk());
 
     }
@@ -183,10 +189,19 @@ class UserControllerTest {
                 .andExpect(status().isForbidden());
     }
 
+
+    //TODO:: this test is working on its own bit when all of the test are lunch is not . Dont know how to fix it
     @Test
-    @WithMockUserPrincipal
-    @DirtiesContext
+    @Transactional
+    @WithMockUser(username = "valid@abv.bg")
     void editUserProfile_withAuthorizeUser_successful() throws Exception {
+        Principal principal = new Principal() {
+            @Override
+            public String getName() {
+                return "valid@abv.bg";
+            }
+        };
+
         userServiceImp.register(createValidRegisterUser());
 
         EditUserDto editUserDto = new EditUserDto()
@@ -197,6 +212,7 @@ class UserControllerTest {
                 .setWorkoutState(WorkoutState.MODERATELY_ACTIVE);
 
         mockMvc.perform(MockMvcRequestBuilders.patch("/nutritionApi/user/details/1")
+                        .principal(principal)
                         .content(objectMapper.writeValueAsString(editUserDto))
                         .contentType("application/json"))
                 .andExpect(status().isAccepted());
@@ -216,16 +232,5 @@ class UserControllerTest {
         return new LoginUserDto()
                 .setEmail("valid@abv.bg")
                 .setPassword("valid");
-    }
-
-    private UserPrincipal getPrincipal(){
-        UserEntity user = new UserEntity()
-                .setEmail("valid@abv.bg")
-                .setAge(23)
-                .setPassword("valid")
-                .setUsername("valid");
-        user.setId(1L);
-
-        return new UserPrincipal(user);
     }
 }

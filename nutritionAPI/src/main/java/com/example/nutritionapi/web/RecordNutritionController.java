@@ -1,12 +1,13 @@
 package com.example.nutritionapi.web;
 
-import com.example.nutritionapi.config.security.UserPrincipal;
 import com.example.nutritionapi.domain.dtos.NutrientChangeDto;
 import com.example.nutritionapi.domain.dtos.viewDtos.NutritionIntakeView;
 import com.example.nutritionapi.domain.dtos.viewDtos.RecordView;
+import com.example.nutritionapi.domain.entity.UserEntity;
 import com.example.nutritionapi.exceptions.IncorrectNutrientChangeException;
 import com.example.nutritionapi.exceptions.RecordNotFoundException;
 import com.example.nutritionapi.service.RecordServiceImp;
+import com.example.nutritionapi.service.UserServiceImp;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -21,14 +23,17 @@ import java.util.List;
 public class RecordNutritionController {
 
     private final RecordServiceImp recordService;
+    private final UserServiceImp userServiceImp;
 
-    public RecordNutritionController(RecordServiceImp recordService) {
+    public RecordNutritionController(RecordServiceImp recordService, UserServiceImp userServiceImp) {
         this.recordService = recordService;
+        this.userServiceImp = userServiceImp;
     }
 
     @GetMapping
-    public ResponseEntity<List<RecordView>> getAllRecords(@AuthenticationPrincipal UserPrincipal userPrincipal){
-        List<RecordView> records = recordService.getAllViewsByUserId(userPrincipal.getId());
+    public ResponseEntity<List<RecordView>> getAllRecords(Principal principal){
+        UserEntity user = userServiceImp.findByEmail(principal.getName());
+        List<RecordView> records = recordService.getAllViewsByUserId(user.getId());
         return new ResponseEntity<>(records , HttpStatus.FOUND);
     }
 
@@ -52,8 +57,11 @@ public class RecordNutritionController {
 
 
     @PostMapping("/endDay")
-    public ResponseEntity<RecordView> createNewRecord(@AuthenticationPrincipal UserPrincipal principal){
-        RecordView view = recordService.addNewRecordByUserId(principal.getId());
+    public ResponseEntity<RecordView> createNewRecord(Principal principal){
+        String email = principal.getName();
+        UserEntity user = userServiceImp.findByEmail(email);
+
+        RecordView view = recordService.addNewRecordByUserId(user.getId());
         return new ResponseEntity<>(view , HttpStatus.CREATED);
     }
 

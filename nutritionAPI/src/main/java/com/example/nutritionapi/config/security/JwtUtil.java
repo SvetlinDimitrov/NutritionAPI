@@ -7,11 +7,15 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.nutritionapi.domain.entity.UserEntity;
 import com.example.nutritionapi.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Component
 public class JwtUtil {
@@ -40,9 +44,11 @@ public class JwtUtil {
 
     }
 
-    public UserPrincipal convert(DecodedJWT token){
+    public UserDetails convert(DecodedJWT token){
         UserEntity user = userService.findById(Long.parseLong(token.getSubject()));
-        return new UserPrincipal(user);
+        return new User(user.getEmail() ,
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_"+user.getUserDetails().name())));
 
     }
 }

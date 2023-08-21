@@ -5,7 +5,6 @@ import com.example.nutritionapi.config.security.UserDetailsImp;
 import com.example.nutritionapi.domain.dtos.user.EditUserDto;
 import com.example.nutritionapi.domain.dtos.user.LoginUserDto;
 import com.example.nutritionapi.domain.dtos.user.RegisterUserDto;
-import com.example.nutritionapi.config.security.UserPrincipal;
 import com.example.nutritionapi.domain.dtos.viewDtos.UserView;
 import com.example.nutritionapi.exceptions.WrongUserCredentialsException;
 import com.example.nutritionapi.service.UserServiceImp;
@@ -16,6 +15,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/nutritionApi/user")
@@ -60,8 +61,9 @@ public class UserController {
 
 
     @GetMapping("/details")
-    public ResponseEntity<UserView> getUserDetails(@AuthenticationPrincipal UserPrincipal userPrincipal){
-        UserView userView = userServiceImp.getUserViewById(userPrincipal.getId());
+    public ResponseEntity<UserView> getUserDetails(Principal principal){
+        String email = principal.getName();
+        UserView userView = new UserView(userServiceImp.findByEmail(email));
         return new ResponseEntity<>(userView, HttpStatus.OK);
     }
 
