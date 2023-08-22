@@ -34,7 +34,8 @@ You can visit your record, add consumed nutrition to it, start a new record, or 
 
 ## API Documentation
 + [Full Documentation using Postman](https://documenter.getpostman.com/view/26519722/2s9Y5U1Qv7#b0047059-4965-448a-a3c7-34e758e58193)
-+ [Download the Postman Collection](Postman/Nutrition%20Rest%20Api.postman_collection.json)
++ [Download the Postman Collection](https://gist.githubusercontent.com/SvetlinDimitrov/071c3e7643ae396c7c0c5d90b873d821/raw/Nutrition%20Rest%20Api.postman_collection.json)
+
 
 ## Contributing
 There are a few TODOs that I haven't managed to resolve.
