@@ -11,6 +11,7 @@ import com.example.nutritionapi.exceptions.IncorrectNutrientChangeException;
 import com.example.nutritionapi.exceptions.RecordNotFoundException;
 import com.example.nutritionapi.repos.RecordRepository;
 import com.example.nutritionapi.repos.UserRepository;
+import jakarta.validation.Valid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +21,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -50,8 +52,8 @@ class RecordServiceImpTest {
     private UserEntity user;
     private final List<RecordEntity> recordEntityList = new ArrayList<>();
     private final List<RecordView> recordViews = new ArrayList<>();
-    private final Long VALID_ID = 1L;
-    private final Long INVALID_ID = 100L;
+    private  Long VALID_ID = 1L;
+    private  Long INVALID_ID = 100L;
 
 
     @BeforeEach
@@ -82,6 +84,7 @@ class RecordServiceImpTest {
     }
 
     @Test
+    @Transactional
     void getAllViewsByUserId_withValidUser_successful() {
         when(userRepository.findById(VALID_ID)).thenReturn(Optional.of(user));
 
@@ -91,6 +94,7 @@ class RecordServiceImpTest {
     }
 
     @Test
+    @Transactional
     void getAllViewsByUserId_withInvalidUser_throwsUsernameNotFoundException() {
         when(userRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
 
@@ -98,6 +102,7 @@ class RecordServiceImpTest {
     }
 
     @Test
+    @Transactional
     void getViewByRecordId_withValidId_successful() throws RecordNotFoundException {
         when(recordRepository.findById(VALID_ID)).thenReturn(Optional.ofNullable(recordEntityList.get(0)));
 
@@ -108,6 +113,7 @@ class RecordServiceImpTest {
     }
 
     @Test
+    @Transactional
     void getViewByRecordId_withInvalidId_throwsRecordNotFoundException() {
         when(recordRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
 
@@ -115,32 +121,39 @@ class RecordServiceImpTest {
     }
 
     @Test
+    @Transactional
     void updateRecordById_invalidRecordId_throwsRecordNotFoundException() {
-        when(recordRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
 
-        assertThrows(RecordNotFoundException.class, () -> recordServiceImp.updateRecordById(INVALID_ID, any(), user));
+        NutrientChangeDto changeDto = new NutrientChangeDto()
+                .setName("invalid")
+                .setMeasure(new BigDecimal("100"));
+
+        assertThrows(RecordNotFoundException.class, () -> recordServiceImp.updateRecordById(INVALID_ID, changeDto , user));
     }
 
     @Test
+    @Transactional
     void updateRecordById_invalidNutritionName_throwsIncorrectNutrientChangeException() {
         NutrientChangeDto changeDto = new NutrientChangeDto()
                 .setName("invalid")
                 .setMeasure(new BigDecimal("100"));
 
-        when(recordRepository.findById(VALID_ID)).thenReturn(Optional.of(recordEntityList.get(0)));
+        VALID_ID = user.getRecords().get(0).getId();
 
         assertThrows(IncorrectNutrientChangeException.class, () -> recordServiceImp.updateRecordById(VALID_ID, changeDto, user));
     }
 
     @Test
+    @Transactional
     void updateRecordById_validParameters_successful() throws RecordNotFoundException, IncorrectNutrientChangeException {
         NutrientChangeDto changeDto = new NutrientChangeDto()
                 .setName("Carbohydrates")
                 .setMeasure(new BigDecimal("100"));
 
+        VALID_ID = user.getRecords().get(0).getId();
+
         RecordEntity expected = recordEntityList.get(0);
         expected.getDailyIntakeViews().get(0).setDailyConsumed(new BigDecimal("100"));
-        when(recordRepository.findById(VALID_ID)).thenReturn(Optional.of(expected));
 
         recordServiceImp.updateRecordById(VALID_ID, changeDto, user);
 
@@ -152,6 +165,7 @@ class RecordServiceImpTest {
     }
 
     @Test
+    @Transactional
     void addNewRecordByUserId_validUserId_successful() {
         when(userRepository.findById(VALID_ID)).thenReturn(Optional.ofNullable(user));
 
@@ -165,7 +179,9 @@ class RecordServiceImpTest {
     }
 
     @Test
+    @Transactional
     void addNewRecordByUserId_invalidUserId_throwsUsernameNotFoundException() {
+
         when(userRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
 
         assertThrows(UsernameNotFoundException.class ,
@@ -173,10 +189,9 @@ class RecordServiceImpTest {
     }
 
     @Test
+    @Transactional
     void deleteById_validRecordId_successful() throws RecordNotFoundException {
-        RecordEntity excepted = recordEntityList.get(0);
-
-        when(recordRepository.findById(VALID_ID)).thenReturn(Optional.ofNullable(excepted));
+        VALID_ID = user.getRecords().get(0).getId();
 
         recordServiceImp.deleteById(VALID_ID, user);
 
@@ -184,14 +199,16 @@ class RecordServiceImpTest {
     }
 
     @Test
+    @Transactional
     void deleteById_invalidRecordId_throwsRecordNotFoundException() {
-        when(recordRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
+        INVALID_ID = user.getRecords().size() + 1L;
 
         assertThrows(RecordNotFoundException.class , () ->recordServiceImp.deleteById(INVALID_ID, user));
     }
 
     private RecordEntity createRecord(UserEntity user) {
         RecordEntity record = new RecordEntity();
+        record.setId(1L);
         record.setUser(user);
         BigDecimal BMR;
 

@@ -214,7 +214,7 @@ class RecordNutritionControllerTest {
     @WithMockUser(username = "completeUser@abv.bg", authorities = {"ROLE_COMPLETED"})
     void createNewRecord_authorizeUserCompleteUserDetails_created() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/nutritionApi/records/endDay"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/nutritionApi/records"))
                 .andExpect(status().isCreated());
 
         UserEntity user = userServiceImp.findByEmail("completeUser@abv.bg");
@@ -241,7 +241,7 @@ class RecordNutritionControllerTest {
         UserEntity user = userServiceImp.findByEmail("completeUser@abv.bg");
         int invalidId = user.getRecords().size() + 1;
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/nutritionApi/records/delete/"+invalidId))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/nutritionApi/records/"+invalidId))
                 .andExpect(status().isBadRequest());
     }
 
@@ -253,7 +253,7 @@ class RecordNutritionControllerTest {
         UserEntity user = userServiceImp.findByEmail("completeUser@abv.bg");
         int validId = user.getRecords().size();
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/nutritionApi/records/delete/"+validId))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/nutritionApi/records/"+validId))
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/nutritionApi/records/" +validId))

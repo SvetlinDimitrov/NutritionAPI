@@ -17,6 +17,7 @@ import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void notUsedEmail_withNotUsedEmail_true() {
         when(userRepository.findByEmail(VALID_EMAIL)).thenReturn(Optional.empty());
 
@@ -74,6 +76,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void notUsedEmail_withUsedEmail_false() {
         when(userRepository.findByEmail(INVALID_EMAIL)).thenReturn(Optional.ofNullable(user));
 
@@ -81,6 +84,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void register_withFullyRegistration_userDetailsComplete() {
         RegisterUserDto registerUserDto = new RegisterUserDto()
                 .setEmail("test@abv.bg")
@@ -104,6 +108,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void register_withNotFullyRegistration_userDetailsNot_Complete() {
         RegisterUserDto registerUserDto = new RegisterUserDto()
                 .setEmail("test@abv.bg")
@@ -122,6 +127,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void findByEmail_validEmail_successful() {
         when(userRepository.findByEmail(VALID_EMAIL)).thenReturn(Optional.ofNullable(user));
 
@@ -131,6 +137,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void findByEmail_invalidEmail_throwsUsernameNotFoundException() {
         when(userRepository.findByEmail(INVALID_EMAIL)).thenReturn(Optional.empty());
 
@@ -138,6 +145,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void findById_validID_successful() {
         when(userRepository.findById(VALID_ID)).thenReturn(Optional.ofNullable(user));
 
@@ -147,6 +155,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void findById_invalidID_throwsUsernameNotFoundException() {
         when(userRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
 
@@ -154,6 +163,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void login_validPasswordAndValidUserEmail_true() {
         LoginUserDto loginUserDto = new LoginUserDto()
                 .setEmail("test@abv.bg")
@@ -166,6 +176,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void login_invalidPasswordAndValidUserEmail_false() {
         LoginUserDto loginUserDto = new LoginUserDto()
                 .setEmail("test@abv.bg")
@@ -178,6 +189,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void login_validPasswordAndInvalidUserEmail_false() {
         LoginUserDto loginUserDto = new LoginUserDto()
                 .setEmail("")
@@ -188,6 +200,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void getUserViewById_validId_successfulyConverted() {
         when(userRepository.findById(VALID_ID)).thenReturn(Optional.ofNullable(user));
 
@@ -196,6 +209,7 @@ class UserServiceImpTest {
         assertEquals(userView , result);
     }
     @Test
+    @Transactional
     void getUserViewById_invalidId_throwsUsernameNotFoundException() {
         when(userRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
 
@@ -204,6 +218,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void editUserEntity_invalidUserId_throwsUsernameNotFoundException() {
         when(userRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
 
@@ -211,6 +226,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void editUserEntity_withFillEditInformation_UserDetailsComplete() {
         UserEntity user2 = new UserEntity()
                 .setEmail("test2@abv.bg")
@@ -239,6 +255,7 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void editUserEntity_withNotFillyEditInformation_UserDetailsNotComplete() {
         UserEntity user2 = new UserEntity()
                 .setEmail("test2@abv.bg")
@@ -264,9 +281,11 @@ class UserServiceImpTest {
     }
 
     @Test
+    @Transactional
     void editUserEntity_convertedCorrectly_UserDetailsComplete() {
+
         UserEntity excepted = new UserEntity()
-                .setEmail("test2@abv.bg")
+                .setEmail("test@abv.bg")
                 .setPassword("test")
                 .setUsername("test2")
                 .setWorkoutState(WorkoutState.SUPER_ACTIVE)
