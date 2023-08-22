@@ -30,7 +30,7 @@ public class RecordServiceImp {
         this.nutrientIntakeService = nutrientIntakeService;
     }
 
-    public List<RecordView> getAllViewsByUserId(Long userId){
+    public List<RecordView> getAllViewsByUserId(Long userId) {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException(userId.toString()));
         return user.getRecords().stream()
                 .map(RecordView::new)
@@ -44,9 +44,13 @@ public class RecordServiceImp {
     }
 
     @Transactional
-    public NutritionIntakeView updateRecordById(Long day, NutrientChangeDto dto) throws RecordNotFoundException, IncorrectNutrientChangeException {
+    public NutritionIntakeView updateRecordById(Long day, NutrientChangeDto dto, UserEntity user) throws RecordNotFoundException, IncorrectNutrientChangeException {
 
-        RecordEntity record = recordRepository.findById(day).orElseThrow(() -> new RecordNotFoundException(day.toString()));
+        RecordEntity record = user.getRecords()
+                .stream()
+                .filter(r -> r.getId().equals(day))
+                .findAny()
+                .orElseThrow(() -> new RecordNotFoundException(day.toString()));
 
         NutritionIntakeEntity intake = record.getDailyIntakeViews()
                 .stream()
@@ -68,8 +72,9 @@ public class RecordServiceImp {
         user.getRecords().add(record);
         userRepository.save(user);
 
-        return new RecordView(user.getRecords().get(user.getRecords().size()-1));
+        return new RecordView(user.getRecords().get(user.getRecords().size() - 1));
     }
+
     public RecordEntity createRecord(UserEntity user) {
         RecordEntity record = new RecordEntity();
         record.setUser(user);
@@ -102,9 +107,13 @@ public class RecordServiceImp {
     }
 
     @Transactional
-    public void deleteById(Long day) throws RecordNotFoundException {
+    public void deleteById(Long day, UserEntity user) throws RecordNotFoundException {
 
-        RecordEntity record = recordRepository.findById(day).orElseThrow(() -> new RecordNotFoundException(day.toString()));
+        user.getRecords()
+                .stream()
+                .filter(r -> r.getId().equals(day))
+                .findAny()
+                .orElseThrow(() -> new RecordNotFoundException(day.toString()));
 
         recordRepository.deleteById(day);
     }

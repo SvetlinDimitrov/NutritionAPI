@@ -58,11 +58,8 @@ public class UserServiceImp {
     public void editUserEntity(EditUserDto userDto, Long userId) {
         UserEntity user = findById(userId);
 
-        if (userDto.getUsername() != null) {
+        if (userDto.getUsername() != null && userDto.getUsername().length() > 4 && !userDto.getUsername().isBlank()) {
             user.setUsername(userDto.getUsername());
-        }
-        if (userDto.getEmail() != null) {
-            user.setEmail(userDto.getEmail());
         }
         if (userDto.getKilograms() != null) {
             user.setKilograms(userDto.getKilograms());

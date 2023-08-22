@@ -218,7 +218,6 @@ class UserServiceImpTest {
                 .setUsername("test2");
 
         EditUserDto editUserDto = new EditUserDto()
-                .setEmail("test2@abv.bg")
                 .setUsername("test2")
                 .setWorkoutState(WorkoutState.SUPER_ACTIVE)
                 .setKilograms(new BigDecimal("80"))
@@ -247,7 +246,6 @@ class UserServiceImpTest {
                 .setUsername("test2");
 
         EditUserDto editUserDto = new EditUserDto()
-                .setEmail("test2@abv.bg")
                 .setUsername("test2")
                 .setWorkoutState(WorkoutState.SUPER_ACTIVE)
                 .setAge(34);
@@ -281,7 +279,6 @@ class UserServiceImpTest {
         excepted.getRecords().add(null);
 
         EditUserDto editUserDto = new EditUserDto()
-                .setEmail("test2@abv.bg")
                 .setUsername("test2")
                 .setWorkoutState(WorkoutState.SUPER_ACTIVE)
                 .setKilograms(new BigDecimal("80"))

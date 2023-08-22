@@ -166,11 +166,12 @@ class UserControllerTest {
     @WithMockUser(username = "valid@abv.bg", authorities = {"ROLE_NOT_COMPLETED"})
     void editUserProfile_withAuthorizeUser_successful() throws Exception {
         //TODO : when running alone its works , but when i run all tests it doesnt . Something with spring security is not oke
+
         EditUserDto editUserDto1 = new EditUserDto()
                 .setAge(56)
                 .setGender(Gender.MALE);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.patch("/nutritionApi/user/details/1")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.patch("/nutritionApi/user/details")
                         .content(objectMapper.writeValueAsString(editUserDto1))
                         .contentType("application/json"))
                 .andExpect(status().isAccepted())

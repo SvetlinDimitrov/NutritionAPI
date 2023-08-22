@@ -46,17 +46,21 @@ public class RecordNutritionController {
     @PatchMapping("/edit/{day}")
     public ResponseEntity<NutritionIntakeView> changeNutrientByRecordDay(@Valid @RequestBody NutrientChangeDto dto,
                                                                          BindingResult result,
-                                                                         @PathVariable Long day) throws IncorrectNutrientChangeException, RecordNotFoundException {
+                                                                         @PathVariable Long day,
+                                                                         Principal principal) throws IncorrectNutrientChangeException, RecordNotFoundException {
         if(result.hasErrors()){
             throw new IncorrectNutrientChangeException(result.getFieldErrors());
         }
 
-        NutritionIntakeView changedNutrient = recordService.updateRecordById(day , dto);
+        String mail = principal.getName();
+        UserEntity user = userServiceImp.findByEmail(mail);
+
+        NutritionIntakeView changedNutrient = recordService.updateRecordById(day , dto , user);
         return new ResponseEntity<>(changedNutrient , HttpStatus.CREATED);
     }
 
 
-    @PostMapping("/endDay")
+    @PostMapping
     public ResponseEntity<RecordView> createNewRecord(Principal principal){
         String email = principal.getName();
         UserEntity user = userServiceImp.findByEmail(email);
@@ -66,9 +70,14 @@ public class RecordNutritionController {
     }
 
 
-    @DeleteMapping("/delete/{day}")
-    public ResponseEntity<HttpStatus> deleteRecord(@PathVariable Long day) throws RecordNotFoundException {
-        recordService.deleteById(day);
+    @DeleteMapping("/{day}")
+    public ResponseEntity<HttpStatus> deleteRecord(@PathVariable Long day ,
+                                                   Principal principal) throws RecordNotFoundException {
+        String email = principal.getName();
+        UserEntity user = userServiceImp.findByEmail(email);
+        Long id = user.getId();
+
+        recordService.deleteById(day , user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

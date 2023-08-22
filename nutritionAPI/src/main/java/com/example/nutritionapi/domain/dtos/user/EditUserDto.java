@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 
 public class EditUserDto {
     private String username;
-    private String email;
     private BigDecimal kilograms;
     private WorkoutState workoutState;
     private Gender gender;
@@ -47,15 +46,6 @@ public class EditUserDto {
 
     public EditUserDto setUsername(String username) {
         this.username = username;
-        return this;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public EditUserDto setEmail(String email) {
-        this.email = email;
         return this;
     }
 

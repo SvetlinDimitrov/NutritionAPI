@@ -6,6 +6,7 @@ import com.example.nutritionapi.domain.dtos.user.EditUserDto;
 import com.example.nutritionapi.domain.dtos.user.LoginUserDto;
 import com.example.nutritionapi.domain.dtos.user.RegisterUserDto;
 import com.example.nutritionapi.domain.dtos.viewDtos.UserView;
+import com.example.nutritionapi.domain.entity.UserEntity;
 import com.example.nutritionapi.exceptions.WrongUserCredentialsException;
 import com.example.nutritionapi.service.UserServiceImp;
 import jakarta.validation.Valid;
@@ -67,10 +68,14 @@ public class UserController {
         return new ResponseEntity<>(userView, HttpStatus.OK);
     }
 
-    @PatchMapping("/details/{userId}")
-    public ResponseEntity<UserView> editUserProfile(@RequestBody EditUserDto userDto,
-                                                    @PathVariable Long userId){
+    @PatchMapping("/details")
+    public ResponseEntity<UserView> editUserProfile(Principal principal,
+                                                    @RequestBody EditUserDto userDto){
 
+
+        String email = principal.getName();
+        UserEntity user = userServiceImp.findByEmail(email);
+        Long userId = user.getId();
 
         userServiceImp.editUserEntity(userDto , userId);
         UserView userView = userServiceImp.getUserViewById(userId);

@@ -118,7 +118,7 @@ class RecordServiceImpTest {
     void updateRecordById_invalidRecordId_throwsRecordNotFoundException() {
         when(recordRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
 
-        assertThrows(RecordNotFoundException.class, () -> recordServiceImp.updateRecordById(INVALID_ID, any()));
+        assertThrows(RecordNotFoundException.class, () -> recordServiceImp.updateRecordById(INVALID_ID, any(), user));
     }
 
     @Test
@@ -129,7 +129,7 @@ class RecordServiceImpTest {
 
         when(recordRepository.findById(VALID_ID)).thenReturn(Optional.of(recordEntityList.get(0)));
 
-        assertThrows(IncorrectNutrientChangeException.class, () -> recordServiceImp.updateRecordById(VALID_ID, changeDto));
+        assertThrows(IncorrectNutrientChangeException.class, () -> recordServiceImp.updateRecordById(VALID_ID, changeDto, user));
     }
 
     @Test
@@ -142,7 +142,7 @@ class RecordServiceImpTest {
         expected.getDailyIntakeViews().get(0).setDailyConsumed(new BigDecimal("100"));
         when(recordRepository.findById(VALID_ID)).thenReturn(Optional.of(expected));
 
-        recordServiceImp.updateRecordById(VALID_ID, changeDto);
+        recordServiceImp.updateRecordById(VALID_ID, changeDto, user);
 
         verify(recordRepository , times(1)).save(recordCaptor.capture());
 
@@ -178,7 +178,7 @@ class RecordServiceImpTest {
 
         when(recordRepository.findById(VALID_ID)).thenReturn(Optional.ofNullable(excepted));
 
-        recordServiceImp.deleteById(VALID_ID);
+        recordServiceImp.deleteById(VALID_ID, user);
 
         verify(recordRepository , times(1)).deleteById(VALID_ID);
     }
@@ -187,7 +187,7 @@ class RecordServiceImpTest {
     void deleteById_invalidRecordId_throwsRecordNotFoundException() {
         when(recordRepository.findById(INVALID_ID)).thenReturn(Optional.empty());
 
-        assertThrows(RecordNotFoundException.class , () ->recordServiceImp.deleteById(INVALID_ID));
+        assertThrows(RecordNotFoundException.class , () ->recordServiceImp.deleteById(INVALID_ID, user));
     }
 
     private RecordEntity createRecord(UserEntity user) {
