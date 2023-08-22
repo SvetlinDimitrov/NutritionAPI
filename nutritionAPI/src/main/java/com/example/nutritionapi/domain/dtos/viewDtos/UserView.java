@@ -25,6 +25,8 @@ public class UserView {
     private UserDetails userDetails;
     private Integer age;
 
+    public UserView() {}
+
     public UserView(UserEntity userEntity) {
         this.id = userEntity.getId();
         this.username = userEntity.getUsername();

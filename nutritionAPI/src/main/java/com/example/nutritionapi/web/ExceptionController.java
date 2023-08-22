@@ -34,7 +34,7 @@ public class ExceptionController {
                 "Electrolyte with name '" + e.getMessage() + "' does not existed in the data.\n" +
                         "The available search names are: " + electrolyteServiceImp.getAllElectrolytesNames();
 
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MacronutrientNotFoundException.class)
@@ -44,12 +44,12 @@ public class ExceptionController {
                 "Electrolyte with name '" + e.getMessage() + "' does not existed in the data.\n" +
                         "The available search names are: " + macronutrientServiceImp.getAllMacrosNames();
 
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(RecordNotFoundException.class)
     public ResponseEntity<String> catchRecordNotFoundException(RecordNotFoundException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IncorrectNutrientChangeException.class)
@@ -67,8 +67,8 @@ public class ExceptionController {
                 electrolyteServiceImp.getAllElectrolytesNames();
 
 
-        return !e.getMessage().isBlank() ? new ResponseEntity<>(message, HttpStatus.NOT_FOUND)
-                : new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        return !e.getMessage().isBlank() ? new ResponseEntity<>(message, HttpStatus.BAD_REQUEST)
+                : new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 
     }
 
@@ -84,7 +84,7 @@ public class ExceptionController {
                 "Vitamin with name " + exception.getMessage() + " does not existed in the data.\n" +
                         "The available search names are: " + vitaminServiceImp.getAllVitaminsNames();
 
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
 

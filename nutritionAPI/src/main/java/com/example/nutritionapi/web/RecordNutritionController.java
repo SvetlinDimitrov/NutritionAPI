@@ -34,13 +34,13 @@ public class RecordNutritionController {
     public ResponseEntity<List<RecordView>> getAllRecords(Principal principal){
         UserEntity user = userServiceImp.findByEmail(principal.getName());
         List<RecordView> records = recordService.getAllViewsByUserId(user.getId());
-        return new ResponseEntity<>(records , HttpStatus.FOUND);
+        return new ResponseEntity<>(records , HttpStatus.OK);
     }
 
     @GetMapping("/{day}")
     public ResponseEntity<RecordView> getById(@PathVariable Long day) throws RecordNotFoundException {
         RecordView record = recordService.getViewByRecordId(day);
-        return new ResponseEntity<>(record , HttpStatus.FOUND);
+        return new ResponseEntity<>(record , HttpStatus.OK);
     }
 
     @PatchMapping("/edit/{day}")
@@ -52,7 +52,7 @@ public class RecordNutritionController {
         }
 
         NutritionIntakeView changedNutrient = recordService.updateRecordById(day , dto);
-        return new ResponseEntity<>(changedNutrient , HttpStatus.OK);
+        return new ResponseEntity<>(changedNutrient , HttpStatus.CREATED);
     }
 
 
@@ -67,9 +67,9 @@ public class RecordNutritionController {
 
 
     @DeleteMapping("/delete/{day}")
-    public ResponseEntity<String> deleteRecord(@PathVariable Long day) throws RecordNotFoundException {
+    public ResponseEntity<HttpStatus> deleteRecord(@PathVariable Long day) throws RecordNotFoundException {
         recordService.deleteById(day);
-        return ResponseEntity.ok().body("Successfully deleted");
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -58,7 +58,7 @@ class ElectrolyteControllerTest {
     @Test
     void getElectrolyteByName_invalidName_notFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/nutritionApi/electrolyte/"+"invalidName"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
 
     }
 }

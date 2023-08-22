@@ -68,7 +68,7 @@ class VitaminControllerTest {
     @Test
     void getVitaminByName_invalidName_notFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/nutritionApi/vitamin/"+"invalidName"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
 
     }
 }

@@ -59,7 +59,7 @@ class MacronutrientControllerTest {
     @Test
     void getMacroViewByName_invalidName_notFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/nutritionApi/macronutrient/"+"invalidName"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
 
     }
 }
