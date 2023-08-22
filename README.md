@@ -33,7 +33,9 @@ Then, when you successfully register and log in, you will be able to modify your
 You can visit your record, add consumed nutrition to it, start a new record, or even delete one. This API uses JWT tokens for authorization."
 
 ## API Documentation
-[Full Documentation using Postman](https://documenter.getpostman.com/view/26519722/2s9Y5U1Qv7#b0047059-4965-448a-a3c7-34e758e58193)
++ [Full Documentation using Postman](https://documenter.getpostman.com/view/26519722/2s9Y5U1Qv7#b0047059-4965-448a-a3c7-34e758e58193)
++ [Download the Postman Collection](https://drive.google.com/u/0/uc?id=1XA30k0EBNxh0CHhxyMlmldgqel79OSzN&export=download)
+
 
 ## Contributing
 There are a few TODOs that I haven't managed to resolve.
