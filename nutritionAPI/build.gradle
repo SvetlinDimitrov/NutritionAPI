@@ -22,6 +22,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'com.auth0:java-jwt:4.4.0'
 
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
 
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
