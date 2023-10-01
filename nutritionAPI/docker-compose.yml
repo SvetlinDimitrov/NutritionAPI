@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  my-spring-app:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-db
+    environment:
+      DB_URL: mysql-db
+
+  mysql-db:
+    restart: always
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345

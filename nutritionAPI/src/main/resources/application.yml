@@ -1,3 +1,5 @@
+server:
+  port: 8080
 logging:
   level:
     blog: WARN
@@ -6,12 +8,11 @@ logging:
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    password: ${DB_PASSWORD:12345}
-    url: jdbc:mysql://${DB_URL:localhost:3306}/${DB_NAME:nutritionApi}?createDatabaseIfNotExist=true
-    username: ${DB_USERNAME:root}
+    password: 12345
+    url: jdbc:mysql://localhost:3306/nutritionApi?createDatabaseIfNotExist=true
+    username: root
   jpa:
     hibernate:
-
       ddl-auto: update
     spring:
       jpa:
@@ -20,4 +21,4 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
 security:
-  api-secret-key: ${JWT_SECRET:topSecret}
+  api-secret-key: '${JWT_SECRET:topSecret}'
