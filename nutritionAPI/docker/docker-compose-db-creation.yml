@@ -1,4 +1,5 @@
 version: '3.8'
+name: 'init_db'
 
 services:
   mysql-db:
