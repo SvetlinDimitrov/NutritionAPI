@@ -1,6 +1,3 @@
-CREATE SCHEMA IF NOT EXISTS nutritionApi;
-
-USE nutritionApi;
 
 CREATE TABLE IF NOT EXISTS `users` (
     `id` bigint NOT NULL PRIMARY KEY AUTO_INCREMENT,

@@ -1,15 +1,12 @@
 version: '3.8'
-name: 'init_db'
 
 services:
   mysql-db:
-    restart: always
     image: mysql:latest
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 12345
-    volumes:
-      - mysql-data:/var/lib/mysql
-volumes:
-  mysql-data:
+
+networks:
+  spring-app:

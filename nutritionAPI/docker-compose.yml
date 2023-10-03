@@ -3,14 +3,13 @@ version: '3.8'
 services:
   my-spring-app:
     restart: always
-    build:
-      dockerfile: Dockerfile
+    image: svetlindimitrov/nutrition_api:v1
     ports:
       - "8080:8080"
     depends_on:
       - mysql-db
     environment:
-      DB_URL: mysql-db
+      DB_HOST: mysql-db
 
   mysql-db:
     restart: always
@@ -19,3 +18,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: nutritionApi
+
+networks:
+  spring-app:
