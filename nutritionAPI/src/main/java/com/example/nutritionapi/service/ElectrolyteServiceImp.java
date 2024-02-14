@@ -1,9 +1,11 @@
 package com.example.nutritionapi.service;
 
-import com.example.nutritionapi.domain.dtos.viewDtos.ElectrolyteView;
 import com.example.nutritionapi.domain.constants.entity.Electrolyte;
 import com.example.nutritionapi.domain.constants.entity.Pair;
+import com.example.nutritionapi.domain.dtos.viewDtos.ElectrolyteView;
+import com.example.nutritionapi.domain.dtos.viewDtos.PairView;
 import com.example.nutritionapi.exceptions.ElectrolyteNotFoundException;
+import com.example.nutritionapi.utils.ViewConverter;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +18,25 @@ import java.util.Map;
 public class ElectrolyteServiceImp {
 
     private final Map<String, Electrolyte> electrolyteEntityMap = new LinkedHashMap<>();
+    private final ViewConverter converter;
+
+    public ElectrolyteServiceImp(ViewConverter converter) {
+        this.converter = converter;
+    }
 
     public List<ElectrolyteView> getAllViewElectrolytes() {
 
         return electrolyteEntityMap
                 .values()
                 .stream()
-                .map(ElectrolyteView::new)
+                .map(converter::toView)
                 .toList();
     }
 
     public ElectrolyteView getElectrolyteViewByName(String name) throws ElectrolyteNotFoundException {
 
-        if(electrolyteEntityMap.containsKey(name)){
-            return new ElectrolyteView(electrolyteEntityMap.get(name));
+        if (electrolyteEntityMap.containsKey(name)) {
+            return converter.toView(electrolyteEntityMap.get(name));
         }
         throw new ElectrolyteNotFoundException(name);
     }
@@ -38,9 +45,11 @@ public class ElectrolyteServiceImp {
         return String.join(",", electrolyteEntityMap.keySet());
     }
 
-    public List<Electrolyte> findAll(){
+    public List<Electrolyte> findAll() {
         return electrolyteEntityMap.values().stream().toList();
     }
+
+
 
     @PostConstruct
     public void initData() {

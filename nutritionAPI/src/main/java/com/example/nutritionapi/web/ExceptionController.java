@@ -1,20 +1,19 @@
 package com.example.nutritionapi.web;
 
-import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.example.nutritionapi.domain.dtos.viewDtos.ExceptionResponse;
 import com.example.nutritionapi.exceptions.*;
 import com.example.nutritionapi.service.ElectrolyteServiceImp;
 import com.example.nutritionapi.service.MacronutrientServiceImp;
 import com.example.nutritionapi.service.VitaminServiceImp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 @ControllerAdvice
+@RestController
 public class ExceptionController {
 
     private final ElectrolyteServiceImp electrolyteServiceImp;
@@ -28,32 +27,34 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(ElectrolyteNotFoundException.class)
-    public ResponseEntity<String> catchElectrolyteNotFound(ElectrolyteNotFoundException e) {
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse catchElectrolyteNotFound(ElectrolyteNotFoundException e) {
 
-        String message =
+        return new ExceptionResponse(
                 "Electrolyte with name '" + e.getMessage() + "' does not existed in the data.\n" +
-                        "The available search names are: " + electrolyteServiceImp.getAllElectrolytesNames();
+                        "The available search names are: " + electrolyteServiceImp.getAllElectrolytesNames());
 
-        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MacronutrientNotFoundException.class)
-    public ResponseEntity<String> catchMacroNotFoundError(MacronutrientNotFoundException e) {
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse catchMacroNotFoundError(MacronutrientNotFoundException e) {
 
-        String message =
+        return new ExceptionResponse(
                 "Electrolyte with name '" + e.getMessage() + "' does not existed in the data.\n" +
-                        "The available search names are: " + macronutrientServiceImp.getAllMacrosNames();
+                        "The available search names are: " + macronutrientServiceImp.getAllMacrosNames());
 
-        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(RecordNotFoundException.class)
-    public ResponseEntity<String> catchRecordNotFoundException(RecordNotFoundException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse catchRecordNotFoundException(RecordNotFoundException e) {
+        return new ExceptionResponse(e.getMessage());
     }
 
     @ExceptionHandler(IncorrectNutrientChangeException.class)
-    public ResponseEntity<String> catchIncorrectNutrientChangeException(IncorrectNutrientChangeException e) {
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse catchIncorrectNutrientChangeException(IncorrectNutrientChangeException e) {
 
         String message = "This does not match any nutrient in the dalyRecord/dataBase" +
                 System.lineSeparator() +
@@ -66,38 +67,23 @@ public class ExceptionController {
                 "All available electrolytes names: " +
                 electrolyteServiceImp.getAllElectrolytesNames();
 
-
-        return !e.getMessage().isBlank() ? new ResponseEntity<>(message, HttpStatus.BAD_REQUEST)
-                : new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-
+        return new ExceptionResponse(!e.getMessage().isBlank() ? message : e.getMessage());
     }
 
     @ExceptionHandler(WrongUserCredentialsException.class)
-    public ResponseEntity<String> wrongCredentialsErrorCaught(WrongUserCredentialsException e) {
-        return new ResponseEntity<>(e.getMessageWithErrors(), HttpStatus.BAD_REQUEST);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse wrongCredentialsErrorCaught(WrongUserCredentialsException e) {
+        return new ExceptionResponse(e.getMessageWithErrors());
     }
 
     @ExceptionHandler(VitaminNotFoundException.class)
-    public ResponseEntity<String> notFoundVitamin(VitaminNotFoundException exception) {
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse notFoundVitamin(VitaminNotFoundException exception) {
 
         String message =
                 "Vitamin with name " + exception.getMessage() + " does not existed in the data.\n" +
                         "The available search names are: " + vitaminServiceImp.getAllVitaminsNames();
 
-        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
-    }
-
-
-    //TODO:Not Working
-    @ExceptionHandler(TokenExpiredException.class)
-    public ResponseEntity<Object> handleTokenExpiredException() {
-
-        String message = "Token expired. Please refresh your token or log in again.";
-
-        Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("message", message);
-        errorResponse.put("timestamp", new Date());
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        return new ExceptionResponse(message);
     }
 }

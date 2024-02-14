@@ -1,9 +1,10 @@
 package com.example.nutritionapi.service;
 
-import com.example.nutritionapi.domain.dtos.viewDtos.VitaminView;
 import com.example.nutritionapi.domain.constants.entity.Pair;
 import com.example.nutritionapi.domain.constants.entity.Vitamin;
+import com.example.nutritionapi.domain.dtos.viewDtos.VitaminView;
 import com.example.nutritionapi.exceptions.VitaminNotFoundException;
+import com.example.nutritionapi.utils.ViewConverter;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -15,28 +16,33 @@ import java.util.Map;
 @Service
 public class VitaminServiceImp {
     private final Map<String, Vitamin> vitaminMap = new LinkedHashMap<>();
+    private final ViewConverter converter;
+
+    public VitaminServiceImp(ViewConverter converter) {
+        this.converter = converter;
+    }
 
     public List<VitaminView> getVitamins() {
         return vitaminMap
                 .values()
                 .stream()
-                .map(VitaminView::new).toList();
+                .map(converter::toView).toList();
     }
 
     public VitaminView getVitaminViewByName(String name) throws VitaminNotFoundException {
 
-        if(vitaminMap.containsKey(name)){
-            return new VitaminView(vitaminMap.get(name));
+        if (vitaminMap.containsKey(name)) {
+            return converter.toView(vitaminMap.get(name));
         }
         throw new VitaminNotFoundException(name);
 
     }
 
     public String getAllVitaminsNames() {
-        return String.join("," , vitaminMap.keySet());
+        return String.join(",", vitaminMap.keySet());
     }
 
-    public List<Vitamin> findAll(){
+    public List<Vitamin> findAll() {
         return vitaminMap.values().stream().toList();
     }
 
@@ -619,5 +625,6 @@ public class VitaminServiceImp {
                 .setMeasure("micrograms (mcg)");
 
         vitaminMap.put(B12.getName(), B12);
-    }}
+    }
+}
 

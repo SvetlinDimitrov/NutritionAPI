@@ -4,7 +4,6 @@ import com.example.nutritionapi.domain.dtos.viewDtos.VitaminView;
 import com.example.nutritionapi.exceptions.VitaminNotFoundException;
 import com.example.nutritionapi.service.VitaminServiceImp;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,13 +19,15 @@ public class VitaminController {
     }
 
     @GetMapping
-    public ResponseEntity<List<VitaminView>> getAllVitamins(){
-        return new ResponseEntity<>(vitaminService.getVitamins() , HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<VitaminView> getAllVitamins() {
+        return vitaminService.getVitamins();
     }
+
     @GetMapping("/{name}")
-    public ResponseEntity<VitaminView> getVitaminByName(@PathVariable String name) throws VitaminNotFoundException {
-        VitaminView vitaminView = vitaminService.getVitaminViewByName(name);
-        return new ResponseEntity<>(vitaminView, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public VitaminView getVitaminByName(@PathVariable String name) throws VitaminNotFoundException {
+        return vitaminService.getVitaminViewByName(name);
     }
 
 }

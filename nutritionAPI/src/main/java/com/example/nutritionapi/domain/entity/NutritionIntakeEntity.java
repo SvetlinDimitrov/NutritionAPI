@@ -5,24 +5,25 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "nutritionIntake")
+@Table(name = "nutrition_intakes")
 public class NutritionIntakeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(name = "nutrition_name")
     private String nutrientName;
-    @Column
+    @Column(name = "nutrition_type")
     private String nutrientType;
-    @Column
+    @Column(name = "daily_calories")
     private BigDecimal dailyConsumed = BigDecimal.ZERO;
-    @Column
+    @Column(name = "lower_bound_intake")
     private BigDecimal lowerBoundIntake;
-    @Column
+    @Column(name = "upper_bound_intake")
     private BigDecimal upperBoundIntake;
-    @Column
+    @Column(name = "measurement")
     private  String measurement;
     @ManyToOne
+    @JoinColumn(name = "record_id")
     private RecordEntity record;
 
     public RecordEntity getRecord() {

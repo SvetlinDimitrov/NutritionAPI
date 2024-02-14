@@ -1,138 +1,18 @@
 package com.example.nutritionapi.domain.dtos.viewDtos;
 
-import com.example.nutritionapi.domain.constants.entity.Electrolyte;
-
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 
-public class ElectrolyteView {
+public record ElectrolyteView(String name,
+                              String description,
+                              List<PairView> functions,
+                              List<PairView> sources,
+                              List<PairView> healthConsiderations,
+                              BigDecimal maleLowerBoundIntake,
+                              BigDecimal maleHigherBoundIntake,
+                              BigDecimal femaleLowerBoundIntake,
+                              BigDecimal femaleHigherBoundIntake,
+                              String measure
+) {
 
-    private String name;
-    private String description;
-    private List<PairView> functions;
-    private List<PairView> sources;
-    private List<PairView> healthConsiderations;
-    private BigDecimal maleLowerBoundIntake;
-    private BigDecimal maleHigherBoundIntake;
-    private BigDecimal femaleLowerBoundIntake;
-    private BigDecimal femaleHigherBoundIntake;
-    private String measure;
-
-    public ElectrolyteView() {}
-    public ElectrolyteView(Electrolyte entity) {
-        this.name = entity.getName();
-        this.description = entity.getDescription();
-        this.functions = entity.getFunctions().stream().map(PairView::new).toList();
-        this.sources = entity.getSources().stream().map(PairView::new).toList();
-        this.healthConsiderations = entity.getHealthConsiderations().stream().map(PairView::new).toList();
-        this.maleHigherBoundIntake = entity.getMaleHigherBoundIntake();
-        this.maleLowerBoundIntake = entity.getMaleLowerBoundIntake();
-        this.femaleHigherBoundIntake = entity.getFemaleHigherBoundIntake();
-        this.femaleLowerBoundIntake = entity.getFemaleLowerBoundIntake();
-        this.measure = entity.getMeasure();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public ElectrolyteView setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public ElectrolyteView setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public List<PairView> getFunctions() {
-        return functions;
-    }
-
-    public ElectrolyteView setFunctions(List<PairView> functions) {
-        this.functions = functions;
-        return this;
-    }
-
-    public List<PairView> getSources() {
-        return sources;
-    }
-
-    public ElectrolyteView setSources(List<PairView> sources) {
-        this.sources = sources;
-        return this;
-    }
-
-    public List<PairView> getHealthConsiderations() {
-        return healthConsiderations;
-    }
-
-    public ElectrolyteView setHealthConsiderations(List<PairView> healthConsiderations) {
-        this.healthConsiderations = healthConsiderations;
-        return this;
-    }
-
-    public BigDecimal getMaleLowerBoundIntake() {
-        return maleLowerBoundIntake;
-    }
-
-    public ElectrolyteView setMaleLowerBoundIntake(BigDecimal maleLowerBoundIntake) {
-        this.maleLowerBoundIntake = maleLowerBoundIntake;
-        return this;
-    }
-
-    public BigDecimal getMaleHigherBoundIntake() {
-        return maleHigherBoundIntake;
-    }
-
-    public ElectrolyteView setMaleHigherBoundIntake(BigDecimal maleHigherBoundIntake) {
-        this.maleHigherBoundIntake = maleHigherBoundIntake;
-        return this;
-    }
-
-    public BigDecimal getFemaleLowerBoundIntake() {
-        return femaleLowerBoundIntake;
-    }
-
-    public ElectrolyteView setFemaleLowerBoundIntake(BigDecimal femaleLowerBoundIntake) {
-        this.femaleLowerBoundIntake = femaleLowerBoundIntake;
-        return this;
-    }
-
-    public BigDecimal getFemaleHigherBoundIntake() {
-        return femaleHigherBoundIntake;
-    }
-
-    public ElectrolyteView setFemaleHigherBoundIntake(BigDecimal femaleHigherBoundIntake) {
-        this.femaleHigherBoundIntake = femaleHigherBoundIntake;
-        return this;
-    }
-
-    public String getMeasure() {
-        return measure;
-    }
-
-    public ElectrolyteView setMeasure(String measure) {
-        this.measure = measure;
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ElectrolyteView that = (ElectrolyteView) o;
-        return Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(functions, that.functions) && Objects.equals(sources, that.sources) && Objects.equals(healthConsiderations, that.healthConsiderations) && Objects.equals(maleLowerBoundIntake, that.maleLowerBoundIntake) && Objects.equals(maleHigherBoundIntake, that.maleHigherBoundIntake) && Objects.equals(femaleLowerBoundIntake, that.femaleLowerBoundIntake) && Objects.equals(femaleHigherBoundIntake, that.femaleHigherBoundIntake) && Objects.equals(measure, that.measure);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, description, functions, sources, healthConsiderations, maleLowerBoundIntake, maleHigherBoundIntake, femaleLowerBoundIntake, femaleHigherBoundIntake, measure);
-    }
 }

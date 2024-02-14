@@ -3,8 +3,8 @@ package com.example.nutritionapi.web;
 import com.example.nutritionapi.domain.dtos.viewDtos.MacronutrientView;
 import com.example.nutritionapi.exceptions.MacronutrientNotFoundException;
 import com.example.nutritionapi.service.MacronutrientServiceImp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,13 +20,15 @@ public class MacronutrientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MacronutrientView>> getAllMacrosView(){
-        return new ResponseEntity<>(macronutrientService.getAllMacrosView() , HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<MacronutrientView> getAllMacrosView() {
+        return macronutrientService.getAllMacrosView();
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<MacronutrientView> getMacroViewByName(@PathVariable String name) throws MacronutrientNotFoundException {
-        return new ResponseEntity<>(macronutrientService.getMacroViewByName(name) , HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public MacronutrientView getMacroViewByName(@PathVariable String name) throws MacronutrientNotFoundException {
+        return macronutrientService.getMacroViewByName(name);
     }
 
 }

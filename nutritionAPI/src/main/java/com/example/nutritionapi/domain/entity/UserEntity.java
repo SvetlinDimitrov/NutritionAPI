@@ -17,31 +17,31 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column (name = "username")
     private String username;
 
-    @Column
+    @Column(name = "email")
     private String email;
 
-    @Column
+    @Column(name = "password")
     private String password;
 
-    @Column
+    @Column(name = "kilograms")
     private BigDecimal kilograms;
-    @Column
+    @Column(name = "height")
     private BigDecimal height;
-    @Column
+    @Column(name = "age")
     private Integer age;
 
-    @Column
+    @Column(name = "workout_state")
     @Enumerated(EnumType.STRING)
     private WorkoutState workoutState;
 
-    @Column
+    @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column
+    @Column(name = "user_details")
     @Enumerated(EnumType.STRING)
     private UserDetails userDetails = UserDetails.NOT_COMPLETED;
 

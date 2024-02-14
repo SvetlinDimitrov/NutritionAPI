@@ -17,10 +17,11 @@ public class RecordEntity {
     @OneToMany(mappedBy = "record" , cascade = {CascadeType.PERSIST, CascadeType.MERGE , CascadeType.REMOVE})
     private List<NutritionIntakeEntity> dailyIntakeViews;
 
-    @Column
+    @Column(name = "daily_calories")
     private BigDecimal dailyCalories;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
 

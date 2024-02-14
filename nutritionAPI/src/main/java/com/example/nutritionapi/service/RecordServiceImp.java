@@ -11,6 +11,7 @@ import com.example.nutritionapi.exceptions.IncorrectNutrientChangeException;
 import com.example.nutritionapi.exceptions.RecordNotFoundException;
 import com.example.nutritionapi.repos.RecordRepository;
 import com.example.nutritionapi.repos.UserRepository;
+import com.example.nutritionapi.utils.ViewConverter;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,23 +24,25 @@ public class RecordServiceImp {
     private final RecordRepository recordRepository;
     private final UserRepository userRepository;
     private final NutrientIntakeService nutrientIntakeService;
+    private final ViewConverter converter;
 
-    public RecordServiceImp(RecordRepository recordRepository, UserRepository userRepository, NutrientIntakeService nutrientIntakeService) {
+    public RecordServiceImp(RecordRepository recordRepository, UserRepository userRepository, NutrientIntakeService nutrientIntakeService, ViewConverter converter) {
         this.recordRepository = recordRepository;
         this.userRepository = userRepository;
         this.nutrientIntakeService = nutrientIntakeService;
+        this.converter = converter;
     }
 
     public List<RecordView> getAllViewsByUserId(Long userId) {
         UserEntity user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException(userId.toString()));
         return user.getRecords().stream()
-                .map(RecordView::new)
+                .map(converter::toView)
                 .toList();
     }
 
     public RecordView getViewByRecordId(Long day) throws RecordNotFoundException {
         return recordRepository.findById(day)
-                .map(RecordView::new)
+                .map(converter::toView)
                 .orElseThrow(() -> new RecordNotFoundException(day.toString()));
     }
 
@@ -54,14 +57,14 @@ public class RecordServiceImp {
 
         NutritionIntakeEntity intake = record.getDailyIntakeViews()
                 .stream()
-                .filter(nutrient -> nutrient.getNutrientName().equals(dto.getName()))
+                .filter(nutrient -> nutrient.getNutrientName().equals(dto.name()))
                 .findFirst()
                 .orElseThrow(() -> new IncorrectNutrientChangeException("catch me"));
 
-        intake.setDailyConsumed(intake.getDailyConsumed().add(dto.getMeasure()));
+        intake.setDailyConsumed(intake.getDailyConsumed().add(dto.measure()));
         recordRepository.save(record);
 
-        return new NutritionIntakeView(intake);
+        return converter.toView(intake);
     }
 
     public RecordView addNewRecordByUserId(Long userId) {
@@ -72,25 +75,13 @@ public class RecordServiceImp {
         user.getRecords().add(record);
         userRepository.save(user);
 
-        return new RecordView(user.getRecords().get(user.getRecords().size() - 1));
+        return converter.toView(user.getRecords().get(user.getRecords().size() - 1));
     }
 
     public RecordEntity createRecord(UserEntity user) {
         RecordEntity record = new RecordEntity();
         record.setUser(user);
-        BigDecimal BMR;
-
-        if (user.getGender().equals(Gender.MALE)) {
-            BMR = new BigDecimal("88.362")
-                    .add(new BigDecimal("13.397").multiply(user.getKilograms()))
-                    .add(new BigDecimal("4.799").multiply(user.getHeight()))
-                    .subtract(new BigDecimal("5.677").add(new BigDecimal(user.getAge())));
-        } else {
-            BMR = new BigDecimal("447.593 ")
-                    .add(new BigDecimal("9.247").multiply(user.getKilograms()))
-                    .add(new BigDecimal("3.098").multiply(user.getHeight()))
-                    .subtract(new BigDecimal("4.330").add(new BigDecimal(user.getAge())));
-        }
+        BigDecimal BMR = getBmr(user);
 
         BigDecimal caloriesPerDay = switch (user.getWorkoutState()) {
             case SEDENTARY -> BMR.multiply(new BigDecimal("1.2"));
@@ -104,6 +95,23 @@ public class RecordServiceImp {
         record.setDailyIntakeViews(nutrientIntakeService
                 .create(user.getGender(), caloriesPerDay, user.getWorkoutState(), record));
         return record;
+    }
+
+    private BigDecimal getBmr(UserEntity user) {
+        BigDecimal BMR;
+
+        if (user.getGender().equals(Gender.MALE)) {
+            BMR = new BigDecimal("88.362")
+                    .add(new BigDecimal("13.397").multiply(user.getKilograms()))
+                    .add(new BigDecimal("4.799").multiply(user.getHeight()))
+                    .subtract(new BigDecimal("5.677").add(new BigDecimal(user.getAge())));
+        } else {
+            BMR = new BigDecimal("447.593 ")
+                    .add(new BigDecimal("9.247").multiply(user.getKilograms()))
+                    .add(new BigDecimal("3.098").multiply(user.getHeight()))
+                    .subtract(new BigDecimal("4.330").add(new BigDecimal(user.getAge())));
+        }
+        return BMR;
     }
 
     @Transactional

@@ -2,6 +2,7 @@ package com.example.nutritionapi.web;
 
 import com.example.nutritionapi.config.security.JwtUtil;
 import com.example.nutritionapi.config.security.UserDetailsImp;
+import com.example.nutritionapi.domain.dtos.viewDtos.JWT;
 import com.example.nutritionapi.domain.dtos.user.EditUserDto;
 import com.example.nutritionapi.domain.dtos.user.LoginUserDto;
 import com.example.nutritionapi.domain.dtos.user.RegisterUserDto;
@@ -10,9 +11,8 @@ import com.example.nutritionapi.domain.entity.UserEntity;
 import com.example.nutritionapi.exceptions.WrongUserCredentialsException;
 import com.example.nutritionapi.service.UserServiceImp;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,6 @@ import java.security.Principal;
 public class UserController {
 
     private final JwtUtil jwtUtil;
-
     private final UserServiceImp userServiceImp;
 
     public UserController(JwtUtil jwtUtil, UserServiceImp userServiceImp) {
@@ -33,56 +32,54 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> createUserAccount(@Valid @RequestBody RegisterUserDto userDto,
-                                                        BindingResult result) throws WrongUserCredentialsException {
-        if(result.hasErrors()){
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createUserAccount(@Valid @RequestBody RegisterUserDto userDto,
+                                  BindingResult result) throws WrongUserCredentialsException {
+        if (result.hasErrors()) {
             throw new WrongUserCredentialsException(result.getFieldErrors());
         }
-
         userServiceImp.register(userDto);
-
-        return new ResponseEntity<>("Successfuly created account" , HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login (@Valid @RequestBody LoginUserDto userDto,
-                                         BindingResult result) throws WrongUserCredentialsException {
+    @ResponseStatus(HttpStatus.OK)
+    public JWT login(@Valid @RequestBody LoginUserDto userDto,
+                     BindingResult result) throws WrongUserCredentialsException {
 
-        if(!userServiceImp.login(userDto)){
-            result.addError(new FieldError("username_password", "password" , "wrong username or password"));
+        if (!userServiceImp.login(userDto)) {
+            result.addError(new FieldError("username_password", "password", "wrong username or password"));
         }
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             throw new WrongUserCredentialsException(result.getFieldErrors());
         }
-        Long userID = userServiceImp.findByEmail(userDto.getEmail()).getId();
+        Long userID = userServiceImp.findByEmail(userDto.email()).getId();
 
-        return new ResponseEntity<>(jwtUtil.createJwtToken(userID) , HttpStatus.OK);
+        return new JWT(jwtUtil.createJwtToken(userID));
     }
 
 
     @GetMapping("/details")
-    public ResponseEntity<UserView> getUserDetails(Principal principal){
+    @ResponseStatus(HttpStatus.OK)
+    public UserView getUserDetails(Principal principal) {
         String email = principal.getName();
-        UserView userView = new UserView(userServiceImp.findByEmail(email));
-        return new ResponseEntity<>(userView, HttpStatus.OK);
+        return userServiceImp.findByEmailView(email);
     }
 
     @PatchMapping("/details")
-    public ResponseEntity<UserView> editUserProfile(Principal principal,
-                                                    @RequestBody EditUserDto userDto){
-
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public UserView editUserProfile(Principal principal, @RequestBody EditUserDto userDto) {
 
         String email = principal.getName();
         UserEntity user = userServiceImp.findByEmail(email);
         Long userId = user.getId();
 
-        userServiceImp.editUserEntity(userDto , userId);
+        userServiceImp.editUserEntity(userDto, userId);
         UserView userView = userServiceImp.getUserViewById(userId);
 
         UserDetailsImp.updateAuthorities();
 
-        return new ResponseEntity<>(userView , HttpStatus.ACCEPTED);
+        return userView;
 
     }
 

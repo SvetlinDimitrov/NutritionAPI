@@ -7,6 +7,7 @@ import com.example.nutritionapi.domain.dtos.user.RegisterUserDto;
 import com.example.nutritionapi.domain.dtos.viewDtos.UserView;
 import com.example.nutritionapi.domain.entity.UserEntity;
 import com.example.nutritionapi.repos.UserRepository;
+import com.example.nutritionapi.utils.ViewConverter;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,14 @@ public class UserServiceImp {
     private final UserRepository userRepository;
     private final RecordServiceImp recordService;
     private final PasswordEncoder passwordEncoder;
+    private final ViewConverter converter;
 
 
-    public UserServiceImp(UserRepository userRepository, RecordServiceImp recordService, PasswordEncoder passwordEncoder) {
+    public UserServiceImp(UserRepository userRepository, RecordServiceImp recordService, PasswordEncoder passwordEncoder, ViewConverter converter) {
         this.userRepository = userRepository;
         this.recordService = recordService;
         this.passwordEncoder = passwordEncoder;
+        this.converter = converter;
     }
 
     public boolean notUsedEmail(String email) {
@@ -43,38 +46,42 @@ public class UserServiceImp {
                 .orElseThrow(() -> new UsernameNotFoundException("no user found with the given email"));
     }
 
+    public UserView findByEmailView(String email) {
+        return converter.toView(findByEmail(email));
+    }
+
     public UserEntity findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("no user found with the given id"));
     }
 
     public boolean login(LoginUserDto userDto) {
-        Optional<UserEntity> entity = userRepository.findByEmail(userDto.getEmail());
-        return entity.isPresent() && passwordEncoder.matches(userDto.getPassword(), entity.get().getPassword());
+        Optional<UserEntity> entity = userRepository.findByEmail(userDto.email());
+        return entity.isPresent() && passwordEncoder.matches(userDto.password(), entity.get().getPassword());
     }
 
     public UserView getUserViewById(Long userId) {
-        return new UserView(findById(userId));
+        return converter.toView(findById(userId));
     }
     public void editUserEntity(EditUserDto userDto, Long userId) {
         UserEntity user = findById(userId);
 
-        if (userDto.getUsername() != null && userDto.getUsername().length() > 4 && !userDto.getUsername().isBlank()) {
-            user.setUsername(userDto.getUsername());
+        if (userDto.username() != null && userDto.username().length() > 4 && !userDto.username().isBlank()) {
+            user.setUsername(userDto.username());
         }
-        if (userDto.getKilograms() != null) {
-            user.setKilograms(userDto.getKilograms());
+        if (userDto.kilograms() != null) {
+            user.setKilograms(userDto.kilograms());
         }
-        if (userDto.getWorkoutState() != null) {
-            user.setWorkoutState(userDto.getWorkoutState());
+        if (userDto.workoutState() != null) {
+            user.setWorkoutState(userDto.workoutState());
         }
-        if (userDto.getHeight() != null) {
-            user.setHeight(userDto.getHeight());
+        if (userDto.height() != null) {
+            user.setHeight(userDto.height());
         }
-        if (userDto.getGender() != null) {
-            user.setGender(userDto.getGender());
+        if (userDto.gender() != null) {
+            user.setGender(userDto.gender());
         }
-        if (userDto.getAge() != null) {
-            user.setAge(userDto.getAge());
+        if (userDto.age() != null) {
+            user.setAge(userDto.age());
         }
 
         fillUserWithCompleteDetails(user);
@@ -93,13 +100,13 @@ public class UserServiceImp {
     }
     private UserEntity toUserEntity(RegisterUserDto userDto) {
         return new UserEntity()
-                .setEmail(userDto.getEmail())
-                .setPassword(passwordEncoder.encode(userDto.getPassword()))
-                .setUsername(userDto.getUsername())
-                .setWorkoutState(userDto.getWorkoutState())
-                .setKilograms(userDto.getKg())
-                .setGender(userDto.getGender())
-                .setHeight(userDto.getHeight())
-                .setAge(userDto.getAge());
+                .setEmail(userDto.email())
+                .setPassword(passwordEncoder.encode(userDto.password()))
+                .setUsername(userDto.username())
+                .setWorkoutState(userDto.workoutState())
+                .setKilograms(userDto.kg())
+                .setGender(userDto.gender())
+                .setHeight(userDto.height())
+                .setAge(userDto.age());
     }
 }

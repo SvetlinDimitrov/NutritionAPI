@@ -5,65 +5,6 @@ import com.example.nutritionapi.domain.constants.enums.WorkoutState;
 
 import java.math.BigDecimal;
 
-public class EditUserDto {
-    private String username;
-    private BigDecimal kilograms;
-    private WorkoutState workoutState;
-    private Gender gender;
-    private BigDecimal height;
-    private Integer age;
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public EditUserDto setAge(Integer age) {
-        this.age = age;
-        return this;
-    }
-
-    public BigDecimal getHeight() {
-        return height;
-    }
-
-    public EditUserDto setHeight(BigDecimal height) {
-        this.height = height;
-        return this;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public EditUserDto setGender(Gender gender) {
-        this.gender = gender;
-        return this;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public EditUserDto setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public BigDecimal getKilograms() {
-        return kilograms;
-    }
-
-    public EditUserDto setKilograms(BigDecimal kilograms) {
-        this.kilograms = kilograms;
-        return this;
-    }
-
-    public WorkoutState getWorkoutState() {
-        return workoutState;
-    }
-
-    public EditUserDto setWorkoutState(WorkoutState workoutState) {
-        this.workoutState = workoutState;
-        return this;
-    }
+public record EditUserDto(String username, BigDecimal kilograms, WorkoutState workoutState, Gender gender,
+                          BigDecimal height, Integer age) {
 }

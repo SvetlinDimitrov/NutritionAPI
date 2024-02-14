@@ -3,7 +3,9 @@ package com.example.nutritionapi.service;
 import com.example.nutritionapi.domain.constants.entity.Macronutrient;
 import com.example.nutritionapi.domain.constants.entity.Pair;
 import com.example.nutritionapi.domain.dtos.viewDtos.MacronutrientView;
+import com.example.nutritionapi.domain.dtos.viewDtos.PairView;
 import com.example.nutritionapi.exceptions.MacronutrientNotFoundException;
+import com.example.nutritionapi.utils.ViewConverter;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -15,27 +17,32 @@ import java.util.Map;
 public class MacronutrientServiceImp {
 
     private final Map<String, Macronutrient> macronutrientMap = new LinkedHashMap<>();
+    private final ViewConverter converter;
+
+    public MacronutrientServiceImp(ViewConverter converter) {
+        this.converter = converter;
+    }
 
     public List<MacronutrientView> getAllMacrosView() {
         return macronutrientMap
                 .values()
                 .stream()
-                .map(MacronutrientView::new)
+                .map(converter::toView)
                 .toList();
     }
 
     public MacronutrientView getMacroViewByName(String name) throws MacronutrientNotFoundException {
-        if(macronutrientMap.containsKey(name)){
-            return new MacronutrientView(macronutrientMap.get(name));
+        if (macronutrientMap.containsKey(name)) {
+            return converter.toView(macronutrientMap.get(name));
         }
         throw new MacronutrientNotFoundException(name);
     }
 
     public String getAllMacrosNames() {
-        return String.join("," , macronutrientMap.keySet());
+        return String.join(",", macronutrientMap.keySet());
     }
 
-    public List<Macronutrient> findAll(){
+    public List<Macronutrient> findAll() {
         return macronutrientMap.values().stream().toList();
     }
 
@@ -101,7 +108,7 @@ public class MacronutrientServiceImp {
                 .setActiveState(0.50)
                 .setInactiveState(0.50);
 
-        macronutrientMap.put(carbohydrates.getName() , carbohydrates);
+        macronutrientMap.put(carbohydrates.getName(), carbohydrates);
 
 
         Macronutrient protein = new Macronutrient()
@@ -165,7 +172,7 @@ public class MacronutrientServiceImp {
                 .setActiveState(0.25)
                 .setInactiveState(0.15);
 
-        macronutrientMap.put(protein.getName() , protein);
+        macronutrientMap.put(protein.getName(), protein);
 
         Macronutrient fat = new Macronutrient()
                 .setName("Fat")
@@ -239,6 +246,6 @@ public class MacronutrientServiceImp {
                 .setActiveState(0.20)
                 .setInactiveState(0.35);
 
-        macronutrientMap.put(fat.getName() , fat);
+        macronutrientMap.put(fat.getName(), fat);
     }
 }

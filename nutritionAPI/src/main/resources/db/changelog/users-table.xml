@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <!-- Example change sets go here -->
+    <changeSet id="1_user-table-create" author="Svetlin Dimitrov">
+        <createTable tableName="users">
+            <column name="id" autoIncrement="true" type="bigint">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="username" type="varchar(50)"/>
+            <column name="email" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kilograms" type="DECIMAL(19,2)"/>
+            <column name="height" type="DECIMAL(19,2)"/>
+            <column name="age" type="int"/>
+            <column name="workout_state" type="varchar(50)"/>
+            <column name="gender" type="varchar(50)"/>
+            <column name="user_details" type="varchar(50)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
