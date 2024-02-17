@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: "nutritionApiReactive"
+
+networks:
+  spring-app:

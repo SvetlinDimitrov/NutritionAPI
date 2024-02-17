@@ -1,5 +1,11 @@
 spring:
-
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: a4a17bfb744cb98902b2
+            client-secret: adcaf7d74ae18e8ffa4eb01353b56012dcd5d4b7
   jpa:
     hibernate:
       ddl-auto: none

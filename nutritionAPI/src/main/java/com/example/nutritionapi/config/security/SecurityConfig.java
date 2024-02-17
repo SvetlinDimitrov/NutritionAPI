@@ -12,35 +12,38 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtAuthorizationFilter filter) throws Exception {
-        return httpSecurity
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
-                .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable)
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .securityMatcher("/nutritionApi/**")
-                .authorizeHttpRequests(
-                        request -> request
-                                .requestMatchers(
-                                        "/nutritionApi/user/register",
-                                        "/nutritionApi/user/login",
-                                        "/nutritionApi/electrolyte",
-                                        "/nutritionApi/electrolyte/{name}",
-                                        "/nutritionApi/macronutrient",
-                                        "/nutritionApi/macronutrient/{name}",
-                                        "/nutritionApi/vitamin",
-                                        "/nutritionApi/vitamin/{name}"
-                                ).permitAll()
-                                .requestMatchers("/nutritionApi/records/**").hasRole(UserDetails.COMPLETED.name())
-                                .anyRequest().authenticated()
-                )
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtAuthorizationFilter filter) throws Exception {
+    return httpSecurity
+        .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+        .csrf(AbstractHttpConfigurer::disable)
+        .cors(AbstractHttpConfigurer::disable)
+        .formLogin(withDefaults())
+        .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .oauth2Login(withDefaults())
+        .securityMatcher("/nutritionApi/**")
+        .authorizeHttpRequests(
+            request -> request
+                .requestMatchers(
+                    "/nutritionApi/user/register",
+                    "/nutritionApi/user/login",
+                    "/nutritionApi/electrolyte",
+                    "/nutritionApi/electrolyte/{name}",
+                    "/nutritionApi/macronutrient",
+                    "/nutritionApi/macronutrient/{name}",
+                    "/nutritionApi/vitamin",
+                    "/nutritionApi/vitamin/{name}"
+                ).permitAll()
+                .requestMatchers("/nutritionApi/records/**").hasRole(UserDetails.COMPLETED.name())
+                .anyRequest().authenticated()
+        )
 
 //                ).logout(logout ->
 //                        logout
@@ -50,12 +53,12 @@ public class SecurityConfig {
 //                                .deleteCookies("JSESSIONID")
 //                                .clearAuthentication(true)
 //                                .permitAll())
-                .build();
-    }
+        .build();
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
 }
