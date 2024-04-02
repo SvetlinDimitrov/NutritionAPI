@@ -6,11 +6,11 @@ import com.api.reactive_nutritionapi.domain.dtos.viewDtos.MacronutrientView;
 import com.api.reactive_nutritionapi.exceptions.MacronutrientNotFoundException;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -25,8 +25,10 @@ public class MacronutrientServiceImp {
   }
 
   public Mono<MacronutrientView> getMacroViewByName(String name) {
-    return Mono.just(macronutrientMap.get(name))
-        .switchIfEmpty(Mono.error(new MacronutrientNotFoundException(name)))
+    return Mono.fromSupplier(() -> Optional.ofNullable(macronutrientMap.get(name)))
+        .flatMap(optional -> optional
+            .map(Mono::just)
+            .orElse(Mono.error(new MacronutrientNotFoundException(name))))
         .map(MacronutrientView::toView);
   }
 

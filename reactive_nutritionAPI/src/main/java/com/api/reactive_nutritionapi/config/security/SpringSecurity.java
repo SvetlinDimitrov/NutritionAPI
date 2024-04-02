@@ -4,7 +4,6 @@ import com.api.reactive_nutritionapi.config.security.jwt.JwtTokenAuthenticationF
 import com.api.reactive_nutritionapi.config.security.jwt.JwtTokenProvider;
 import com.api.reactive_nutritionapi.domain.constants.enums.UserDetails;
 import com.api.reactive_nutritionapi.repos.UserRepository;
-import io.netty.handler.codec.http.HttpMethod;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
@@ -19,7 +18,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
-import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @EnableWebFluxSecurity
 @Configuration
@@ -73,6 +71,7 @@ public class SpringSecurity {
     authenticationManager.setPasswordEncoder(passwordEncoder);
     return authenticationManager;
   }
+
   @Bean
   public CorsWebFilter corsWebFilter() {
     CorsConfiguration corsConfig = new CorsConfiguration();

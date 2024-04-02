@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -24,8 +25,10 @@ public class VitaminServiceImp {
   }
 
   public Mono<VitaminView> getVitaminViewByName(String name) {
-    return Mono.just(vitaminMap.get(name))
-        .switchIfEmpty(Mono.error(new VitaminNotFoundException(name)))
+    return Mono.fromSupplier(() -> Optional.ofNullable(vitaminMap.get(name)))
+        .flatMap(optional -> optional
+            .map(Mono::just)
+            .orElse(Mono.error(new VitaminNotFoundException(name))))
         .map(VitaminView::toView);
   }
 

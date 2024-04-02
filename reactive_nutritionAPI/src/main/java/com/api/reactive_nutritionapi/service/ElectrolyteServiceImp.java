@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -25,8 +26,10 @@ public class ElectrolyteServiceImp {
   }
 
   public Mono<ElectrolyteView> getElectrolyteViewByName(String name) {
-    return Mono.just(electrolyteEntityMap.get(name))
-        .switchIfEmpty(Mono.error(new ElectrolyteNotFoundException(name)))
+    return Mono.fromSupplier(() -> Optional.ofNullable(electrolyteEntityMap.get(name)))
+        .flatMap(optional -> optional
+            .map(Mono::just)
+            .orElse(Mono.error(new ElectrolyteNotFoundException(name))))
         .map(ElectrolyteView::toView);
   }
 

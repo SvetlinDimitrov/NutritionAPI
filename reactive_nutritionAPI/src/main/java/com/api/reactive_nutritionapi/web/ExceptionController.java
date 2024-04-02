@@ -43,7 +43,7 @@ public class ExceptionController {
 
     return macronutrientServiceImp.getAllMacrosNames()
         .map(names -> new ExceptionResponse(
-            "Electrolyte with name '" + e.getMessage() + "' does not existed in the data.\n" +
+            "Macronutrient with name '" + e.getMessage() + "' does not existed in the data.\n" +
                 "The available search names are: " + names));
 
   }

@@ -2,8 +2,6 @@ package com.api.reactive_nutritionapi.config.security.jwt;
 
 
 import com.api.reactive_nutritionapi.config.security.UserPrincipal;
-import com.api.reactive_nutritionapi.domain.dtos.viewDtos.UserView;
-import com.api.reactive_nutritionapi.domain.entity.UserEntity;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
