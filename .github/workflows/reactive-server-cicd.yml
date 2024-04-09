@@ -35,9 +35,10 @@ jobs:
         distribution: corretto
     - name: Print directory names
       run: |
-        ls -d */ | sed 's#/##'  # Print only directory names without trailing slashes
+        ls -d */ | sed 's#/##' 
     - name : Test && Build && Deploy
       working-directory: ./reactive_nutritionAPI
       run: |
+        ls -d */ | sed 's#/##' 
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/reactive-nutritionapi-server .
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/reactive-nutritionapi-server
