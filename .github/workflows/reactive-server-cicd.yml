@@ -33,7 +33,9 @@ jobs:
         java-version: '17'
         cache: 'maven'
         distribution: corretto
-
+    - name: Print directory names
+      run: |
+        ls -d */ | sed 's#/##'  # Print only directory names without trailing slashes
     - name : Test && Build && Deploy
       working-directory: ./reactive_nutritionAPI
       run: |
