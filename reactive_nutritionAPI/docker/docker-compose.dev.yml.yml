@@ -24,34 +24,6 @@ services:
       - backend
     restart: always
 
-  vue-app:
-    build:
-      context: ../web
-    container_name: client
-    ports:
-      - "3000:80"
-    environment:
-      BASE_URL: http://reverse_proxy:80
-    depends_on:
-      - spring-boot-app
-    networks:
-      - backend
-
-  spring-boot-app:
-    image: svetlindimitrov/reactive-nutritionapi-server
-    container_name: spring-boot-app
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql-db
-      - reverse_proxy
-    networks:
-      - backend
-    restart: always
-    environment:
-      DB_HOST: mysql-db
-      TZ: Europe/Sofia
-
 networks:
   backend:
     driver: bridge
