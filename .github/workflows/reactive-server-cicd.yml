@@ -37,5 +37,5 @@ jobs:
     - name : Test && Build && Deploy
       working-directory: ./reactive_nutritionAPI
       run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/reactive-nutritionApi-server .
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/reactive-nutritionApi-server
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/reactive-nutritionapi-server .
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/reactive-nutritionapi-server
