@@ -8,8 +8,8 @@ on:
         required: true
   push:
     paths:
-      - '/reactive_nutritionAPI/**'
-      - '!/reactive_nutritionAPI/web/**'
+      - 'reactive_nutritionAPI/**'
+      - '!reactive_nutritionAPI/ignore_folder/**'
 
 jobs:
   achievement-server-cicd:
