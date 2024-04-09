@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 public record EditUserDto(
     String username,
     BigDecimal kilograms,
-    WorkoutState workoutState,
-    Gender gender,
+    String workoutState,
+    String gender,
     BigDecimal height,
     Integer age) {
 }

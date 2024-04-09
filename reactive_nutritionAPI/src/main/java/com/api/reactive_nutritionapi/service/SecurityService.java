@@ -2,12 +2,11 @@ package com.api.reactive_nutritionapi.service;
 
 import com.api.reactive_nutritionapi.config.security.UserPrincipal;
 import com.api.reactive_nutritionapi.config.security.jwt.JwtTokenProvider;
-import com.api.reactive_nutritionapi.domain.constants.enums.UserDetails;
 import com.api.reactive_nutritionapi.domain.dtos.viewDtos.JwtResponse;
+import com.api.reactive_nutritionapi.domain.dtos.viewDtos.JwtToken;
 import com.api.reactive_nutritionapi.domain.dtos.viewDtos.UserView;
 import com.api.reactive_nutritionapi.domain.entity.UserEntity;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,7 @@ public class SecurityService {
           PreAuthenticatedAuthenticationToken auth = new PreAuthenticatedAuthenticationToken(principal, null, principal.getAuthorities());
           SecurityContextHolder.getContext().setAuthentication(auth);
           UserView view = UserView.toView(user);
-          String token = tokenProvider.createToken(principal);
+          JwtToken token = tokenProvider.createToken(principal);
           return new JwtResponse(view, token);
         });
   }

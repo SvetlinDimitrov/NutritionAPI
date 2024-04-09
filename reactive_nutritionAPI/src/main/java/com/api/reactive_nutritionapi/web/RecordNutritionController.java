@@ -32,11 +32,9 @@ public class RecordNutritionController {
 
   @GetMapping("/{recordId}")
   @ResponseStatus(HttpStatus.OK)
-  public Mono<RecordView> getById(Mono<Principal> principal, @PathVariable Mono<Long> recordId) {
+  public Mono<RecordView> getById(Mono<Principal> principal, @PathVariable Long recordId) {
     return principal
-        .flatMap(user ->
-            recordId.flatMap(id -> recordService.getViewByRecordIdAndUserId(id, user.getName()))
-        );
+        .flatMap(user -> recordService.getViewByRecordIdAndUserId(recordId, user.getName()));
   }
 
   @PatchMapping("/edit/{recordId}")

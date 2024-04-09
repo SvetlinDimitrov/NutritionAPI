@@ -4,6 +4,7 @@ import com.example.nutritionapi.domain.constants.entity.Electrolyte;
 import com.example.nutritionapi.domain.constants.entity.Pair;
 import com.example.nutritionapi.domain.dtos.viewDtos.ElectrolyteView;
 import com.example.nutritionapi.domain.dtos.viewDtos.PairView;
+import com.example.nutritionapi.domain.entity.UserEntity;
 import com.example.nutritionapi.exceptions.ElectrolyteNotFoundException;
 import com.example.nutritionapi.utils.ViewConverter;
 import jakarta.annotation.PostConstruct;

@@ -8,7 +8,6 @@ import com.api.reactive_nutritionapi.domain.entity.RecordEntity;
 import com.api.reactive_nutritionapi.domain.entity.UserEntity;
 import com.api.reactive_nutritionapi.exceptions.IncorrectNutrientChangeException;
 import com.api.reactive_nutritionapi.exceptions.RecordNotFoundException;
-import com.api.reactive_nutritionapi.exceptions.UserException;
 import com.api.reactive_nutritionapi.repos.RecordRepository;
 import com.api.reactive_nutritionapi.repos.UserRepository;
 import org.springframework.stereotype.Service;
@@ -33,9 +32,7 @@ public class RecordServiceImp {
   public Flux<RecordView> getAllViewsByUserId(String userEmail) {
     return userRepository
         .findByEmail(userEmail)
-        .flatMapMany(user ->
-            recordRepository.findAllByUserId(user.getId())
-                .switchIfEmpty(Flux.error(new UserException("No record found with userId " + user.getId())))
+        .flatMapMany(user -> recordRepository.findAllByUserId(user.getId())
         )
         .flatMap(recordView ->
             nutrientIntakeService.findAllByRecordId(recordView.getId())
@@ -48,7 +45,7 @@ public class RecordServiceImp {
   public Mono<RecordView> getViewByRecordIdAndUserId(Long recordId, String userEmail) {
     return userRepository
         .findByEmail(userEmail)
-        .flatMap(user -> recordRepository.findByIdAndUserId(user.getId(), recordId))
+        .flatMap(user -> recordRepository.findByIdAndUserId(recordId ,user.getId()))
         .switchIfEmpty(Mono.error(new RecordNotFoundException(recordId.toString())))
         .flatMap(
             data ->
@@ -103,7 +100,7 @@ public class RecordServiceImp {
           .add(new BigDecimal("4.799").multiply(user.getHeight()))
           .subtract(new BigDecimal("5.677").add(new BigDecimal(user.getAge())));
     } else {
-      BMR = new BigDecimal("447.593 ")
+      BMR = new BigDecimal("447.593")
           .add(new BigDecimal("9.247").multiply(user.getKilograms()))
           .add(new BigDecimal("3.098").multiply(user.getHeight()))
           .subtract(new BigDecimal("4.330").add(new BigDecimal(user.getAge())));

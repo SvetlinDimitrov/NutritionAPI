@@ -55,7 +55,7 @@ public class ExceptionController {
   }
 
   @ExceptionHandler(UserException.class)
-  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Mono<ExceptionResponse> catchUserNotFound(UserException e) {
     return Mono.just(new ExceptionResponse(e.getMessage()));
   }

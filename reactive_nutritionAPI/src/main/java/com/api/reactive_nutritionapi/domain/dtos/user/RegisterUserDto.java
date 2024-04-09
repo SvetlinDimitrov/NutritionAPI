@@ -4,6 +4,9 @@ import com.api.reactive_nutritionapi.domain.constants.enums.Gender;
 import com.api.reactive_nutritionapi.domain.constants.enums.WorkoutState;
 import com.api.reactive_nutritionapi.domain.entity.UserEntity;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 public record RegisterUserDto(

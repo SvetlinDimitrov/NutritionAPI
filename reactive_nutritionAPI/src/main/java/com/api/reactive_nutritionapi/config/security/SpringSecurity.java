@@ -18,6 +18,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @EnableWebFluxSecurity
 @Configuration
@@ -70,14 +71,5 @@ public class SpringSecurity {
     var authenticationManager = new UserDetailsRepositoryReactiveAuthenticationManager(userDetailsService);
     authenticationManager.setPasswordEncoder(passwordEncoder);
     return authenticationManager;
-  }
-
-  @Bean
-  public CorsWebFilter corsWebFilter() {
-    CorsConfiguration corsConfig = new CorsConfiguration();
-    corsConfig.applyPermitDefaultValues();
-    corsConfig.addAllowedOrigin("http://localhost:3000");
-
-    return new CorsWebFilter(source -> corsConfig);
   }
 }

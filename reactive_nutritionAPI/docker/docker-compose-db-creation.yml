@@ -8,6 +8,53 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 12345
       MYSQL_DATABASE: "nutritionApiReactive"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
 
+  reverse_proxy:
+    image: nginx:latest
+    container_name: reverse_proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - backend
+    restart: always
+
+  vue-app:
+    build:
+      context: ../web
+    container_name: client
+    ports:
+      - "3000:80"
+    environment:
+      BASE_URL: http://reverse_proxy:80
+    depends_on:
+      - spring-boot-app
+    networks:
+      - backend
+
+  spring-boot-app:
+    container_name: spring-boot-app
+    build:
+      context: ../
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-db
+      - reverse_proxy
+    networks:
+      - backend
+    restart: always
+    environment:
+      DB_HOST: mysql-db
+      TZ: Europe/Sofia
 networks:
-  spring-app:
+  backend:
+    driver: bridge
+volumes:
+  mysql_data:
+    driver: local

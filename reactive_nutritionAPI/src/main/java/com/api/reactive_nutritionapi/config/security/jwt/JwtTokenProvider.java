@@ -2,6 +2,7 @@ package com.api.reactive_nutritionapi.config.security.jwt;
 
 
 import com.api.reactive_nutritionapi.config.security.UserPrincipal;
+import com.api.reactive_nutritionapi.domain.dtos.viewDtos.JwtToken;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Collection;
 import java.util.Date;
@@ -39,7 +42,7 @@ public class JwtTokenProvider {
     this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
   }
 
-  public String createToken(UserPrincipal principal) {
+  public JwtToken createToken(UserPrincipal principal) {
 
     String username = principal.getEmail();
 
@@ -47,6 +50,7 @@ public class JwtTokenProvider {
         .getAuthorities();
 
     Claims claims = Jwts.claims().setSubject(username);
+
     if (!authorities.isEmpty()) {
       claims.put(AUTHORITIES_KEY, authorities.stream()
           .map(GrantedAuthority::getAuthority).collect(joining(",")));
@@ -54,12 +58,14 @@ public class JwtTokenProvider {
     Date now = new Date();
     Date validity = new Date(now.getTime() + VALID_DURATION_TIME_MINUTES);
 
-    return Jwts.builder()
+    String stringValueToken = Jwts.builder()
         .setClaims(claims)
         .setIssuedAt(now)
         .setExpiration(validity)
         .signWith(this.secretKey, SignatureAlgorithm.HS256)
         .compact();
+
+    return new JwtToken(stringValueToken ,getTokenExpiration(stringValueToken));
 
   }
 
@@ -96,5 +102,17 @@ public class JwtTokenProvider {
       log.trace("Invalid JWT token trace.", e);
     }
     return false;
+  }
+
+  public LocalDateTime getTokenExpiration(String token) {
+    Claims claims = Jwts.parserBuilder()
+        .setSigningKey(secretKey)
+        .build()
+        .parseClaimsJws(token)
+        .getBody();
+
+    Date expirationDate = claims.getExpiration();
+
+    return expirationDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
   }
 }

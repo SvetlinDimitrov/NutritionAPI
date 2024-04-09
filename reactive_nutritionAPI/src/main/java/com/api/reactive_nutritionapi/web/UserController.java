@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
@@ -25,7 +26,7 @@ public class UserController {
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Void> createUserAccount(@RequestBody Mono<RegisterUserDto> userDto) {
-    return userDto.flatMap(userServiceImp::register);
+    return userServiceImp.register(userDto);
   }
 
   @PostMapping("/login")
