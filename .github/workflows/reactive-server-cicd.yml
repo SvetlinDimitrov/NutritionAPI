@@ -33,9 +33,13 @@ jobs:
         java-version: '17'
         cache: 'maven'
         distribution: corretto
-    - name: Print directory names
+        
+    - name: Maven build
+      working-directory: ./reactive_nutritionAPI
       run: |
+        mvn clean package
         ls -d */ | sed 's#/##' 
+        
     - name : Test && Build && Deploy
       working-directory: ./reactive_nutritionAPI
       run: |
