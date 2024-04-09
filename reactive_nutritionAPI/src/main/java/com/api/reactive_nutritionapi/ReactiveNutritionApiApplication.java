@@ -8,7 +8,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @SpringBootApplication
 @EnableConfigurationProperties(EnvVariables.class)
 public class ReactiveNutritionApiApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(ReactiveNutritionApiApplication.class, args);
 	}
