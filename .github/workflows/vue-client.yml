@@ -15,9 +15,22 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: checkout repo
+    - name: Checkout repo
       uses: actions/checkout@v3
       
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14' 
+        
+    - name: Install dependencies
+      working-directory: ./reactive_nutritionAPI/web
+      run: npm install 
+
+    - name: Build
+      working-directory: ./reactive_nutritionAPI/web
+      run: npm run build 
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
@@ -27,7 +40,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
         
-    - name : Build && Deploy
+    - name: Build Docker image
       working-directory: ./reactive_nutritionAPI/web
       run: |
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/nutritionapi-vue-client .
