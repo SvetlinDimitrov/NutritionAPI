@@ -12,7 +12,7 @@ on:
       - '!reactive_nutritionAPI/ignore_folder/**'
 
 jobs:
-  achievement-server-cicd:
+  reactive-server-cicd:
     runs-on: ubuntu-latest
     
     steps:
