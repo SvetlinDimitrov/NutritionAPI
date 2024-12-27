@@ -1,0 +1,23 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: a4a17bfb744cb98902b2
+            client-secret: adcaf7d74ae18e8ffa4eb01353b56012dcd5d4b7
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: ${DB_PASS:12345}
+    url: jdbc:mysql://${DB_HOST:localhost}:3306/nutritionApi
+    username: ${DB_USER:root}
+
+  liquibase:
+    change-log: db/changelog/db.changelog-master.xml
+
+security:
+  api-secret-key: '12345'
