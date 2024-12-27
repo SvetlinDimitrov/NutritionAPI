@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/nutritionApi/electrolyte")
+@RequestMapping("/nutritionApi/v1/electrolyte")
 public class ElectrolyteController {
 
   private final ElectrolyteServiceImp electrolyteService;

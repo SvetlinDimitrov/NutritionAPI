@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/nutritionApi/records")
+@RequestMapping("/nutritionApi/v1/records")
 public class RecordNutritionController {
 
     private final RecordServiceImp recordService;

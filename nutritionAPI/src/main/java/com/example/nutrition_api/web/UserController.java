@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/nutritionApi/user")
+@RequestMapping("/nutritionApi/v1/user")
 public class UserController {
 
     private final JwtServiceImp jwtUtil;

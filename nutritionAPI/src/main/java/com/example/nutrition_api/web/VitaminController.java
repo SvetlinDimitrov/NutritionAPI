@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/nutritionApi/vitamin")
+@RequestMapping("/nutritionApi/v1/vitamin")
 public class VitaminController {
 
     private final VitaminServiceImp vitaminService;

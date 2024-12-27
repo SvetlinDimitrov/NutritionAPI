@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/nutritionApi/macronutrient")
+@RequestMapping("/nutritionApi/v1/macronutrient")
 public class MacronutrientController {
 
     private final MacronutrientServiceImp macronutrientService;
