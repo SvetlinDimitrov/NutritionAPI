@@ -1,0 +1,1730 @@
+{
+	"info": {
+		"_postman_id": "4d3fb8bc-2292-4270-9863-068537e775b5",
+		"name": "Nutrition Rest Api",
+		"description": "This API allows you to track your daily consumed nutrient intake and provides a better view of how much nutrients you need to consume on a daily basis. Based on your height, weight, workout status, and gender, you can see how many calories you need to consume and, based on that, what macros you need.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26519722"
+	},
+	"item": [
+		{
+			"name": "Electrolytes",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/nutritionApi/electrolyte",
+				"description": "You can view everything about electrolytes in this endpoint. You can add the name after that, and you will get only the information for the given electrolyte. If you add an incorrect name, you will receive a list that tells you which are the correct names. No authentication required. Check the examples."
+			},
+			"response": [
+				{
+					"name": "GetAllElectorlyts",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/electrolyte"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 09:53:22 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"name\": \"Sodium\",\n        \"description\": \"Sodium is a vital mineral and electrolyte that plays a central role in maintaining various physiological functions in the body. It's essential for regulating fluid balance, nerve transmission, muscle function, and blood pressure. While sodium is important for health, excessive intake can lead to health issues like high blood pressure and increased risk of heart disease.\",\n        \"functions\": [\n            {\n                \"key\": \"Fluid Balance\",\n                \"value\": \"Sodium helps regulate the balance of fluids inside and outside cells. It's a major contributor to osmotic pressure, which determines the movement of water between cells and their surroundings.\"\n            },\n            {\n                \"key\": \"Nerve Transmission\",\n                \"value\": \"Sodium is essential for generating electrical signals that allow nerve cells to communicate with each other and with muscles. This is critical for muscle contraction, sensation, and other nervous system functions.\"\n            },\n            {\n                \"key\": \"Muscle Contraction\",\n                \"value\": \"Sodium is involved in muscle contraction, including the contractions of skeletal muscles and the heart.\"\n            },\n            {\n                \"key\": \"Blood Pressure Regulation\",\n                \"value\": \"Sodium levels influence blood volume and blood pressure. Excess sodium intake can cause the body to retain more water, leading to increased blood volume and higher blood pressure.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Table salt\",\n                \"value\": \"sodium chloride\"\n            },\n            {\n                \"key\": \"Processed and packaged foods\",\n                \"value\": \"canned soups, snacks, sauces\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Fast food and restaurant meals\"\n            },\n            {\n                \"key\": \"Some natural foods\",\n                \"value\": \"dairy products, meat, seafood\"\n            }\n        ],\n        \"healthConsiderations\": [\n            {\n                \"key\": \"High Blood Pressure\",\n                \"value\": \"Consuming too much sodium can lead to increased blood pressure, a major risk factor for heart disease and stroke.\"\n            },\n            {\n                \"key\": \"Cardiovascular Health\",\n                \"value\": \"High sodium intake is associated with an increased risk of heart disease and stroke.\"\n            },\n            {\n                \"key\": \"Fluid Retention\",\n                \"value\": \"Excess sodium can lead to water retention, causing swelling and bloating.\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 2300,\n        \"maleHigherBoundIntake\": 2300,\n        \"femaleLowerBoundIntake\": 2300,\n        \"femaleHigherBoundIntake\": 2300,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"Potassium\",\n        \"description\": \"Potassium is an essential mineral and electrolyte that plays a critical role in maintaining various bodily functions. It works in tandem with sodium to help regulate fluid balance, nerve transmission, muscle function, and blood pressure. Potassium is abundant in many foods, and maintaining a proper balance of potassium in the body is crucial for overall health.\",\n        \"functions\": [\n            {\n                \"key\": \"Fluid Balance\",\n                \"value\": \"Potassium is a key player in maintaining fluid balance within cells and their surroundings. It helps regulate osmotic pressure, which determines the movement of water in and out of cells\"\n            },\n            {\n                \"key\": \"Nerve Transmission\",\n                \"value\": \"Potassium is essential for generating electrical signals that enable nerve cells to communicate with each other and with muscles. This is vital for proper muscle function and sensation.\"\n            },\n            {\n                \"key\": \"Muscle Contraction\",\n                \"value\": \"Potassium plays a central role in muscle contraction. Adequate levels of potassium are necessary for muscles, including the heart, to contract and relax properly.\"\n            },\n            {\n                \"key\": \"Blood Pressure Regulation\",\n                \"value\": \"Potassium intake is closely linked to blood pressure regulation. It helps counteract the effects of sodium by promoting the excretion of sodium through urine, which can help lower blood pressure.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Fruits\",\n                \"value\": \"bananas, oranges, melons, avocados\"\n            },\n            {\n                \"key\": \"Vegetables\",\n                \"value\": \"spinach, potatoes, tomatoes\"\n            },\n            {\n                \"key\": \"Legumes\",\n                \"value\": \"beans, lentils\"\n            },\n            {\n                \"key\": \"Dairy products\",\n                \"value\": \"milk, yogurt\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Nuts and seeds\"\n            },\n            {\n                \"key\": \"Whole grains\",\n                \"value\": \"brown rice, whole wheat\"\n            },\n            {\n                \"key\": \"Fish\",\n                \"value\": \"salmon, tuna\"\n            }\n        ],\n        \"healthConsiderations\": [\n            {\n                \"key\": \"-\",\n                \"value\": \"Maintaining a proper balance of potassium is important for overall health, but excessive intake of potassium supplements can be harmful, especially for individuals with certain medical conditions like kidney problems. Kidneys play a critical role in regulating potassium levels in the body, and compromised kidney function can lead to potassium imbalances.\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 3500,\n        \"maleHigherBoundIntake\": 4700,\n        \"femaleLowerBoundIntake\": 3500,\n        \"femaleHigherBoundIntake\": 4700,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"Calcium\",\n        \"description\": \"Calcium is a vital mineral that plays a fundamental role in maintaining strong bones and teeth, supporting muscle and nerve function, and facilitating various cellular processes throughout the body. It's one of the most abundant minerals in the human body and is essential for overall health.\",\n        \"functions\": [\n            {\n                \"key\": \"Bone and Teeth Health\",\n                \"value\": \"Calcium is a primary building block for bones and teeth. It provides strength and rigidity to the skeletal system and helps prevent conditions like osteoporosis, which is characterized by weakened bones.\"\n            },\n            {\n                \"key\": \"Muscle Contraction\",\n                \"value\": \"Calcium is crucial for muscle contraction, including both skeletal muscles and the heart. It helps regulate the contraction and relaxation of muscles.\"\n            },\n            {\n                \"key\": \"Nerve Function\",\n                \"value\": \"Calcium plays a role in nerve transmission by facilitating the release of neurotransmitters, which are chemicals that transmit signals between nerve cells.\"\n            },\n            {\n                \"key\": \"Blood Clotting\",\n                \"value\": \"Calcium is involved in the blood clotting process. It's necessary for the activation of certain proteins that help form blood clots to stop bleeding.\"\n            },\n            {\n                \"key\": \"Cellular Signaling\",\n                \"value\": \"Calcium ions serve as important signaling molecules within cells. They are involved in numerous cellular processes, including enzyme activation and gene expression.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Dairy products\",\n                \"value\": \"milk, yogurt, cheese\"\n            },\n            {\n                \"key\": \"Fortified plant-based milk alternatives\",\n                \"value\": \"soy milk, almond milk\"\n            },\n            {\n                \"key\": \"Leafy green vegetables\",\n                \"value\": \"collard greens, broccoli, spinach\"\n            },\n            {\n                \"key\": \"Nuts and seeds\",\n                \"value\": \"almonds, chia seeds\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Fortified cereals and breads\"\n            },\n            {\n                \"key\": \"Fish with soft, edible bones\",\n                \"value\": \"sardines, canned salmon\"\n            }\n        ],\n        \"healthConsiderations\": [\n            {\n                \"key\": \"-\",\n                \"value\": \"Calcium intake is essential, but other factors can influence its absorption and utilization in the body. For instance, vitamin D is crucial for calcium absorption in the intestines. Additionally, certain conditions like lactose intolerance or dairy allergies may require alternative sources of calcium.\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 1000,\n        \"maleHigherBoundIntake\": 1000,\n        \"femaleLowerBoundIntake\": 1000,\n        \"femaleHigherBoundIntake\": 1000,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"Magnesium\",\n        \"description\": \"\\nMagnesium is a crucial mineral that is involved in a wide range of physiological processes within the body. It plays a vital role in supporting muscle and nerve function, maintaining a healthy immune system, regulating heart rhythm, and promoting bone health, among other functions. Magnesium is required for over 300 enzymatic reactions, making it essential for overall health and well-being.\",\n        \"functions\": [\n            {\n                \"key\": \"Muscle and Nerve Function\",\n                \"value\": \"Magnesium is involved in the regulation of muscle contractions and nerve impulses. It helps muscles contract and relax properly and aids in the transmission of nerve signals.\"\n            },\n            {\n                \"key\": \"Energy Production\",\n                \"value\": \"Magnesium is a co-factor in many enzymatic reactions involved in energy metabolism. It's necessary for the conversion of food into energy at the cellular level.\"\n            },\n            {\n                \"key\": \"Bone Health\",\n                \"value\": \"Magnesium is essential for bone health as it plays a role in bone mineralization. It works alongside other minerals like calcium and vitamin D to support strong and healthy bones.\"\n            },\n            {\n                \"key\": \"Heart Health\",\n                \"value\": \"Magnesium helps regulate heart rhythm and supports the function of the cardiovascular system. It helps maintain a healthy heart rate and blood pressure.\"\n            },\n            {\n                \"key\": \"Protein Synthesis\",\n                \"value\": \"Magnesium is involved in the synthesis of proteins, which are essential for various bodily functions, including immune response, tissue repair, and hormone production.\"\n            },\n            {\n                \"key\": \"Nervous System Health\",\n                \"value\": \"Magnesium plays a role in maintaining the health of the nervous system. It helps reduce stress and anxiety and supports relaxation.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Nuts and seeds\",\n                \"value\": \"almonds, cashews, pumpkin seeds\"\n            },\n            {\n                \"key\": \"Leafy green vegetables\",\n                \"value\": \"spinach, kale\"\n            },\n            {\n                \"key\": \"Whole grains\",\n                \"value\": \"brown rice, whole wheat\"\n            },\n            {\n                \"key\": \"Legumes\",\n                \"value\": \"beans, lentils\"\n            },\n            {\n                \"key\": \"Fish\",\n                \"value\": \"salmon, mackerel\"\n            },\n            {\n                \"key\": \"Dairy products\",\n                \"value\": \"yogurt, milk\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Dark chocolate\"\n            }\n        ],\n        \"healthConsiderations\": [\n            {\n                \"key\": \"-\",\n                \"value\": \"Magnesium deficiency can lead to a range of health issues, including muscle cramps, fatigue, weakness, and abnormal heart rhythms. Certain medical conditions and medications can interfere with magnesium absorption or increase its excretion, leading to deficiency.\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 400,\n        \"maleHigherBoundIntake\": 420,\n        \"femaleLowerBoundIntake\": 310,\n        \"femaleHigherBoundIntake\": 320,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"Chloride\",\n        \"description\": \"Chloride is an essential mineral that often works in tandem with other electrolytes, such as sodium and potassium, to maintain various bodily functions. It plays a crucial role in fluid balance, acid-base balance, and the function of digestive juices in the stomach.\",\n        \"functions\": [\n            {\n                \"key\": \"Fluid Balance\",\n                \"value\": \"Chloride, along with sodium, helps regulate fluid balance within and outside cells. This balance is crucial for maintaining proper hydration, blood pressure, and overall cell function.\"\n            },\n            {\n                \"key\": \"Acid-Base Balance\",\n                \"value\": \"Chloride is a component of hydrochloric acid (HCl) in the stomach. This acid is essential for digestion and helps create an acidic environment that breaks down food and aids in the absorption of nutrients.\"\n            },\n            {\n                \"key\": \"Nerve Function\",\n                \"value\": \"Chloride ions play a role in nerve impulse transmission. They help maintain the electrical gradient necessary for nerve cells to transmit signals.\"\n            },\n            {\n                \"key\": \"Immune Response\",\n                \"value\": \"Chloride is involved in the immune response and the body's defense against pathogens.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Table salt\",\n                \"value\": \"sodium chloride\"\n            },\n            {\n                \"key\": \"Processed and packaged foods\",\n                \"value\": \"canned soups, snacks, condiments\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Salted meats and fish\"\n            },\n            {\n                \"key\": \"Certain vegetables\",\n                \"value\": \"celery, olives\"\n            }\n        ],\n        \"healthConsiderations\": [\n            {\n                \"key\": \"-\",\n                \"value\": \"Chloride imbalances are relatively rare and often associated with imbalances in other electrolytes, such as sodium or potassium. Excessive sodium consumption, often in the form of sodium chloride, can lead to high levels of sodium and chloride in the body, potentially contributing to issues like high blood pressure and fluid retention.\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 2300,\n        \"maleHigherBoundIntake\": 2300,\n        \"femaleLowerBoundIntake\": 2300,\n        \"femaleHigherBoundIntake\": 2300,\n        \"measure\": \"milligrams (mg)\"\n    }\n]"
+				},
+				{
+					"name": "ElectolyteCorrectName",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/electrolyte/Sodium"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 09:54:42 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"Sodium\",\n    \"description\": \"Sodium is a vital mineral and electrolyte that plays a central role in maintaining various physiological functions in the body. It's essential for regulating fluid balance, nerve transmission, muscle function, and blood pressure. While sodium is important for health, excessive intake can lead to health issues like high blood pressure and increased risk of heart disease.\",\n    \"functions\": [\n        {\n            \"key\": \"Fluid Balance\",\n            \"value\": \"Sodium helps regulate the balance of fluids inside and outside cells. It's a major contributor to osmotic pressure, which determines the movement of water between cells and their surroundings.\"\n        },\n        {\n            \"key\": \"Nerve Transmission\",\n            \"value\": \"Sodium is essential for generating electrical signals that allow nerve cells to communicate with each other and with muscles. This is critical for muscle contraction, sensation, and other nervous system functions.\"\n        },\n        {\n            \"key\": \"Muscle Contraction\",\n            \"value\": \"Sodium is involved in muscle contraction, including the contractions of skeletal muscles and the heart.\"\n        },\n        {\n            \"key\": \"Blood Pressure Regulation\",\n            \"value\": \"Sodium levels influence blood volume and blood pressure. Excess sodium intake can cause the body to retain more water, leading to increased blood volume and higher blood pressure.\"\n        }\n    ],\n    \"sources\": [\n        {\n            \"key\": \"Table salt\",\n            \"value\": \"sodium chloride\"\n        },\n        {\n            \"key\": \"Processed and packaged foods\",\n            \"value\": \"canned soups, snacks, sauces\"\n        },\n        {\n            \"key\": \"-\",\n            \"value\": \"Fast food and restaurant meals\"\n        },\n        {\n            \"key\": \"Some natural foods\",\n            \"value\": \"dairy products, meat, seafood\"\n        }\n    ],\n    \"healthConsiderations\": [\n        {\n            \"key\": \"High Blood Pressure\",\n            \"value\": \"Consuming too much sodium can lead to increased blood pressure, a major risk factor for heart disease and stroke.\"\n        },\n        {\n            \"key\": \"Cardiovascular Health\",\n            \"value\": \"High sodium intake is associated with an increased risk of heart disease and stroke.\"\n        },\n        {\n            \"key\": \"Fluid Retention\",\n            \"value\": \"Excess sodium can lead to water retention, causing swelling and bloating.\"\n        }\n    ],\n    \"maleLowerBoundIntake\": 2300,\n    \"maleHigherBoundIntake\": 2300,\n    \"femaleLowerBoundIntake\": 2300,\n    \"femaleHigherBoundIntake\": 2300,\n    \"measure\": \"milligrams (mg)\"\n}"
+				},
+				{
+					"name": "ElectrolyteWrongName",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/electrolyte/salta"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "135"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 09:55:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "Electrolyte with name 'salta' does not existed in the data.\nThe available search names are: Sodium,Potassium,Calcium,Magnesium,Chloride"
+				}
+			]
+		},
+		{
+			"name": "Vitmins",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/nutritionApi/vitamin",
+				"description": "You can view everything about vitamins in this endpoint. You can add the name after that, and you will get only the information for the given vitamin. If you add an incorrect name, you will receive a list that tells you which are the correct names. No authentication required. Check the examples."
+			},
+			"response": [
+				{
+					"name": "GetAllVitamins",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/vitamin"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:04:38 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"name\": \"A\",\n        \"description\": \"Vitamin A is a fat-soluble vitamin that plays a critical role in various bodily functions, including vision, immune system support, and maintaining healthy skin. It exists in several forms, including retinol, retinal, and retinoic acid, which have distinct functions in the body.\",\n        \"functions\": [\n            {\n                \"key\": \"Vision\",\n                \"value\": \" Vitamin A is essential for maintaining good vision. It is a component of rhodopsin, a protein in the retina that allows the eyes to adjust to changes in light and facilitates vision in low-light conditions. A deficiency in vitamin A can lead to night blindness and other visual impairments.\"\n            },\n            {\n                \"key\": \"Immune System Support\",\n                \"value\": \"Vitamin A helps maintain the integrity of the mucosal surfaces, such as the linings of the respiratory, digestive, and urinary tracts. This is important for preventing infections and supporting immune responses.\"\n            },\n            {\n                \"key\": \"Skin Health\",\n                \"value\": \"Vitamin A plays a role in skin health by promoting the production of skin cells and supporting the health of mucous membranes. It's often used in skincare products for its potential to improve skin texture and reduce signs of aging.\"\n            },\n            {\n                \"key\": \"Cell Differentiation\",\n                \"value\": \"Vitamin A is involved in the process of cell differentiation, which is crucial for normal growth and development, especially during embryonic development.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Preformed Vitamin A (Retinoids)\",\n                \"value\": \"Found in animal products such as liver, fish, eggs, and dairy. These foods contain retinol, which is a form of preformed vitamin A.\"\n            },\n            {\n                \"key\": \"Provitamin A Carotenoids\",\n                \"value\": \" Found in plant-based foods, primarily in the form of beta-carotene. Beta-carotene is a pigment that gives fruits and vegetables their orange, red, and yellow colors. The body can convert provitamin A carotenoids into active vitamin A as needed. Foods rich in beta-carotene include carrots, sweet potatoes, spinach, kale, and butternut squash.\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 700,\n        \"maleHigherBoundIntake\": 900,\n        \"femaleLowerBoundIntake\": 600,\n        \"femaleHigherBoundIntake\": 700,\n        \"measure\": \"micrograms of retinol activity equivalents (RAE)\"\n    },\n    {\n        \"name\": \"D\",\n        \"description\": \"Vitamin D is a fat-soluble vitamin that is essential for several important functions in the body. Often referred to as the \\\"sunshine vitamin,\\\" it can be synthesized by the skin when exposed to sunlight. Vitamin D also comes from dietary sources and supplements. Here's more information about vitamin D\",\n        \"functions\": [\n            {\n                \"key\": \"Bone Health\",\n                \"value\": \"One of the primary functions of vitamin D is to regulate calcium and phosphorus absorption in the intestines. This is crucial for maintaining strong and healthy bones. Vitamin D helps ensure that calcium is properly deposited in bones, which is important for preventing conditions like osteoporosis and fractures.\"\n            },\n            {\n                \"key\": \"Immune System Support\",\n                \"value\": \"Vitamin D plays a role in modulating the immune system. It helps regulate immune responses and supports the body's defense mechanisms against infections.\"\n            },\n            {\n                \"key\": \"Cell Growth and Differentiation\",\n                \"value\": \"Vitamin D is involved in cell growth, replication, and differentiation. It is important for the normal development of cells and tissues.\"\n            },\n            {\n                \"key\": \"Hormone Regulation\",\n                \"value\": \"Vitamin D acts as a hormone in the body, influencing various physiological processes. It has been linked to the regulation of insulin secretion, blood pressure, and the functioning of the cardiovascular system.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Sunlight\",\n                \"value\": \"The skin can produce vitamin D when exposed to ultraviolet B (UVB) sunlight. However, factors like skin color, geographical location, time of day, and sunscreen use can affect the body's ability to synthesize vitamin D from sunlight.\"\n            },\n            {\n                \"key\": \"Dietary Sources\",\n                \"value\": \"While there are fewer natural dietary sources of vitamin D, some foods are fortified with it. Dietary sources include fatty fish (salmon, mackerel, sardines), cod liver oil, egg yolks, and fortified foods like milk, orange juice, and cereal.\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 600,\n        \"maleHigherBoundIntake\": 800,\n        \"femaleLowerBoundIntake\": 600,\n        \"femaleHigherBoundIntake\": 800,\n        \"measure\": \"international units (IU)\"\n    },\n    {\n        \"name\": \"E\",\n        \"description\": \"Vitamin E is a fat-soluble vitamin with antioxidant properties, meaning it helps protect cells from damage caused by harmful molecules called free radicals. It exists in eight different forms, with alpha-tocopherol being the most common and biologically active form in the human body.\",\n        \"functions\": [\n            {\n                \"key\": \"Antioxidant Protection\",\n                \"value\": \"Vitamin E's primary role is as an antioxidant. It helps neutralize free radicals, which are unstable molecules that can damage cells, DNA, and tissues. By reducing oxidative stress, vitamin E contributes to overall cellular health and may help prevent chronic diseases.\"\n            },\n            {\n                \"key\": \"Immune Support\",\n                \"value\": \"Vitamin E plays a role in supporting the immune system's response to infections and diseases. It helps regulate immune cell functions and enhances the body's defense mechanisms.\"\n            },\n            {\n                \"key\": \"Skin Health\",\n                \"value\": \"Vitamin E is often associated with skin health. It can help moisturize and protect the skin from damage caused by UV radiation and environmental pollutants.\"\n            },\n            {\n                \"key\": \"Cardiovascular Health\",\n                \"value\": \"Some research suggests that vitamin E might contribute to heart health by preventing the oxidation of low-density lipoprotein (LDL) cholesterol, often referred to as \\\"bad\\\" cholesterol. However, the role of vitamin E in heart health is still a topic of ongoing research.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Nuts and Seeds\",\n                \"value\": \"Almonds, sunflower seeds, hazelnuts, and pine nuts are rich sources of vitamin E.\"\n            },\n            {\n                \"key\": \"Vegetable Oils\",\n                \"value\": \"Sunflower oil, safflower oil, and wheat germ oil are high in vitamin E.\"\n            },\n            {\n                \"key\": \"Leafy Greens\",\n                \"value\": \"Spinach, Swiss chard, and kale provide smaller amounts of vitamin E\"\n            },\n            {\n                \"key\": \"Fortified Foods\",\n                \"value\": \"Some breakfast cereals and other packaged foods are fortified with vitamin E.\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 15,\n        \"maleHigherBoundIntake\": 15,\n        \"femaleLowerBoundIntake\": 15,\n        \"femaleHigherBoundIntake\": 15,\n        \"measure\": \"milligrams (mg) of alpha-tocophero\"\n    },\n    {\n        \"name\": \"K\",\n        \"description\": \"Vitamin K is a fat-soluble vitamin that plays a crucial role in blood clotting, bone health, and other important bodily functions. There are two main forms of vitamin K: vitamin K1 (phylloquinone) and vitamin K2 (menaquinone)\",\n        \"functions\": [\n            {\n                \"key\": \"Blood Clotting\",\n                \"value\": \"Vitamin K is essential for the synthesis of certain proteins that are involved in the blood clotting process. These proteins help stop bleeding by promoting the formation of blood clots when there is an injury.\"\n            },\n            {\n                \"key\": \"Bone Health\",\n                \"value\": \"Vitamin K plays a role in bone health by assisting in the regulation of calcium. It helps ensure that calcium is properly deposited in bones and teeth, contributing to bone density and strength.\"\n            },\n            {\n                \"key\": \"Heart Health\",\n                \"value\": \"Some research suggests that vitamin K might have a role in cardiovascular health by helping prevent the calcification of arteries and promoting overall heart health. However, more research is needed to fully understand this relationship.\"\n            },\n            {\n                \"key\": \"Cell Growth and Regulation\",\n                \"value\": \"Vitamin K is involved in cellular processes related to growth, regulation, and apoptosis (programmed cell death).\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Vitamin K1 (Phylloquinone)\",\n                \"value\": \" Found primarily in green leafy vegetables, such as spinach, kale, broccoli, and Brussels sprouts.\"\n            },\n            {\n                \"key\": \"Vitamin K2 (Menaquinone)\",\n                \"value\": \"Produced by bacteria in the gut and also found in certain animal-based foods like dairy products, eggs, and meat. Fermented foods, such as natto (a type of fermented soybean), are particularly rich in vitamin K2.\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 120,\n        \"maleHigherBoundIntake\": 120,\n        \"femaleLowerBoundIntake\": 90,\n        \"femaleHigherBoundIntake\": 90,\n        \"measure\": \"micrograms (mcg)\"\n    },\n    {\n        \"name\": \"C\",\n        \"description\": \"Vitamin C, also known as ascorbic acid, is a water-soluble vitamin that is essential for a wide range of bodily functions. It's well-known for its antioxidant properties and its role in supporting the immune system.\",\n        \"functions\": [\n            {\n                \"key\": \"Antioxidant Protection\",\n                \"value\": \"One of the primary roles of vitamin C is its antioxidant function. It helps protect cells from damage caused by harmful molecules called free radicals. Antioxidants like vitamin C play a key role in maintaining overall cellular health and reducing oxidative stress.\"\n            },\n            {\n                \"key\": \"Immune System Support\",\n                \"value\": \"Vitamin C supports the immune system by promoting the production and function of white blood cells, which are vital for fighting infections. It may also help shorten the duration and severity of common colds.\"\n            },\n            {\n                \"key\": \"Collagen Synthesis\",\n                \"value\": \"Vitamin C is essential for the synthesis of collagen, a protein that is important for the structure of skin, blood vessels, tendons, ligaments, and other connective tissues. It's crucial for wound healing and maintaining healthy skin.\"\n            },\n            {\n                \"key\": \"Iron Absorption\",\n                \"value\": \"Vitamin C enhances the absorption of non-heme iron (the type of iron found in plant-based foods) from the digestive tract. This can be particularly important for individuals who follow vegetarian or vegan diets.\"\n            },\n            {\n                \"key\": \"Neurotransmitter Production\",\n                \"value\": \"Vitamin C is involved in the synthesis of certain neurotransmitters, such as serotonin and norepinephrine, which play a role in mood regulation and the nervous system.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Citrus Fruits\",\n                \"value\": \"Oranges,Grapefruits,Lemons,Limes,Tangerines\"\n            },\n            {\n                \"key\": \"Berries\",\n                \"value\": \"Strawberries,Blueberries,Raspberries,Blackberries\"\n            },\n            {\n                \"key\": \"\",\n                \"value\": \"Kiwi\"\n            },\n            {\n                \"key\": \"Bell Peppers\",\n                \"value\": \"Red bell peppers,Green bell peppers,Yellow bell peppers,Orange bell peppers\"\n            },\n            {\n                \"key\": \"Tropical Fruits\",\n                \"value\": \"Pineapple,Mango,Papaya\"\n            },\n            {\n                \"key\": \"Melons\",\n                \"value\": \"Cantaloupe,Watermelon\"\n            },\n            {\n                \"key\": \"Leafy Greens\",\n                \"value\": \"Spinach,Kale,Swiss chard\"\n            },\n            {\n                \"key\": \"Others\",\n                \"value\": \"Broccoli,Brussels Sprouts,Tomatoes,Cabbage,Cauliflower,Potatoes,Guava,Acerola Cherry,Mango,Papaya\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 90,\n        \"maleHigherBoundIntake\": 90,\n        \"femaleLowerBoundIntake\": 75,\n        \"femaleHigherBoundIntake\": 75,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"B1\",\n        \"description\": \"Vitamin B1, also known as thiamin, is a water-soluble B-vitamin that plays a vital role in energy metabolism and maintaining the health of the nervous system.\",\n        \"functions\": [\n            {\n                \"key\": \"Energy Metabolism\",\n                \"value\": \"Thiamin is essential for converting carbohydrates into energy. It plays a key role in the metabolism of glucose, which is the primary source of energy for the body's cells.\"\n            },\n            {\n                \"key\": \"Nervous System Health\",\n                \"value\": \"Thiamin is crucial for the proper functioning of the nervous system. It helps maintain the health of nerve cells and supports nerve impulse transmission, which is essential for muscle contractions and sensory functions.\"\n            },\n            {\n                \"key\": \"Role in Coenzymes\",\n                \"value\": \"Thiamin is a precursor to thiamine pyrophosphate (TPP), a coenzyme involved in several biochemical reactions. TPP is necessary for reactions that generate energy from carbohydrates and certain amino acids.\"\n            },\n            {\n                \"key\": \"Cardiovascular Health\",\n                \"value\": \"Thiamin is involved in the production of neurotransmitters and certain hormones, which can impact cardiovascular function and overall well-being.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Whole grains\",\n                \"value\": \"brown rice, whole wheat, oats\"\n            },\n            {\n                \"key\": \"Legumes\",\n                \"value\": \"beans, lentils\"\n            },\n            {\n                \"key\": \"Nuts\",\n                \"value\": \"especially sunflower seeds\"\n            },\n            {\n                \"key\": \"Lean meats\",\n                \"value\": \"pork, beef, poultry\"\n            },\n            {\n                \"key\": \"Fish\",\n                \"value\": \"trout, mackerel\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Eggs\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Dairy products\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 1.2,\n        \"maleHigherBoundIntake\": 1.2,\n        \"femaleLowerBoundIntake\": 1.1,\n        \"femaleHigherBoundIntake\": 1.1,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"B2\",\n        \"description\": \"Vitamin B2, also known as riboflavin, is a water-soluble B-vitamin that plays a critical role in various cellular processes and energy production. It's involved in converting food into energy and is important for maintaining healthy skin, eyes, and red blood cells.\",\n        \"functions\": [\n            {\n                \"key\": \"Energy Metabolism\",\n                \"value\": \"Riboflavin is an essential component of two coenzymes, flavin mononucleotide (FMN) and flavin adenine dinucleotide (FAD). These coenzymes are involved in numerous reactions that help convert carbohydrates, fats, and proteins from food into energy.\"\n            },\n            {\n                \"key\": \"Antioxidant Protection\",\n                \"value\": \"Riboflavin is part of the antioxidant enzyme glutathione reductase, which helps maintain the body's antioxidant defenses. It assists in protecting cells from oxidative stress and damage caused by free radicals.\"\n            },\n            {\n                \"key\": \"Skin and Eye Health\",\n                \"value\": \"Riboflavin contributes to maintaining healthy skin, eyes, and mucous membranes. It's essential for skin health and helps prevent conditions like cracked lips and skin lesions. It's also important for promoting good vision.\"\n            },\n            {\n                \"key\": \"Red Blood Cell Formation\",\n                \"value\": \"Riboflavin plays a role in the synthesis of red blood cells, which are responsible for transporting oxygen throughout the body.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Dairy products\",\n                \"value\": \"milk, yogurt, cheese\"\n            },\n            {\n                \"key\": \"Lean meats\",\n                \"value\": \"chicken, turkey, beef\"\n            },\n            {\n                \"key\": \"Fish\",\n                \"value\": \"salmon, trout\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Eggs\"\n            },\n            {\n                \"key\": \"Leafy green vegetables\",\n                \"value\": \"spinach, broccoli\"\n            },\n            {\n                \"key\": \"Whole grains\",\n                \"value\": \"enriched cereals, whole wheat\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Nuts and seeds\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 1.3,\n        \"maleHigherBoundIntake\": 1.3,\n        \"femaleLowerBoundIntake\": 1.1,\n        \"femaleHigherBoundIntake\": 1.1,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"B3\",\n        \"description\": \"Vitamin B3, also known as niacin, is a water-soluble B-vitamin that plays a crucial role in energy metabolism, nervous system function, and maintaining healthy skin and digestive system. Niacin has two primary forms: nicotinic acid and nicotinamide (niacinamide), both of which are converted into coenzymes that participate in numerous biochemical reactions in the body.\",\n        \"functions\": [\n            {\n                \"key\": \"Energy Metabolism\",\n                \"value\": \"Niacin is a component of the coenzymes nicotinamide adenine dinucleotide (NAD) and nicotinamide adenine dinucleotide phosphate (NADP), which are involved in energy production by assisting in the breakdown of carbohydrates, fats, and proteins.\"\n            },\n            {\n                \"key\": \"Cell Signaling\",\n                \"value\": \"Niacin and its coenzymes play a role in cellular communication, including the transmission of signals within cells and between cells.\"\n            },\n            {\n                \"key\": \"Skin Health\",\n                \"value\": \"Niacinamide (nicotinamide) has been shown to have benefits for skin health. It may help improve the appearance of skin by reducing inflammation, supporting collagen production, and maintaining the skin's natural barrier function.\"\n            },\n            {\n                \"key\": \"Cardiovascular Health\",\n                \"value\": \"Niacin can help lower levels of LDL (\\\"bad\\\") cholesterol and triglycerides, while increasing levels of HDL (\\\"good\\\") cholesterol. However, the use of niacin supplements for this purpose is less common nowadays due to potential side effects.\"\n            },\n            {\n                \"key\": \"Nervous System Support\",\n                \"value\": \"Niacin is essential for the health of the nervous system. It supports the function of nerve cells and contributes to the synthesis of neurotransmitters.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Lean meats\",\n                \"value\": \"poultry, turkey, beef\"\n            },\n            {\n                \"key\": \"Fish\",\n                \"value\": \"tuna, salmon\"\n            },\n            {\n                \"key\": \"Dairy products\",\n                \"value\": \"milk, cheese\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Eggs\"\n            },\n            {\n                \"key\": \"Legumes\",\n                \"value\": \"peanuts, lentils\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Nuts and seeds\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Fortified cereals and breads\"\n            },\n            {\n                \"key\": \"Whole grains\",\n                \"value\": \"brown rice, whole wheat\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 16,\n        \"maleHigherBoundIntake\": 16,\n        \"femaleLowerBoundIntake\": 14,\n        \"femaleHigherBoundIntake\": 14,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"B5\",\n        \"description\": \"Vitamin B5, also known as pantothenic acid, is a water-soluble B-vitamin that plays a crucial role in various metabolic processes in the body. It's involved in energy production, the synthesis of important molecules, and maintaining overall health.\",\n        \"functions\": [\n            {\n                \"key\": \"Energy Metabolism\",\n                \"value\": \"Pantothenic acid is a component of coenzyme A (CoA), which is essential for the breakdown of carbohydrates, fats, and proteins to produce energy. CoA is a key player in the citric acid cycle (Krebs cycle), which is a fundamental part of energy production in cells.\"\n            },\n            {\n                \"key\": \"Synthesis of Important Molecules\",\n                \"value\": \"CoA, derived from pantothenic acid, is also necessary for the synthesis of various molecules in the body. This includes the production of fatty acids, cholesterol, and acetylcholine (a neurotransmitter).\"\n            },\n            {\n                \"key\": \"Skin Health\",\n                \"value\": \"Pantothenic acid is often associated with skin health. It's used in various skincare products and supplements due to its potential benefits in reducing acne and promoting healthy skin.\"\n            },\n            {\n                \"key\": \"Nervous System Function\",\n                \"value\": \"Pantothenic acid is involved in the production of acetylcholine, a neurotransmitter that is important for proper nerve transmission and muscle function.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Meat\",\n                \"value\": \"chicken, beef, pork\"\n            },\n            {\n                \"key\": \"Fish\",\n                \"value\": \"salmon, tuna\"\n            },\n            {\n                \"key\": \"Dairy products\",\n                \"value\": \"milk, yogurt, cheese\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Eggs\"\n            },\n            {\n                \"key\": \"Legumes\",\n                \"value\": \"lentils, chickpeas\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Nuts and seeds\"\n            },\n            {\n                \"key\": \"Whole grains\",\n                \"value\": \"brown rice, whole wheat\"\n            },\n            {\n                \"key\": \"Vegetables\",\n                \"value\": \"broccoli, sweet potatoes\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 5,\n        \"maleHigherBoundIntake\": 5,\n        \"femaleLowerBoundIntake\": 5,\n        \"femaleHigherBoundIntake\": 5,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"B6\",\n        \"description\": \"Vitamin B6, also known as pyridoxine, is a water-soluble B-vitamin that plays a vital role in various metabolic processes in the body. It's involved in energy production, neurotransmitter synthesis, and the metabolism of amino acids and fatty acids.\",\n        \"functions\": [\n            {\n                \"key\": \"Amino Acid Metabolism\",\n                \"value\": \"Vitamin B6 is necessary for the metabolism of amino acids, the building blocks of proteins. It helps convert amino acids into usable forms, which are crucial for the synthesis of proteins and other important molecules.\"\n            },\n            {\n                \"key\": \"Neurotransmitter Production\",\n                \"value\": \"Vitamin B6 is involved in the synthesis of neurotransmitters such as serotonin, dopamine, and gamma-aminobutyric acid (GABA). These neurotransmitters play key roles in mood regulation, sleep, and overall brain function.\"\n            },\n            {\n                \"key\": \"Hemoglobin Formation\",\n                \"value\": \"Vitamin B6 is required for the synthesis of hemoglobin, the protein in red blood cells that carries oxygen to cells and tissues throughout the body.\"\n            },\n            {\n                \"key\": \"Immune System Function\",\n                \"value\": \"Vitamin B6 supports the immune system by influencing the production and activity of immune cells and antibodies.\"\n            },\n            {\n                \"key\": \"Nerve Function\",\n                \"value\": \"Vitamin B6 is essential for proper nerve function and transmission of nerve signals.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Meat\",\n                \"value\": \"chicken, turkey, beef\"\n            },\n            {\n                \"key\": \"Fish\",\n                \"value\": \"salmon, tuna\"\n            },\n            {\n                \"key\": \"Dairy products\",\n                \"value\": \"milk, cheese\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Eggs\"\n            },\n            {\n                \"key\": \"Legumes\",\n                \"value\": \"lentils, beans\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Nuts and seeds\"\n            },\n            {\n                \"key\": \"Whole grains\",\n                \"value\": \"brown rice, whole wheat\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Fortified cereals\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 1.3,\n        \"maleHigherBoundIntake\": 1.7,\n        \"femaleLowerBoundIntake\": 1.3,\n        \"femaleHigherBoundIntake\": 1.5,\n        \"measure\": \"milligrams (mg)\"\n    },\n    {\n        \"name\": \"B7\",\n        \"description\": \"Vitamin B7, also known as biotin, is a water-soluble B-vitamin that plays a crucial role in various metabolic processes in the body. It's involved in the metabolism of carbohydrates, fats, and amino acids, and it supports healthy skin, hair, and nails. Biotin is also essential for maintaining healthy nerve function and assisting in the synthesis of certain enzymes.\",\n        \"functions\": [\n            {\n                \"key\": \"Carbohydrate, Fat, and Protein Metabolism\",\n                \"value\": \"Biotin is a coenzyme that plays a key role in the metabolism of carbohydrates, fats, and amino acids. It helps convert these nutrients into energy that the body can use.\"\n            },\n            {\n                \"key\": \"Healthy Skin, Hair, and Nails\",\n                \"value\": \"Biotin is often associated with promoting healthy skin, hair, and nails. It's a common ingredient in beauty supplements due to its potential role in maintaining the health and appearance of these tissues.\"\n            },\n            {\n                \"key\": \"Nervous System Health\",\n                \"value\": \"Biotin is important for maintaining healthy nerve function and promoting the proper functioning of the nervous system.\"\n            },\n            {\n                \"key\": \"Enzyme Synthesis\",\n                \"value\": \"Biotin is required for the synthesis of certain enzymes that are involved in various biochemical reactions in the body. These enzymes are crucial for processes such as fatty acid synthesis and gluconeogenesis.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Organ meats\",\n                \"value\": \"liver, kidney\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Eggs\"\n            },\n            {\n                \"key\": \"Dairy products\",\n                \"value\": \"milk, cheese\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Nuts and seeds\"\n            },\n            {\n                \"key\": \"Legumes\",\n                \"value\": \"soybeans, peanuts\"\n            },\n            {\n                \"key\": \"Whole grains\",\n                \"value\": \"oats, barley\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Leafy green vegetables\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Fish\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 30,\n        \"maleHigherBoundIntake\": 30,\n        \"femaleLowerBoundIntake\": 30,\n        \"femaleHigherBoundIntake\": 30,\n        \"measure\": \"micrograms (mg)\"\n    },\n    {\n        \"name\": \"B9\",\n        \"description\": \"Vitamin B9, also known as folate (or folic acid when in synthetic form), is a water-soluble B-vitamin that plays a crucial role in various bodily functions, including cell division, DNA synthesis, and the formation of red blood cells. It's particularly important during periods of rapid growth and development, such as pregnancy.\",\n        \"functions\": [\n            {\n                \"key\": \"DNA Synthesis and Cell Division\",\n                \"value\": \"Folate is essential for the synthesis of DNA and RNA, the genetic material of cells. It plays a vital role in cell division and growth, making it particularly important during periods of rapid tissue development and growth.\"\n            },\n            {\n                \"key\": \"Red Blood Cell Formation\",\n                \"value\": \"Folate is necessary for the formation of red blood cells. Adequate folate levels are crucial for preventing certain types of anemia, such as megaloblastic anemia.\"\n            },\n            {\n                \"key\": \"Neural Tube Formation\",\n                \"value\": \"Folate is critical during early pregnancy for the proper formation of the neural tube in the developing fetus. Adequate folate intake can help prevent neural tube defects in newborns.\"\n            },\n            {\n                \"key\": \"Homocysteine Regulation\",\n                \"value\": \"Folate, along with vitamins B6 and B12, helps regulate homocysteine levels in the blood. Elevated homocysteine levels are associated with an increased risk of cardiovascular disease.\"\n            },\n            {\n                \"key\": \"\",\n                \"value\": \"\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Leafy green vegetables\",\n                \"value\": \"spinach, kale, lettuce\"\n            },\n            {\n                \"key\": \"Legumes\",\n                \"value\": \"beans, lentils\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Fortified cereals and breads\"\n            },\n            {\n                \"key\": \"Citrus fruits\",\n                \"value\": \"oranges, lemons\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Avocado\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Eggs\"\n            },\n            {\n                \"key\": \"Liver\",\n                \"value\": \"organ meat\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 400,\n        \"maleHigherBoundIntake\": 400,\n        \"femaleLowerBoundIntake\": 400,\n        \"femaleHigherBoundIntake\": 400,\n        \"measure\": \"micrograms (mcg)\"\n    },\n    {\n        \"name\": \"B12\",\n        \"description\": \"Vitamin B12, also known as cobalamin, is a water-soluble B-vitamin that plays a critical role in various bodily functions, including red blood cell formation, nervous system health, and DNA synthesis. It's unique among the B-vitamins because it's not found in significant amounts in most plant-based foods and is often associated with animal products.\",\n        \"functions\": [\n            {\n                \"key\": \"Red Blood Cell Formation\",\n                \"value\": \"Vitamin B12 is essential for the synthesis of red blood cells. It works in conjunction with folate to help prevent a type of anemia called megaloblastic anemia, where red blood cells are larger than normal.\"\n            },\n            {\n                \"key\": \"Nervous System Health\",\n                \"value\": \"Vitamin B12 is crucial for maintaining the health of the nervous system. It helps protect nerve cells and supports nerve impulse transmission, which is vital for muscle function and sensory perception.\"\n            },\n            {\n                \"key\": \"DNA Synthesis\",\n                \"value\": \"Vitamin B12 is involved in the synthesis of DNA, the genetic material of cells. It's particularly important during periods of rapid cell division, such as growth and development.\"\n            },\n            {\n                \"key\": \"Homocysteine Regulation\",\n                \"value\": \"Vitamin B12, along with folate and vitamin B6, helps regulate homocysteine levels in the blood. Elevated homocysteine levels are associated with an increased risk of cardiovascular disease\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Meat\",\n                \"value\": \"beef, pork, poultry\"\n            },\n            {\n                \"key\": \"Fish\",\n                \"value\": \"salmon, trout, tuna\"\n            },\n            {\n                \"key\": \"Shellfish\",\n                \"value\": \"clams, mussels, crab\"\n            },\n            {\n                \"key\": \"Dairy products\",\n                \"value\": \"milk, cheese, yogurt\"\n            },\n            {\n                \"key\": \"-\",\n                \"value\": \"Eggs\"\n            }\n        ],\n        \"maleLowerBoundIntake\": 2.4,\n        \"maleHigherBoundIntake\": 2.4,\n        \"femaleLowerBoundIntake\": 2.4,\n        \"femaleHigherBoundIntake\": 2.4,\n        \"measure\": \"micrograms (mcg)\"\n    }\n]"
+				},
+				{
+					"name": "GetAVitaminByNameCorrect",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/vitamin/A"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:05:08 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"A\",\n    \"description\": \"Vitamin A is a fat-soluble vitamin that plays a critical role in various bodily functions, including vision, immune system support, and maintaining healthy skin. It exists in several forms, including retinol, retinal, and retinoic acid, which have distinct functions in the body.\",\n    \"functions\": [\n        {\n            \"key\": \"Vision\",\n            \"value\": \" Vitamin A is essential for maintaining good vision. It is a component of rhodopsin, a protein in the retina that allows the eyes to adjust to changes in light and facilitates vision in low-light conditions. A deficiency in vitamin A can lead to night blindness and other visual impairments.\"\n        },\n        {\n            \"key\": \"Immune System Support\",\n            \"value\": \"Vitamin A helps maintain the integrity of the mucosal surfaces, such as the linings of the respiratory, digestive, and urinary tracts. This is important for preventing infections and supporting immune responses.\"\n        },\n        {\n            \"key\": \"Skin Health\",\n            \"value\": \"Vitamin A plays a role in skin health by promoting the production of skin cells and supporting the health of mucous membranes. It's often used in skincare products for its potential to improve skin texture and reduce signs of aging.\"\n        },\n        {\n            \"key\": \"Cell Differentiation\",\n            \"value\": \"Vitamin A is involved in the process of cell differentiation, which is crucial for normal growth and development, especially during embryonic development.\"\n        }\n    ],\n    \"sources\": [\n        {\n            \"key\": \"Preformed Vitamin A (Retinoids)\",\n            \"value\": \"Found in animal products such as liver, fish, eggs, and dairy. These foods contain retinol, which is a form of preformed vitamin A.\"\n        },\n        {\n            \"key\": \"Provitamin A Carotenoids\",\n            \"value\": \" Found in plant-based foods, primarily in the form of beta-carotene. Beta-carotene is a pigment that gives fruits and vegetables their orange, red, and yellow colors. The body can convert provitamin A carotenoids into active vitamin A as needed. Foods rich in beta-carotene include carrots, sweet potatoes, spinach, kale, and butternut squash.\"\n        }\n    ],\n    \"maleLowerBoundIntake\": 700,\n    \"maleHigherBoundIntake\": 900,\n    \"femaleLowerBoundIntake\": 600,\n    \"femaleHigherBoundIntake\": 700,\n    \"measure\": \"micrograms of retinol activity equivalents (RAE)\"\n}"
+				},
+				{
+					"name": "GetVitaminByNameWrong",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/vitamin/a-"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "117"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:05:41 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "Vitamin with name a- does not existed in the data.\nThe available search names are: A,D,E,K,C,B1,B2,B3,B5,B6,B7,B9,B12"
+				}
+			]
+		},
+		{
+			"name": "Macronutrients",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/nutritionApi/macronutrient",
+				"description": "You can view everything about macronutrients in this endpoint. You can add the name after that, and you will get only the information for the given macro. If you add an incorrect name, you will receive a list that tells you which are the correct names. No authentication required. Check the examples."
+			},
+			"response": [
+				{
+					"name": "GetAllMacronutrients",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/macronutrient"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:08:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"name\": \"Carbohydrates\",\n        \"description\": \"The amount of carbohydrates you should consume depends on various factors, including your age, gender, activity level, health goals, and individual metabolic needs. Carbohydrate needs can vary widely from person to person.\",\n        \"activeState\": 0.5,\n        \"inactiveState\": 0.5,\n        \"functions\": [\n            {\n                \"key\": \"Energy Source\",\n                \"value\": \"Carbohydrates are the body's primary and most efficient source of energy. When you consume carbs, they are broken down into glucose, which is used by cells for fuel.\"\n            },\n            {\n                \"key\": \"Brain Function\",\n                \"value\": \"The brain relies heavily on glucose for energy. Consuming adequate carbohydrates helps support cognitive function, memory, and mood.\"\n            },\n            {\n                \"key\": \"Muscle Glycogen\",\n                \"value\": \"Carbohydrates are stored in the muscles and liver as glycogen. During exercise, muscle glycogen serves as a readily available source of energy.\"\n            },\n            {\n                \"key\": \"Preventing Protein Breakdown\",\n                \"value\": \"Adequate carbohydrate intake spares protein from being used as an energy source. This is important for preserving muscle mass.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Grains\",\n                \"value\": \"Whole grains like brown rice, quinoa, whole wheat, and oats provide complex carbohydrates, fiber, and various nutrients.\"\n            },\n            {\n                \"key\": \"Fruits\",\n                \"value\": \"Fruits contain natural sugars along with vitamins, minerals, and fiber. Berries, apples, citrus fruits, and bananas are popular choices.\"\n            },\n            {\n                \"key\": \"Vegetables\",\n                \"value\": \"Starchy vegetables (potatoes, corn) and non-starchy vegetables (leafy greens, broccoli, peppers) are rich in carbs, fiber, vitamins, and minerals.\"\n            },\n            {\n                \"key\": \"Legumes\",\n                \"value\": \"Beans, lentils, chickpeas, and other legumes offer both carbohydrates and protein.\"\n            },\n            {\n                \"key\": \"Dairy\",\n                \"value\": \"Dairy products contain lactose, a natural sugar. Choose low-fat or non-fat options for reduced saturated fat.\"\n            }\n        ],\n        \"types\": [\n            {\n                \"key\": \"Simple Carbohydrates\",\n                \"value\": \"These are made up of one or two sugar molecules. Simple carbs are found in foods like fruits (fructose), milk (lactose), and table sugar (sucrose). They are quickly digested and can lead to rapid spikes in blood sugar levels.\"\n            },\n            {\n                \"key\": \"Complex Carbohydrates\",\n                \"value\": \"These consist of longer chains of sugar molecules. They are found in foods like whole grains (e.g., brown rice, quinoa, oats), legumes (beans, lentils), and vegetables. Complex carbs are broken down more slowly, providing sustained energy and helping to stabilize blood sugar levels.\"\n            }\n        ],\n        \"dietaryConsiderations\": [\n            {\n                \"key\": \"Fiber\",\n                \"value\": \"Many carbohydrate-rich foods are also high in dietary fiber, which aids digestion, supports a healthy gut, and helps control appetite.\"\n            },\n            {\n                \"key\": \"Glycemic Index (GI)\",\n                \"value\": \"The GI measures how quickly a carbohydrate-containing food raises blood sugar levels. Foods with a low GI (complex carbs) lead to gradual increases in blood sugar, while high-GI foods (simple carbs) cause rapid spikes.\"\n            },\n            {\n                \"key\": \"Added Sugars\",\n                \"value\": \"Be mindful of added sugars in processed foods and sugary beverages. Consuming too much added sugar can lead to health issues.\"\n            }\n        ]\n    },\n    {\n        \"name\": \"Protein\",\n        \"description\": \"Protein is one of the three macronutrients essential for human health, alongside carbohydrates and fats. Proteins are made up of amino acids, which are the building blocks of the body. These amino acids play crucial roles in various bodily functions, including muscle repair, immune function, enzyme production, and hormone regulation.\",\n        \"activeState\": 0.25,\n        \"inactiveState\": 0.15,\n        \"functions\": [\n            {\n                \"key\": \"Muscle Health\",\n                \"value\": \"Protein is vital for building, repairing, and maintaining muscles. It's especially important for individuals engaged in physical activity, as exercise can cause muscle tissue breakdown that requires repair.\"\n            },\n            {\n                \"key\": \"Cell Structure\",\n                \"value\": \"Proteins are the structural components of cells, tissues, and organs. They help maintain the integrity and functionality of these structures.\"\n            },\n            {\n                \"key\": \"Enzymes\",\n                \"value\": \"Many enzymes are proteins that catalyze biochemical reactions in the body, allowing essential processes like digestion and metabolism to occur efficiently.\"\n            },\n            {\n                \"key\": \"Hormones\",\n                \"value\": \"Some hormones, such as insulin and growth hormone, are proteins that regulate various physiological processes.\"\n            },\n            {\n                \"key\": \"Immune Function\",\n                \"value\": \"Antibodies, which are proteins, play a critical role in the immune system by identifying and neutralizing foreign invaders like bacteria and viruses.\"\n            },\n            {\n                \"key\": \"Transport\",\n                \"value\": \"Some proteins act as carriers, transporting nutrients, oxygen, and other molecules throughout the body.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Animal Sources\",\n                \"value\": \"Meat, poultry, fish, eggs, dairy products, and seafood are rich in high-quality protein. These sources provide all essential amino acids in appropriate proportions.\"\n            },\n            {\n                \"key\": \"Plant Sources\",\n                \"value\": \"Legumes (beans, lentils, peas), nuts, seeds, tofu, tempeh, and whole grains are good sources of plant-based protein. Combining different plant protein sources can help ensure a complete range of amino acids.\"\n            }\n        ],\n        \"types\": [],\n        \"dietaryConsiderations\": [\n            {\n                \"key\": \"Quality of Protein Sources\",\n                \"value\": \"Choose a variety of protein sources to ensure a balance of essential amino acids. Animal-based sources (meat, poultry, fish, eggs, dairy) are often complete proteins, while plant-based sources (legumes, nuts, seeds, grains) may require combining different sources to ensure a complete amino acid profile.\"\n            },\n            {\n                \"key\": \"Protein Intake\",\n                \"value\": \"Recommendations vary based on factors such as age, gender, activity level, and goals. For general health, a common guideline is about 0.8 grams of protein per kilogram of body weight per day. Athletes and those engaged in strength training may require more (1.2 to 2.0 grams per kilogram).\"\n            },\n            {\n                \"key\": \"Protein and Weight Management\",\n                \"value\": \"Protein-rich foods can help control appetite and contribute to feelings of fullness. Including protein in meals and snacks can support weight management goals.\"\n            },\n            {\n                \"key\": \"Individual Needs and Goals\",\n                \"value\": \"Dietary protein needs vary widely based on factors such as age, gender, activity level, metabolism, and health status. Consider working with a registered dietitian to determine your personalized protein requirements.\"\n            },\n            {\n                \"key\": \"Limit Processed Meats\",\n                \"value\": \"Processed meats (such as sausages, bacon, and deli meats) are often high in salt, saturated fats, and additives. Limiting their consumption supports overall health.\"\n            },\n            {\n                \"key\": \"Consider the Source\",\n                \"value\": \"When consuming animal-based proteins, opt for lean cuts of meat, poultry without the skin, and low-fat dairy to reduce saturated fat intake\"\n            },\n            {\n                \"key\": \"Protein Powder Supplements\",\n                \"value\": \"Protein supplements can be convenient for individuals with increased protein needs, such as athletes or those with dietary restrictions. However, whole food sources are generally preferred due to their additional nutritional benefits.\"\n            }\n        ]\n    },\n    {\n        \"name\": \"Fat\",\n        \"description\": \"\",\n        \"activeState\": 0.2,\n        \"inactiveState\": 0.35,\n        \"functions\": [\n            {\n                \"key\": \"Energy Source\",\n                \"value\": \"Fats are a concentrated source of energy, providing more than twice the calories per gram compared to carbohydrates and protein. They serve as a stored energy reserve in the body.\"\n            },\n            {\n                \"key\": \"Nutrient Absorption\",\n                \"value\": \"Fats are necessary for the absorption of fat-soluble vitamins (A, D, E, K) and certain antioxidants. These vitamins are crucial for various bodily functions, including vision, bone health, and immune function.\"\n            },\n            {\n                \"key\": \"Cell Structure\",\n                \"value\": \"Fats are essential components of cell membranes, helping maintain their integrity and allowing cells to function properly.\"\n            },\n            {\n                \"key\": \"Insulation and Protection\",\n                \"value\": \"Fats serve as insulation to regulate body temperature and protect vital organs by acting as a cushion.\"\n            },\n            {\n                \"key\": \"Hormone Production\",\n                \"value\": \"Fats are involved in the production of hormones, including sex hormones and hormones related to stress and inflammation.\"\n            }\n        ],\n        \"sources\": [\n            {\n                \"key\": \"Plant-Based Sources\",\n                \"value\": \"Nuts,Seeds,Avocado,Oils\"\n            },\n            {\n                \"key\": \"Animal-Based Sources\",\n                \"value\": \"Fatty Fish,Meat and Poultry,Full-fat dairy products like cheese, yogurt, and milk contain saturated fats. Opt for reduced-fat or low-fat options to reduce saturated fat intake\"\n            },\n            {\n                \"key\": \"Processed and Packaged Foods\",\n                \"value\": \"Snack Foods,Baked Goods,Processed Meats\"\n            },\n            {\n                \"key\": \"Nut Butters\",\n                \"value\": \"Peanut Butter,Almond Butter, Cashew Butter\"\n            }\n        ],\n        \"types\": [\n            {\n                \"key\": \"Saturated Fats\",\n                \"value\": \"These fats are found in animal products like meat, poultry, and dairy, as well as in some plant oils like coconut and palm oil. Consuming high amounts of saturated fats can raise cholesterol levels and increase the risk of heart disease.\"\n            },\n            {\n                \"key\": \"Monounsaturated Fats\",\n                \"value\": \"These fats are found in olive oil, avocados, nuts, and seeds. They are considered heart-healthy and can help lower bad (LDL) cholesterol levels while maintaining or increasing good (HDL) cholesterol levels.\"\n            },\n            {\n                \"key\": \"Polyunsaturated Fats\",\n                \"value\": \"These fats include omega-3 and omega-6 fatty acids. Omega-3s are found in fatty fish (salmon, mackerel, sardines), flaxseeds, chia seeds, and walnuts. Omega-6s are present in vegetable oils (corn, soybean, sunflower) and nuts. These fats are important for overall health and must be obtained from the diet, as the body can't produce them.\"\n            },\n            {\n                \"key\": \"Trans Fats\",\n                \"value\": \"Trans fats are primarily found in partially hydrogenated oils, which are used in some processed foods to improve shelf life and texture. Trans fats are known to raise bad cholesterol levels and increase the risk of heart disease. Many countries have implemented regulations to limit their use in foods.\"\n            }\n        ],\n        \"dietaryConsiderations\": [\n            {\n                \"key\": \"Healthy Fat Choices\",\n                \"value\": \"Focus on sources of healthy fats, such as nuts, seeds, avocados, olive oil, and fatty fish, while limiting sources of saturated and trans fats.\"\n            },\n            {\n                \"key\": \"Balancing Omega-3 and Omega-6\",\n                \"value\": \"Aim for a balance between omega-3 and omega-6 fatty acids. The modern Western diet tends to be higher in omega-6s, so including more sources of omega-3s is beneficial.\"\n            },\n            {\n                \"key\": \"Portion Control\",\n                \"value\": \"While fats are essential, they are calorie-dense. Be mindful of portion sizes to avoid excessive calorie intake.\"\n            },\n            {\n                \"key\": \"Cooking Oils\",\n                \"value\": \"Choose cooking oils with a high smoke point for high-temperature cooking (e.g., avocado oil, coconut oil), and use oils like olive oil for low-heat cooking or as dressings.\"\n            },\n            {\n                \"key\": \"Hydrogenated and Trans Fats\",\n                \"value\": \"Minimize or avoid foods containing partially hydrogenated oils or trans fats, as they are detrimental to heart health.\"\n            }\n        ]\n    }\n]"
+				},
+				{
+					"name": "MacronutrientWithCorrectName",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/macronutrient/Fat"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:09:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"Fat\",\n    \"description\": \"\",\n    \"activeState\": 0.2,\n    \"inactiveState\": 0.35,\n    \"functions\": [\n        {\n            \"key\": \"Energy Source\",\n            \"value\": \"Fats are a concentrated source of energy, providing more than twice the calories per gram compared to carbohydrates and protein. They serve as a stored energy reserve in the body.\"\n        },\n        {\n            \"key\": \"Nutrient Absorption\",\n            \"value\": \"Fats are necessary for the absorption of fat-soluble vitamins (A, D, E, K) and certain antioxidants. These vitamins are crucial for various bodily functions, including vision, bone health, and immune function.\"\n        },\n        {\n            \"key\": \"Cell Structure\",\n            \"value\": \"Fats are essential components of cell membranes, helping maintain their integrity and allowing cells to function properly.\"\n        },\n        {\n            \"key\": \"Insulation and Protection\",\n            \"value\": \"Fats serve as insulation to regulate body temperature and protect vital organs by acting as a cushion.\"\n        },\n        {\n            \"key\": \"Hormone Production\",\n            \"value\": \"Fats are involved in the production of hormones, including sex hormones and hormones related to stress and inflammation.\"\n        }\n    ],\n    \"sources\": [\n        {\n            \"key\": \"Plant-Based Sources\",\n            \"value\": \"Nuts,Seeds,Avocado,Oils\"\n        },\n        {\n            \"key\": \"Animal-Based Sources\",\n            \"value\": \"Fatty Fish,Meat and Poultry,Full-fat dairy products like cheese, yogurt, and milk contain saturated fats. Opt for reduced-fat or low-fat options to reduce saturated fat intake\"\n        },\n        {\n            \"key\": \"Processed and Packaged Foods\",\n            \"value\": \"Snack Foods,Baked Goods,Processed Meats\"\n        },\n        {\n            \"key\": \"Nut Butters\",\n            \"value\": \"Peanut Butter,Almond Butter, Cashew Butter\"\n        }\n    ],\n    \"types\": [\n        {\n            \"key\": \"Saturated Fats\",\n            \"value\": \"These fats are found in animal products like meat, poultry, and dairy, as well as in some plant oils like coconut and palm oil. Consuming high amounts of saturated fats can raise cholesterol levels and increase the risk of heart disease.\"\n        },\n        {\n            \"key\": \"Monounsaturated Fats\",\n            \"value\": \"These fats are found in olive oil, avocados, nuts, and seeds. They are considered heart-healthy and can help lower bad (LDL) cholesterol levels while maintaining or increasing good (HDL) cholesterol levels.\"\n        },\n        {\n            \"key\": \"Polyunsaturated Fats\",\n            \"value\": \"These fats include omega-3 and omega-6 fatty acids. Omega-3s are found in fatty fish (salmon, mackerel, sardines), flaxseeds, chia seeds, and walnuts. Omega-6s are present in vegetable oils (corn, soybean, sunflower) and nuts. These fats are important for overall health and must be obtained from the diet, as the body can't produce them.\"\n        },\n        {\n            \"key\": \"Trans Fats\",\n            \"value\": \"Trans fats are primarily found in partially hydrogenated oils, which are used in some processed foods to improve shelf life and texture. Trans fats are known to raise bad cholesterol levels and increase the risk of heart disease. Many countries have implemented regulations to limit their use in foods.\"\n        }\n    ],\n    \"dietaryConsiderations\": [\n        {\n            \"key\": \"Healthy Fat Choices\",\n            \"value\": \"Focus on sources of healthy fats, such as nuts, seeds, avocados, olive oil, and fatty fish, while limiting sources of saturated and trans fats.\"\n        },\n        {\n            \"key\": \"Balancing Omega-3 and Omega-6\",\n            \"value\": \"Aim for a balance between omega-3 and omega-6 fatty acids. The modern Western diet tends to be higher in omega-6s, so including more sources of omega-3s is beneficial.\"\n        },\n        {\n            \"key\": \"Portion Control\",\n            \"value\": \"While fats are essential, they are calorie-dense. Be mindful of portion sizes to avoid excessive calorie intake.\"\n        },\n        {\n            \"key\": \"Cooking Oils\",\n            \"value\": \"Choose cooking oils with a high smoke point for high-temperature cooking (e.g., avocado oil, coconut oil), and use oils like olive oil for low-heat cooking or as dressings.\"\n        },\n        {\n            \"key\": \"Hydrogenated and Trans Fats\",\n            \"value\": \"Minimize or avoid foods containing partially hydrogenated oils or trans fats, as they are detrimental to heart health.\"\n        }\n    ]\n}"
+				},
+				{
+					"name": "MacronutrientWithWrongName",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/macronutrient/Fataa"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "117"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:10:11 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "Electrolyte with name 'Fataa' does not existed in the data.\nThe available search names are: Carbohydrates,Protein,Fat"
+				}
+			]
+		},
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"\",\r\n    \"email\":\"\",\r\n    \"password\": 1 ,\r\n    \"kilograms\": \"\",\r\n    \"height\": 1,\r\n    \"workoutState\": \"\",\r\n    \"gender\": \"\",\r\n    \"age\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/nutritionApi/user/register",
+				"description": "There are 8 fields, but you only need to fill in 3 of them. If you fill all of them, you will achieve 'Complete Registration,' which will allow you to use the 'Records' endpoints. There are some restrictions:\n\n- Name cannot be empty and must be at least 4 letters long.\n    \n- Email should not be empty, must be in email format, and must not have been used before.\n    \n- Password must not be blank and must be at least 5 letters long.\n    \n\nCheck the example."
+			},
+			"response": [
+				{
+					"name": "Failed Registration 1",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"test\",\r\n    \"email\":\"test@abv.bg\",\r\n    \"password\":12345\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/user/register"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "27"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:14:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "email : email already exits"
+				},
+				{
+					"name": "Failed Registration 2",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/user/register"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "83"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:16:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "password : must not be blank\nusername : must not be blank\nemail : must not be blank"
+				},
+				{
+					"name": "Successful 1",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"valid\",\r\n    \"email\":\"valid@abv.bg\",\r\n    \"password\":12345\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/user/register"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "27"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:17:04 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "Successfuly created account"
+				},
+				{
+					"name": "Successful with all fields",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"valid2\",\r\n    \"email\":\"valid2@abv.bg\",\r\n    \"password\":12345,\r\n    \"kilograms\": \"81,2\",\r\n    \"height\": 185,\r\n    \"workoutState\": \"MODERATELY_ACTIVE\",\r\n    \"gender\": \"MALE\",\r\n    \"age\": 24\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/user/register"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "27"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:17:54 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "Successfuly created account"
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"test@abv.bg\",\r\n    \"password\":\"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/nutritionApi/user/login",
+				"description": "After registration, if you enter your email and password correctly, you will receive a 'Bearer' token, which you need to use for authorization in the next features."
+			},
+			"response": [
+				{
+					"name": "Successful login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"test@abv.bg\",\r\n    \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/user/login"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "119"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:35:11 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjkyNzAyMzExfQ.yk7WF35KHXvmoJjXYA8ZiprQYQefNCdLTB5acbYpRJo"
+				},
+				{
+					"name": "Failed login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"\",\r\n    \"password\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/user/login"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "92"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:35:43 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "email : must not be blank\npassword : must not be blank\npassword : wrong username or password"
+				}
+			]
+		},
+		{
+			"name": "User Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/nutritionApi/user/details",
+				"description": "This feature allows you to view your profile. You need to be authenticated to access this. From here, you can see which fields are not filled, and after you fill them all, you will achieve 'UserDetails_COMPLETED' status."
+			},
+			"response": [
+				{
+					"name": "User Details 1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/user/details"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:40:02 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"username\": \"test\",\n    \"email\": \"test@abv.bg\",\n    \"kilograms\": 82,\n    \"height\": 186,\n    \"workoutState\": \"MODERATELY_ACTIVE\",\n    \"gender\": \"MALE\",\n    \"userDetails\": \"COMPLETED\",\n    \"age\": 25\n}"
+				},
+				{
+					"name": "User Details 2",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/user/details"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 10:40:59 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"username\": \"valid\",\n    \"email\": \"valid@abv.bg\",\n    \"kilograms\": null,\n    \"height\": null,\n    \"workoutState\": null,\n    \"gender\": null,\n    \"userDetails\": \"NOT_COMPLETED\",\n    \"age\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Change User Details",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"null\" ,\r\n    \"kilograms\":  null,\r\n    \"height\": null ,\r\n    \"workoutState\": \"MODERATELY_ACTIVE\",\r\n    \"gender\": \"MALE\",\r\n    \"age\": 25\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/nutritionApi/user/details",
+				"description": "You can change the given fields in the body. Even if you change them to null or empty or something similar, nothing will happen. This method is created to give you an opportunity to fully register and gain access to the next features. Fileds that you need to choose for:\n\n- workoutState :SEDENTARY, LIGHTLY_ACTIVE, MODERATELY_ACTIVE, VERY_ACTIVE, SUPER_ACTIVE ;\n    \n- gender : MALE,FEMALE;\n    \n\ntIf you write something else for (gender or workoutState), a 'BadRequest 400' will be sent."
+			},
+			"response": [
+				{
+					"name": "Change User Details",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"null\" ,\r\n    \"kilograms\":  null,\r\n    \"height\": null ,\r\n    \"workoutState\": \"MODERATELY_ACTIVE\",\r\n    \"gender\": \"MALE\",\r\n    \"age\": 25\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/user/details"
+					},
+					"status": "Accepted",
+					"code": 202,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 11:23:51 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 3,\n    \"username\": \"valid\",\n    \"email\": \"valid@abv.bg\",\n    \"kilograms\": 23,\n    \"height\": 23,\n    \"workoutState\": \"MODERATELY_ACTIVE\",\n    \"gender\": \"MALE\",\n    \"userDetails\": \"COMPLETED\",\n    \"age\": 25\n}"
+				}
+			]
+		},
+		{
+			"name": "User Records",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:8080/nutritionApi/records",
+				"description": "You need to be fully registered (UserDetails_Completed) to use this feature. This allows you to see all of your nutrition records.\n\nEverything is calculated based on the information that you have filled in. For example, if my height is 23 and my weight is 23, I need to consume 731 calories per day, which automatically calculates how much macro I need."
+			},
+			"response": [
+				{
+					"name": "Get All User Records",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/records"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 11:26:15 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"day\": 4,\n        \"dailyIntakeViews\": [\n            {\n                \"id\": 64,\n                \"nutrientName\": \"A\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 700,\n                \"upperBoundIntake\": 900,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"micrograms of retinol activity equivalents (RAE)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 65,\n                \"nutrientName\": \"D\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 600,\n                \"upperBoundIntake\": 800,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"international units (IU)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 66,\n                \"nutrientName\": \"E\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 15,\n                \"upperBoundIntake\": 15,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg) of alpha-tocophero\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 67,\n                \"nutrientName\": \"K\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 120,\n                \"upperBoundIntake\": 120,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"micrograms (mcg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 68,\n                \"nutrientName\": \"C\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 90,\n                \"upperBoundIntake\": 90,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 69,\n                \"nutrientName\": \"B1\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 1.2,\n                \"upperBoundIntake\": 1.2,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 70,\n                \"nutrientName\": \"B2\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 1.3,\n                \"upperBoundIntake\": 1.3,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 71,\n                \"nutrientName\": \"B3\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 16,\n                \"upperBoundIntake\": 16,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 72,\n                \"nutrientName\": \"B5\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 5,\n                \"upperBoundIntake\": 5,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 73,\n                \"nutrientName\": \"B6\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 1.3,\n                \"upperBoundIntake\": 1.7,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 74,\n                \"nutrientName\": \"B7\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 30,\n                \"upperBoundIntake\": 30,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"micrograms (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 75,\n                \"nutrientName\": \"B9\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 400,\n                \"upperBoundIntake\": 400,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"micrograms (mcg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 76,\n                \"nutrientName\": \"B12\",\n                \"nutrientType\": \"Vitamin\",\n                \"lowerBoundIntake\": 2.4,\n                \"upperBoundIntake\": 2.4,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"micrograms (mcg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 77,\n                \"nutrientName\": \"Sodium\",\n                \"nutrientType\": \"Electrolyte\",\n                \"lowerBoundIntake\": 2300,\n                \"upperBoundIntake\": 2300,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 78,\n                \"nutrientName\": \"Potassium\",\n                \"nutrientType\": \"Electrolyte\",\n                \"lowerBoundIntake\": 3500,\n                \"upperBoundIntake\": 4700,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 79,\n                \"nutrientName\": \"Calcium\",\n                \"nutrientType\": \"Electrolyte\",\n                \"lowerBoundIntake\": 1000,\n                \"upperBoundIntake\": 1000,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 80,\n                \"nutrientName\": \"Magnesium\",\n                \"nutrientType\": \"Electrolyte\",\n                \"lowerBoundIntake\": 400,\n                \"upperBoundIntake\": 420,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 81,\n                \"nutrientName\": \"Chloride\",\n                \"nutrientType\": \"Electrolyte\",\n                \"lowerBoundIntake\": 2300,\n                \"upperBoundIntake\": 2300,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"milligrams (mg)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 82,\n                \"nutrientName\": \"Carbohydrates\",\n                \"nutrientType\": \"Macronutrient\",\n                \"lowerBoundIntake\": 92.26,\n                \"upperBoundIntake\": 92.26,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"grams (g)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 83,\n                \"nutrientName\": \"Protein\",\n                \"nutrientType\": \"Macronutrient\",\n                \"lowerBoundIntake\": 46.13,\n                \"upperBoundIntake\": 46.13,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"grams (g)\",\n                \"recordId\": 4\n            },\n            {\n                \"id\": 84,\n                \"nutrientName\": \"Fat\",\n                \"nutrientType\": \"Macronutrient\",\n                \"lowerBoundIntake\": 16.4,\n                \"upperBoundIntake\": 16.4,\n                \"dailyConsumed\": 0,\n                \"measurement\": \"grams (g)\",\n                \"recordId\": 4\n            }\n        ],\n        \"dailyCaloriesToConsume\": 738.1,\n        \"userID\": 3,\n        \"userName\": \"valid\",\n        \"id\": 4\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Change Consumption",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" :\"Protein\",\r\n    \"measure\": \"109\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/nutritionApi/records/edit/{recordId}",
+				"description": "During this feature, you can change the record of the currently logged-in user. If you try to change a record that belongs to another user, you will receive a 'BadRequest' error. The parameters for changing the nutrition in each request are (name and measure). Please check the examples for more details."
+			},
+			"response": [
+				{
+					"name": "Invalid Record Id",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" :\"Protein\",\r\n    \"measure\": \"109\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/records/edit/1"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "57"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 11:42:22 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "Record with the given day 1 does not existed in the data."
+				},
+				{
+					"name": "Invalid Body",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" :\"ProOtein\",\r\n    \"measure\": \"109\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/records/edit/4"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "259"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 11:42:57 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "This does not match any nutrient in the dalyRecord/dataBase\r\nAll available macros names: Carbohydrates,Protein,Fat\r\nAll available vitamins names: A,D,E,K,C,B1,B2,B3,B5,B6,B7,B9,B12\r\nAll available electrolytes names: Sodium,Potassium,Calcium,Magnesium,Chloride"
+				},
+				{
+					"name": "Successful Change",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" :\"Protein\",\r\n    \"measure\": \"109\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8080/nutritionApi/records/edit/4"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 11:43:21 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 83,\n    \"nutrientName\": \"Protein\",\n    \"nutrientType\": \"Macronutrient\",\n    \"lowerBoundIntake\": 46.13,\n    \"upperBoundIntake\": 46.13,\n    \"dailyConsumed\": 218,\n    \"measurement\": \"grams (g)\",\n    \"recordId\": 4\n}"
+				}
+			]
+		},
+		{
+			"name": "New Record",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/nutritionApi/records",
+				"description": "Hitting this endpoint will automatically create a new record, and it will be shown in the response."
+			},
+			"response": [
+				{
+					"name": "New Record",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/records"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 11:51:03 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"day\": 5,\n    \"dailyIntakeViews\": [\n        {\n            \"id\": 85,\n            \"nutrientName\": \"A\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 700,\n            \"upperBoundIntake\": 900,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"micrograms of retinol activity equivalents (RAE)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 86,\n            \"nutrientName\": \"D\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 600,\n            \"upperBoundIntake\": 800,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"international units (IU)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 87,\n            \"nutrientName\": \"E\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 15,\n            \"upperBoundIntake\": 15,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg) of alpha-tocophero\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 88,\n            \"nutrientName\": \"K\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 120,\n            \"upperBoundIntake\": 120,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"micrograms (mcg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 89,\n            \"nutrientName\": \"C\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 90,\n            \"upperBoundIntake\": 90,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 90,\n            \"nutrientName\": \"B1\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 1.2,\n            \"upperBoundIntake\": 1.2,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 91,\n            \"nutrientName\": \"B2\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 1.3,\n            \"upperBoundIntake\": 1.3,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 92,\n            \"nutrientName\": \"B3\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 16,\n            \"upperBoundIntake\": 16,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 93,\n            \"nutrientName\": \"B5\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 5,\n            \"upperBoundIntake\": 5,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 94,\n            \"nutrientName\": \"B6\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 1.3,\n            \"upperBoundIntake\": 1.7,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 95,\n            \"nutrientName\": \"B7\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 30,\n            \"upperBoundIntake\": 30,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"micrograms (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 96,\n            \"nutrientName\": \"B9\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 400,\n            \"upperBoundIntake\": 400,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"micrograms (mcg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 97,\n            \"nutrientName\": \"B12\",\n            \"nutrientType\": \"Vitamin\",\n            \"lowerBoundIntake\": 2.4,\n            \"upperBoundIntake\": 2.4,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"micrograms (mcg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 98,\n            \"nutrientName\": \"Sodium\",\n            \"nutrientType\": \"Electrolyte\",\n            \"lowerBoundIntake\": 2300,\n            \"upperBoundIntake\": 2300,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 99,\n            \"nutrientName\": \"Potassium\",\n            \"nutrientType\": \"Electrolyte\",\n            \"lowerBoundIntake\": 3500,\n            \"upperBoundIntake\": 4700,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 100,\n            \"nutrientName\": \"Calcium\",\n            \"nutrientType\": \"Electrolyte\",\n            \"lowerBoundIntake\": 1000,\n            \"upperBoundIntake\": 1000,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 101,\n            \"nutrientName\": \"Magnesium\",\n            \"nutrientType\": \"Electrolyte\",\n            \"lowerBoundIntake\": 400,\n            \"upperBoundIntake\": 420,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 102,\n            \"nutrientName\": \"Chloride\",\n            \"nutrientType\": \"Electrolyte\",\n            \"lowerBoundIntake\": 2300,\n            \"upperBoundIntake\": 2300,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"milligrams (mg)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 103,\n            \"nutrientName\": \"Carbohydrates\",\n            \"nutrientType\": \"Macronutrient\",\n            \"lowerBoundIntake\": 401.2268,\n            \"upperBoundIntake\": 401.2268,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"grams (g)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 104,\n            \"nutrientName\": \"Protein\",\n            \"nutrientType\": \"Macronutrient\",\n            \"lowerBoundIntake\": 200.6134,\n            \"upperBoundIntake\": 200.6134,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"grams (g)\",\n            \"recordId\": 5\n        },\n        {\n            \"id\": 105,\n            \"nutrientName\": \"Fat\",\n            \"nutrientType\": \"Macronutrient\",\n            \"lowerBoundIntake\": 71.32920889,\n            \"upperBoundIntake\": 71.32920889,\n            \"dailyConsumed\": 0,\n            \"measurement\": \"grams (g)\",\n            \"recordId\": 5\n        }\n    ],\n    \"dailyCaloriesToConsume\": 3209.8144,\n    \"userID\": 3,\n    \"userName\": \"valid\",\n    \"id\": 5\n}"
+				}
+			]
+		},
+		{
+			"name": "Remove Record",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "localhost:8080/nutritionApi/records/{recordId}",
+				"description": "If you want to delete a record, you need to provide the correct recordID. If you pass a recordID that belongs to another user, you will receive a 'BadRequest' error."
+			},
+			"response": [
+				{
+					"name": "Invalid Record ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/records/1"
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "57"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 11:56:52 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "Record with the given day 1 does not existed in the data."
+				},
+				{
+					"name": "Valid Record ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8080/nutritionApi/records/6"
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Aug 2023 11:57:10 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzIiwiZXhwIjoxNjkyNzA2ODM4fQ.Wk2k3gXiz4Mjs8u04vI0VGrMJQTfIUi88ZZ8YbOmU7A"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
