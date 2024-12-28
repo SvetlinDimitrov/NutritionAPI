@@ -1,7 +1,7 @@
 package com.example.nutrition_api.infrastructure.open_ai;
 
-import com.example.nutrition_api.domain.users.dto.EditUserDto;
-import com.example.nutrition_api.domain.users.dto.RegisterUserDto;
+import com.example.nutrition_api.domain.users.dto.UserCreateRequest;
+import com.example.nutrition_api.domain.users.dto.UserUpdateRequest;
 import com.example.nutrition_api.domain.users.dto.UserView;
 import com.example.nutrition_api.infrastructure.exceptions.WrongUserCredentialsException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +35,7 @@ public interface UserControllerDocs {
           )
       )
   )
-  void create(@Valid @RequestBody RegisterUserDto userDto, BindingResult result)
+  void create(@Valid @RequestBody UserCreateRequest userDto, BindingResult result)
       throws WrongUserCredentialsException;
 
   @Operation(summary = "Get user details", description = "Retrieve the details of the logged-in user")
@@ -57,5 +57,5 @@ public interface UserControllerDocs {
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
   @SecurityRequirement(name = "bearerAuth")
-  UserView edit(Principal principal, @RequestBody EditUserDto userDto);
+  UserView edit(Principal principal, @RequestBody UserUpdateRequest userDto);
 }

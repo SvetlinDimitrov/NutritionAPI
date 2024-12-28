@@ -1,7 +1,7 @@
 package com.example.nutrition_api.web;
 
 import com.example.nutrition_api.domain.electrolyte.dto.ElectrolyteView;
-import com.example.nutrition_api.domain.electrolyte.service.ElectrolyteServiceImp;
+import com.example.nutrition_api.domain.electrolyte.service.ElectrolyteService;
 import com.example.nutrition_api.infrastructure.exceptions.ElectrolyteNotFoundException;
 import com.example.nutrition_api.infrastructure.open_ai.ElectrolyteControllerDocs;
 import java.util.List;
@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ElectrolyteController implements ElectrolyteControllerDocs {
 
-  private final ElectrolyteServiceImp electrolyteService;
+  private final ElectrolyteService electrolyteService;
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   public List<ElectrolyteView> getAll() {
-    return electrolyteService.getAllViewElectrolytes();
+    return electrolyteService.getAll();
   }
 
   @GetMapping("/{name}")
   @ResponseStatus(HttpStatus.OK)
   public ElectrolyteView getByName(@PathVariable String name) throws ElectrolyteNotFoundException {
-    return electrolyteService.getElectrolyteViewByName(name);
+    return electrolyteService.getByName(name);
   }
 
 }

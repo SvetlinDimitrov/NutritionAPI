@@ -1,6 +1,6 @@
 package com.example.nutrition_api.domain.record.entity;
 
-import com.example.nutrition_api.domain.users.entity.UserEntity;
+import com.example.nutrition_api.domain.users.entity.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,21 +17,21 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "records")
-public class RecordEntity {
+public class Record {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "record" , cascade = {CascadeType.PERSIST, CascadeType.MERGE , CascadeType.REMOVE})
-    private List<NutritionIntakeEntity> dailyIntakeViews;
+    private List<NutritionIntake> dailyIntakeViews;
 
     @Column(name = "daily_calories")
     private BigDecimal dailyCalories;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private User user;
 
 
     public Long getId() {
@@ -42,30 +42,30 @@ public class RecordEntity {
         return dailyCalories;
     }
 
-    public RecordEntity setDailyCalories(BigDecimal dailyCalories) {
+    public Record setDailyCalories(BigDecimal dailyCalories) {
         this.dailyCalories = dailyCalories;
         return this;
     }
 
-    public RecordEntity setId(Long id) {
+    public Record setId(Long id) {
         this.id = id;
         return this;
     }
 
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 
-    public RecordEntity setUser(UserEntity user) {
+    public Record setUser(User user) {
         this.user = user;
         return this;
     }
 
-    public List<NutritionIntakeEntity> getDailyIntakeViews() {
+    public List<NutritionIntake> getDailyIntakeViews() {
         return dailyIntakeViews;
     }
 
-    public RecordEntity setDailyIntakeViews(List<NutritionIntakeEntity> dailyIntakeViews) {
+    public Record setDailyIntakeViews(List<NutritionIntake> dailyIntakeViews) {
         this.dailyIntakeViews = dailyIntakeViews;
         return this;
     }
@@ -74,7 +74,7 @@ public class RecordEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RecordEntity record = (RecordEntity) o;
+        Record record = (Record) o;
         return Objects.equals(id, record.id) && Objects.equals(dailyIntakeViews, record.dailyIntakeViews) && Objects.equals(dailyCalories, record.dailyCalories) && Objects.equals(user, record.user);
     }
 

@@ -1,6 +1,6 @@
 package com.example.nutrition_api.infrastructure.security.refresh_token.entity;
 
-import com.example.nutrition_api.domain.users.entity.UserEntity;
+import com.example.nutrition_api.domain.users.entity.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,5 +28,5 @@ public class RefreshToken {
   private LocalDateTime expiryDate;
 
   @OneToOne
-  private UserEntity user;
+  private User user;
 }

@@ -13,7 +13,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ElectrolyteServiceImp {
+public class ElectrolyteServiceImp implements ElectrolyteService {
 
   private final Map<String, Electrolyte> electrolyteEntityMap = new LinkedHashMap<>();
   private final ViewConverter converter;
@@ -22,8 +22,11 @@ public class ElectrolyteServiceImp {
     this.converter = converter;
   }
 
-  public List<ElectrolyteView> getAllViewElectrolytes() {
+  public List<Electrolyte> findAll() {
+    return electrolyteEntityMap.values().stream().toList();
+  }
 
+  public List<ElectrolyteView> getAll() {
     return electrolyteEntityMap
         .values()
         .stream()
@@ -31,7 +34,7 @@ public class ElectrolyteServiceImp {
         .toList();
   }
 
-  public ElectrolyteView getElectrolyteViewByName(String name) throws ElectrolyteNotFoundException {
+  public ElectrolyteView getByName(String name) throws ElectrolyteNotFoundException {
 
     if (electrolyteEntityMap.containsKey(name)) {
       return converter.toView(electrolyteEntityMap.get(name));
@@ -42,11 +45,6 @@ public class ElectrolyteServiceImp {
   public String getAllElectrolytesNames() {
     return String.join(",", electrolyteEntityMap.keySet());
   }
-
-  public List<Electrolyte> findAll() {
-    return electrolyteEntityMap.values().stream().toList();
-  }
-
 
   @PostConstruct
   public void initData() {

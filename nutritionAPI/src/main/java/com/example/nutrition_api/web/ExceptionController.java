@@ -1,8 +1,8 @@
 package com.example.nutrition_api.web;
 
-import com.example.nutrition_api.domain.electrolyte.service.ElectrolyteServiceImp;
-import com.example.nutrition_api.domain.macros.service.MacronutrientServiceImp;
-import com.example.nutrition_api.domain.vitamin.service.VitaminServiceImp;
+import com.example.nutrition_api.domain.electrolyte.service.ElectrolyteService;
+import com.example.nutrition_api.domain.macros.service.MacronutrientService;
+import com.example.nutrition_api.domain.vitamin.service.VitaminService;
 import com.example.nutrition_api.infrastructure.exceptions.ElectrolyteNotFoundException;
 import com.example.nutrition_api.infrastructure.exceptions.IncorrectNutrientChangeException;
 import com.example.nutrition_api.infrastructure.exceptions.MacronutrientNotFoundException;
@@ -22,69 +22,70 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class ExceptionController {
 
-    private final ElectrolyteServiceImp electrolyteServiceImp;
-    private final MacronutrientServiceImp macronutrientServiceImp;
-    private final VitaminServiceImp vitaminServiceImp;
+  private final ElectrolyteService electrolyteService;
+  private final MacronutrientService macronutrientService;
+  private final VitaminService vitaminService;
 
-    @ExceptionHandler(ElectrolyteNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionResponse catchElectrolyteNotFound(ElectrolyteNotFoundException e) {
+  @ExceptionHandler(ElectrolyteNotFoundException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ExceptionResponse catchElectrolyteNotFound(ElectrolyteNotFoundException e) {
 
-        return new ExceptionResponse(
-                "Electrolyte with name '" + e.getMessage() + "' does not existed in the data.\n" +
-                        "The available search names are: " + electrolyteServiceImp.getAllElectrolytesNames());
+    return new ExceptionResponse(
+        "Electrolyte with name '" + e.getMessage() + "' does not existed in the data.\n" +
+            "The available search names are: "
+            + electrolyteService.getAllElectrolytesNames());
 
-    }
+  }
 
-    @ExceptionHandler(MacronutrientNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionResponse catchMacroNotFoundError(MacronutrientNotFoundException e) {
+  @ExceptionHandler(MacronutrientNotFoundException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ExceptionResponse catchMacroNotFoundError(MacronutrientNotFoundException e) {
 
-        return new ExceptionResponse(
-                "Electrolyte with name '" + e.getMessage() + "' does not existed in the data.\n" +
-                        "The available search names are: " + macronutrientServiceImp.getAllMacrosNames());
+    return new ExceptionResponse(
+        "Electrolyte with name '" + e.getMessage() + "' does not existed in the data.\n" +
+            "The available search names are: " + macronutrientService.getAllMacrosNames());
 
-    }
+  }
 
-    @ExceptionHandler(RecordNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionResponse catchRecordNotFoundException(RecordNotFoundException e) {
-        return new ExceptionResponse(e.getMessage());
-    }
+  @ExceptionHandler(RecordNotFoundException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ExceptionResponse catchRecordNotFoundException(RecordNotFoundException e) {
+    return new ExceptionResponse(e.getMessage());
+  }
 
-    @ExceptionHandler(IncorrectNutrientChangeException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionResponse catchIncorrectNutrientChangeException(
-        IncorrectNutrientChangeException e) {
+  @ExceptionHandler(IncorrectNutrientChangeException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ExceptionResponse catchIncorrectNutrientChangeException(
+      IncorrectNutrientChangeException e) {
 
-        String message = "This does not match any nutrient in the dalyRecord/dataBase" +
-                System.lineSeparator() +
-                "All available macros names: " +
-                macronutrientServiceImp.getAllMacrosNames() +
-                System.lineSeparator() +
-                "All available vitamins names: " +
-                vitaminServiceImp.getAllVitaminsNames() +
-                System.lineSeparator() +
-                "All available electrolytes names: " +
-                electrolyteServiceImp.getAllElectrolytesNames();
+    String message = "This does not match any nutrient in the dalyRecord/dataBase" +
+        System.lineSeparator() +
+        "All available macros names: " +
+        macronutrientService.getAllMacrosNames() +
+        System.lineSeparator() +
+        "All available vitamins names: " +
+        vitaminService.getAllVitaminsNames() +
+        System.lineSeparator() +
+        "All available electrolytes names: " +
+        electrolyteService.getAllElectrolytesNames();
 
-        return new ExceptionResponse(!e.getMessage().isBlank() ? message : e.getMessage());
-    }
+    return new ExceptionResponse(!e.getMessage().isBlank() ? message : e.getMessage());
+  }
 
-    @ExceptionHandler(WrongUserCredentialsException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionResponse wrongCredentialsErrorCaught(WrongUserCredentialsException e) {
-        return new ExceptionResponse(e.getMessageWithErrors());
-    }
+  @ExceptionHandler(WrongUserCredentialsException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ExceptionResponse wrongCredentialsErrorCaught(WrongUserCredentialsException e) {
+    return new ExceptionResponse(e.getMessageWithErrors());
+  }
 
-    @ExceptionHandler(VitaminNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ExceptionResponse notFoundVitamin(VitaminNotFoundException exception) {
+  @ExceptionHandler(VitaminNotFoundException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ExceptionResponse notFoundVitamin(VitaminNotFoundException exception) {
 
-        String message =
-                "Vitamin with name " + exception.getMessage() + " does not existed in the data.\n" +
-                        "The available search names are: " + vitaminServiceImp.getAllVitaminsNames();
+    String message =
+        "Vitamin with name " + exception.getMessage() + " does not existed in the data.\n" +
+            "The available search names are: " + vitaminService.getAllVitaminsNames();
 
-        return new ExceptionResponse(message);
-    }
+    return new ExceptionResponse(message);
+  }
 }

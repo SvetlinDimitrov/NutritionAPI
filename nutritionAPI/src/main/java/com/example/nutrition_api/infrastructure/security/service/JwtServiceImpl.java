@@ -1,7 +1,7 @@
 package com.example.nutrition_api.infrastructure.security.service;
 
-import com.example.nutrition_api.domain.users.entity.UserEntity;
-import com.example.nutrition_api.domain.users.service.UserServiceImp;
+import com.example.nutrition_api.domain.users.entity.User;
+import com.example.nutrition_api.domain.users.service.UserService;
 import com.example.nutrition_api.infrastructure.security.config.JwtConfig;
 import com.example.nutrition_api.infrastructure.security.dto.AccessTokenView;
 import com.example.nutrition_api.infrastructure.security.dto.AuthenticationResponse;
@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 public class JwtServiceImpl implements JwtService {
 
   private final RefreshTokenRepository refreshTokenRepository;
-  private final UserServiceImp userService;
+  private final UserService userService;
   //  private final RefreshTokenMapper refreshTokenMapper;
   private final JwtConfig jwtConfig;
 //  private final UserMapper userMapper;
@@ -89,7 +89,7 @@ public class JwtServiceImpl implements JwtService {
         .getSubject();
   }
 
-  private AccessTokenView generateAccessToken(UserEntity user) {
+  private AccessTokenView generateAccessToken(User user) {
     var currentDate = new Date();
     var expirationDate = new Date(currentDate.getTime() + jwtConfig.getJwtDuration());
 
@@ -105,7 +105,7 @@ public class JwtServiceImpl implements JwtService {
     return new AccessTokenView(token);
   }
 
-  private RefreshTokenView generateRefreshToken(UserEntity user) {
+  private RefreshTokenView generateRefreshToken(User user) {
     var userRefreshToken = user.getRefreshToken();
 
     if (userRefreshToken != null) {

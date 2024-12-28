@@ -12,7 +12,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MacronutrientServiceImp {
+public class MacronutrientServiceImp implements MacronutrientService {
 
   private final Map<String, Macronutrient> macronutrientMap = new LinkedHashMap<>();
   private final ViewConverter converter;
@@ -21,7 +21,11 @@ public class MacronutrientServiceImp {
     this.converter = converter;
   }
 
-  public List<MacronutrientView> getAllMacrosView() {
+  public List<Macronutrient> findAll() {
+    return macronutrientMap.values().stream().toList();
+  }
+
+  public List<MacronutrientView> getAll() {
     return macronutrientMap
         .values()
         .stream()
@@ -29,7 +33,7 @@ public class MacronutrientServiceImp {
         .toList();
   }
 
-  public MacronutrientView getMacroViewByName(String name) throws MacronutrientNotFoundException {
+  public MacronutrientView getByName(String name) throws MacronutrientNotFoundException {
     if (macronutrientMap.containsKey(name)) {
       return converter.toView(macronutrientMap.get(name));
     }
@@ -38,10 +42,6 @@ public class MacronutrientServiceImp {
 
   public String getAllMacrosNames() {
     return String.join(",", macronutrientMap.keySet());
-  }
-
-  public List<Macronutrient> findAll() {
-    return macronutrientMap.values().stream().toList();
   }
 
   @PostConstruct
