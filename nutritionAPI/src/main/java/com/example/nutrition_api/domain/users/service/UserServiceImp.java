@@ -8,25 +8,19 @@ import com.example.nutrition_api.domain.users.entity.User;
 import com.example.nutrition_api.domain.users.enums.UserDetails;
 import com.example.nutrition_api.domain.users.repository.UserRepository;
 import com.example.nutrition_api.infrastructure.mappers.ViewConverter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImp implements UserService {
 
   private final UserRepository userRepository;
   private final RecordService recordService;
   private final PasswordEncoder passwordEncoder;
   private final ViewConverter converter;
-
-
-  public UserServiceImp(UserRepository userRepository, RecordService recordService, PasswordEncoder passwordEncoder, ViewConverter converter) {
-    this.userRepository = userRepository;
-    this.recordService = recordService;
-    this.passwordEncoder = passwordEncoder;
-    this.converter = converter;
-  }
 
   public boolean notUsedEmail(String email) {
     return userRepository.findByEmail(email).isEmpty();
@@ -88,6 +82,6 @@ public class UserServiceImp implements UserService {
   }
 
   private User toUserEntity(UserCreateRequest userDto) {
-    return new User().setEmail(userDto.email()).setPassword(passwordEncoder.encode(userDto.password())).setUsername(userDto.username()).setWorkoutState(userDto.workoutState()).setKilograms(userDto.kg()).setGender(userDto.gender()).setHeight(userDto.height()).setAge(userDto.age());
+    return User.builder().email(userDto.email()).password(passwordEncoder.encode(userDto.password())).username(userDto.username()).workoutState(userDto.workoutState()).kilograms(userDto.kg()).gender(userDto.gender()).height(userDto.height()).age(userDto.age()).build();
   }
 }

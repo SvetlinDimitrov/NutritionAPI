@@ -19,12 +19,23 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "users")
 @Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"records", "refreshToken"})
+@ToString(exclude = {"records", "refreshToken"})
+@Builder
 public class User {
 
   @Id
@@ -66,93 +77,4 @@ public class User {
 
   @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   private RefreshToken refreshToken;
-
-  public User setAge(Integer age) {
-    this.age = age;
-    return this;
-  }
-
-  public User setHeight(BigDecimal height) {
-    this.height = height;
-    return this;
-  }
-
-  public User setGender(Gender gender) {
-    this.gender = gender;
-    return this;
-  }
-
-  public User setKilograms(BigDecimal kilograms) {
-    this.kilograms = kilograms;
-    return this;
-  }
-
-  public User setWorkoutState(WorkoutState workoutState) {
-    this.workoutState = workoutState;
-    return this;
-  }
-
-  public User setRecords(List<Record> records) {
-    this.records = records;
-    return this;
-  }
-
-  public User setUsername(String name) {
-    this.username = name;
-    return this;
-  }
-
-  public User setRefreshToken(RefreshToken refreshToken) {
-    this.refreshToken = refreshToken;
-    return this;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public User setEmail(String email) {
-    this.email = email;
-    return this;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public User setPassword(String password) {
-    this.password = password;
-    return this;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public UserDetails getUserDetails() {
-    return userDetails;
-  }
-
-  public User setUserDetails(UserDetails userDetails) {
-    this.userDetails = userDetails;
-    return this;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {return true;}
-    if (o == null || getClass() != o.getClass()) {return false;}
-    User user = (User) o;
-    return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(kilograms, user.kilograms) && Objects.equals(height, user.height) && Objects.equals(age, user.age)
-        && workoutState == user.workoutState && gender == user.gender && userDetails == user.userDetails && Objects.equals(records, user.records);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, username, email, password, kilograms, height, age, workoutState, gender, userDetails, records);
-  }
 }

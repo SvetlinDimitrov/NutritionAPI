@@ -13,73 +13,31 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "records")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"user", "dailyIntakeViews"})
+@ToString(exclude = {"user", "dailyIntakeViews"})
 public class Record {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "record" , cascade = {CascadeType.PERSIST, CascadeType.MERGE , CascadeType.REMOVE})
-    private List<NutritionIntake> dailyIntakeViews;
-
     @Column(name = "daily_calories")
     private BigDecimal dailyCalories;
-
+    @OneToMany(mappedBy = "record" , cascade = {CascadeType.PERSIST, CascadeType.MERGE , CascadeType.REMOVE})
+    private List<NutritionIntake> dailyIntakeViews;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public BigDecimal getDailyCalories() {
-        return dailyCalories;
-    }
-
-    public Record setDailyCalories(BigDecimal dailyCalories) {
-        this.dailyCalories = dailyCalories;
-        return this;
-    }
-
-    public Record setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public Record setUser(User user) {
-        this.user = user;
-        return this;
-    }
-
-    public List<NutritionIntake> getDailyIntakeViews() {
-        return dailyIntakeViews;
-    }
-
-    public Record setDailyIntakeViews(List<NutritionIntake> dailyIntakeViews) {
-        this.dailyIntakeViews = dailyIntakeViews;
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Record record = (Record) o;
-        return Objects.equals(id, record.id) && Objects.equals(dailyIntakeViews, record.dailyIntakeViews) && Objects.equals(dailyCalories, record.dailyCalories) && Objects.equals(user, record.user);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, dailyIntakeViews, dailyCalories, user);
-    }
 }
