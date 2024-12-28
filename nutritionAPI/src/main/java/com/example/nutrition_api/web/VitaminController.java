@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/nutritionApi/v1/vitamin")
+@RequestMapping("/api/v1/vitamin")
 @RequiredArgsConstructor
 public class VitaminController implements VitaminControllerDocs {
 

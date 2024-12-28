@@ -20,7 +20,7 @@ public interface MacronutrientControllerDocs {
           content = {@Content(mediaType = "application/json",
               schema = @Schema(implementation = MacronutrientView[].class))}),
   })
-  List<MacronutrientView> getAllMacrosView();
+  List<MacronutrientView> getAll();
 
   @Operation(summary = "Get macronutrient by name", description = "Retrieve a macronutrient by its name")
   @ApiResponses(value = {
@@ -30,6 +30,6 @@ public interface MacronutrientControllerDocs {
       @ApiResponse(responseCode = "404", description = "Macronutrient not found",
           content = @Content)
   })
-  MacronutrientView getMacroViewByName(@PathVariable String name)
+  MacronutrientView getByName(@PathVariable String name)
       throws MacronutrientNotFoundException;
 }

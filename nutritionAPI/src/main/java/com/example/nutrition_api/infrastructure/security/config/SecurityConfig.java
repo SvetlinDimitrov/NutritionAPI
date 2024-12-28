@@ -1,24 +1,27 @@
 package com.example.nutrition_api.infrastructure.security.config;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
-import com.example.nutrition_api.domain.users.enums.UserDetails;
-import com.example.nutrition_api.infrastructure.security.filters.JwtAuthorizationFilter;
+import com.example.nutrition_api.infrastructure.security.filters.JwtRequestFilter;
+import java.util.Arrays;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
-
   private static final String[] WHITE_LIST = {
       "/v2/api-docs",
       "/v3/api-docs",
@@ -30,47 +33,46 @@ public class SecurityConfig {
       "/swagger-ui/**",
       "/webjars/**",
       "/swagger-ui.html",
-      "/nutritionApi/v1/user/register",
-      "/nutritionApi/v1/user/login",
-      "/nutritionApi/v1/electrolyte",
-      "/nutritionApi/v1/electrolyte/{name}",
-      "/nutritionApi/v1/macronutrient",
-      "/nutritionApi/v1/macronutrient/{name}",
-      "/nutritionApi/v1/vitamin",
-      "/nutritionApi/v1/vitamin/{name}"
+      "/api/v1/user/register",
+      "/api/v1/auth",
+      "/api/v1/electrolyte",
+      "/api/v1/electrolyte/{name}",
+      "/api/v1/macronutrient",
+      "/api/v1/macronutrient/{name}",
+      "/api/v1/vitamin",
+      "/api/v1/vitamin/{name}"
   };
+  @Value("${cors.allowed-origins}")
+  private List<String> allowedOrigins;
+  private final JwtRequestFilter jwtRequestFilter;
+  private final AuthenticationProvider authenticationProvider;
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtAuthorizationFilter filter) throws Exception {
-    return httpSecurity
-        .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http
+        .cors(cors -> corsConfigurationSource())
         .csrf(AbstractHttpConfigurer::disable)
-        .cors(AbstractHttpConfigurer::disable)
-        .formLogin(withDefaults())
-        .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .oauth2Login(withDefaults())
-        .securityMatcher("/nutritionApi/**")
-        .authorizeHttpRequests(
-            request -> request
+        .authorizeHttpRequests(authorizeRequests ->
+            authorizeRequests
                 .requestMatchers(WHITE_LIST).permitAll()
-                .requestMatchers("/nutritionApi/v1/records/**").hasRole(UserDetails.COMPLETED.name())
                 .anyRequest().authenticated()
         )
+        .sessionManagement(
+            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authenticationProvider(authenticationProvider)
+        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-//                ).logout(logout ->
-//                        logout
-//                                .logoutUrl("/logout")
-//                                .logoutSuccessUrl("/login?logout")
-//                                .invalidateHttpSession(true)
-//                                .deleteCookies("JSESSIONID")
-//                                .clearAuthentication(true)
-//                                .permitAll())
-        .build();
+    return http.build();
   }
 
   @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowedOrigins(allowedOrigins);
+    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+    config.setAllowedHeaders(List.of("*"));
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return source;
   }
-
 }

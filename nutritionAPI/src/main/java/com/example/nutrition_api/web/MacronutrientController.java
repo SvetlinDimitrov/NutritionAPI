@@ -3,6 +3,7 @@ package com.example.nutrition_api.web;
 import com.example.nutrition_api.domain.macros.dto.MacronutrientView;
 import com.example.nutrition_api.domain.macros.service.MacronutrientServiceImp;
 import com.example.nutrition_api.infrastructure.exceptions.MacronutrientNotFoundException;
+import com.example.nutrition_api.infrastructure.open_ai.MacronutrientControllerDocs;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/nutritionApi/v1/macronutrient")
+@RequestMapping("/api/v1/macronutrient")
 @RequiredArgsConstructor
-public class MacronutrientController {
+public class MacronutrientController implements MacronutrientControllerDocs {
 
     private final MacronutrientServiceImp macronutrientService;
 
