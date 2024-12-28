@@ -19,6 +19,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+  private static final String[] WHITE_LIST = {
+      "/v2/api-docs",
+      "/v3/api-docs",
+      "/v3/api-docs/**",
+      "/swagger-resources",
+      "/swagger-resources/**",
+      "/configuration/ui",
+      "/configuration/security",
+      "/swagger-ui/**",
+      "/webjars/**",
+      "/swagger-ui.html",
+      "/nutritionApi/v1/user/register",
+      "/nutritionApi/v1/user/login",
+      "/nutritionApi/v1/electrolyte",
+      "/nutritionApi/v1/electrolyte/{name}",
+      "/nutritionApi/v1/macronutrient",
+      "/nutritionApi/v1/macronutrient/{name}",
+      "/nutritionApi/v1/vitamin",
+      "/nutritionApi/v1/vitamin/{name}"
+  };
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtAuthorizationFilter filter) throws Exception {
@@ -32,17 +52,8 @@ public class SecurityConfig {
         .securityMatcher("/nutritionApi/**")
         .authorizeHttpRequests(
             request -> request
-                .requestMatchers(
-                    "/nutritionApi/user/register",
-                    "/nutritionApi/user/login",
-                    "/nutritionApi/electrolyte",
-                    "/nutritionApi/electrolyte/{name}",
-                    "/nutritionApi/macronutrient",
-                    "/nutritionApi/macronutrient/{name}",
-                    "/nutritionApi/vitamin",
-                    "/nutritionApi/vitamin/{name}"
-                ).permitAll()
-                .requestMatchers("/nutritionApi/records/**").hasRole(UserDetails.COMPLETED.name())
+                .requestMatchers(WHITE_LIST).permitAll()
+                .requestMatchers("/nutritionApi/v1/records/**").hasRole(UserDetails.COMPLETED.name())
                 .anyRequest().authenticated()
         )
 

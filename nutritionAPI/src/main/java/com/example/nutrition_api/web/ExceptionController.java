@@ -10,6 +10,7 @@ import com.example.nutrition_api.infrastructure.exceptions.RecordNotFoundExcepti
 import com.example.nutrition_api.infrastructure.exceptions.VitaminNotFoundException;
 import com.example.nutrition_api.infrastructure.exceptions.WrongUserCredentialsException;
 import com.example.nutrition_api.infrastructure.exceptions.dto.ExceptionResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,17 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @ControllerAdvice
 @RestController
+@RequiredArgsConstructor
 public class ExceptionController {
 
     private final ElectrolyteServiceImp electrolyteServiceImp;
     private final MacronutrientServiceImp macronutrientServiceImp;
     private final VitaminServiceImp vitaminServiceImp;
-
-    public ExceptionController(ElectrolyteServiceImp electrolyteServiceImp, MacronutrientServiceImp macronutrientServiceImp, VitaminServiceImp vitaminServiceImp) {
-        this.electrolyteServiceImp = electrolyteServiceImp;
-        this.macronutrientServiceImp = macronutrientServiceImp;
-        this.vitaminServiceImp = vitaminServiceImp;
-    }
 
     @ExceptionHandler(ElectrolyteNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

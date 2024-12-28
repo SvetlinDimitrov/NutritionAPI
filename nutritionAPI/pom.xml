@@ -5,18 +5,19 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.1</version>
+    <version>3.3.3</version>
     <relativePath/>
   </parent>
 
-    <groupId>com.example</groupId>
-    <artifactId>nutritionAPI</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+  <groupId>com.example</groupId>
+  <artifactId>nutritionAPI</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>nutrition_api</name>
 
     <properties>
-        <java.version>21</java.version>
-        <lombok.version>1.18.36</lombok.version>
+      <java.version>21</java.version>
+      <lombok.version>1.18.36</lombok.version>
+      <org.springdoc.version>2.6.0</org.springdoc.version>
     </properties>
 
     <dependencies>
@@ -65,6 +66,11 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>${org.springdoc.version}</version>
+      </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
