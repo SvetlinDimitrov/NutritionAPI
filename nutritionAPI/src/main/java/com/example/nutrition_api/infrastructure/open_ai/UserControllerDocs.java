@@ -1,13 +1,12 @@
 package com.example.nutrition_api.infrastructure.open_ai;
 
 import com.example.nutrition_api.domain.users.dto.EditUserDto;
-import com.example.nutrition_api.domain.users.dto.LoginUserDto;
 import com.example.nutrition_api.domain.users.dto.RegisterUserDto;
 import com.example.nutrition_api.domain.users.dto.UserView;
 import com.example.nutrition_api.infrastructure.exceptions.WrongUserCredentialsException;
-import com.example.nutrition_api.infrastructure.security.dto.JWT;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,18 +25,18 @@ public interface UserControllerDocs {
       @ApiResponse(responseCode = "201", description = "User registered"),
       @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content)
   })
-  void create(@Valid @RequestBody RegisterUserDto userDto,
-      BindingResult result) throws WrongUserCredentialsException;
-
-  @Operation(summary = "Login user", description = "Login a user and return a JWT token")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "User logged in",
-          content = {@Content(mediaType = "application/json",
-              schema = @Schema(implementation = JWT.class))}),
-      @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content),
-  })
-  JWT login(@Valid @RequestBody LoginUserDto userDto,
-      BindingResult result) throws WrongUserCredentialsException;
+  @io.swagger.v3.oas.annotations.parameters.RequestBody(
+      content = @Content(
+          mediaType = "application/json",
+          examples = @ExampleObject(
+              name = "RegisterUserDtoExample",
+              summary = "Example of RegisterUserDto",
+              value = "{ \"username\": \"john_doe\", \"email\": \"john.doe@example.com\", \"password\": \"password123\", \"kg\": 70, \"workoutState\": \"MODERATELY_ACTIVE\", \"gender\": \"MALE\", \"height\": 175, \"age\": 30 }"
+          )
+      )
+  )
+  void create(@Valid @RequestBody RegisterUserDto userDto, BindingResult result)
+      throws WrongUserCredentialsException;
 
   @Operation(summary = "Get user details", description = "Retrieve the details of the logged-in user")
   @ApiResponses(value = {

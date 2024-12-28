@@ -8,5 +8,6 @@
     <include file="users-table.xml" relativeToChangelogFile="true"/>
     <include file="record-table.xml" relativeToChangelogFile="true"/>
     <include file="nutrition_intake-table.xml" relativeToChangelogFile="true"/>
+    <include file="refresh-tokens-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

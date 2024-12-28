@@ -39,7 +39,6 @@ public class UserServiceImp {
         fillUserWithCompleteDetails(entity);
     }
 
-
     public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("no user found with the given email"));
@@ -53,14 +52,10 @@ public class UserServiceImp {
         return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("no user found with the given id"));
     }
 
-    public boolean login(LoginUserDto userDto) {
-        Optional<UserEntity> entity = userRepository.findByEmail(userDto.email());
-        return entity.isPresent() && passwordEncoder.matches(userDto.password(), entity.get().getPassword());
-    }
-
     public UserView getUserViewById(Long userId) {
         return converter.toView(findById(userId));
     }
+
     public void editUserEntity(EditUserDto userDto, Long userId) {
         UserEntity user = findById(userId);
 
@@ -97,6 +92,7 @@ public class UserServiceImp {
         }
         userRepository.save(entity);
     }
+
     private UserEntity toUserEntity(RegisterUserDto userDto) {
         return new UserEntity()
                 .setEmail(userDto.email())

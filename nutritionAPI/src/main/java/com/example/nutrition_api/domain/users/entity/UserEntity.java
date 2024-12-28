@@ -4,6 +4,7 @@ import com.example.nutrition_api.domain.record.entity.RecordEntity;
 import com.example.nutrition_api.domain.users.enums.Gender;
 import com.example.nutrition_api.domain.users.enums.UserDetails;
 import com.example.nutrition_api.domain.users.enums.WorkoutState;
+import com.example.nutrition_api.infrastructure.security.refresh_token.entity.RefreshToken;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,14 +14,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
 
 @Entity
 @Table(name = "users")
+@Getter
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,60 +63,36 @@ public class UserEntity {
     @OneToMany(mappedBy = "user" , cascade = {CascadeType.PERSIST,CascadeType.MERGE , CascadeType.REMOVE})
     private List<RecordEntity> records = new ArrayList<>();
 
-    public Integer getAge() {
-        return age;
-    }
+  @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REMOVE})
+  private RefreshToken refreshToken;
 
-    public UserEntity setAge(Integer age) {
+  public UserEntity setAge(Integer age) {
         this.age = age;
         return this;
     }
 
-    public BigDecimal getHeight() {
-        return height;
-    }
-
-    public UserEntity setHeight(BigDecimal height) {
+  public UserEntity setHeight(BigDecimal height) {
         this.height = height;
         return this;
     }
 
-    public Gender getGender() {
-        return gender;
-    }
-
-    public UserEntity setGender(Gender gender) {
+  public UserEntity setGender(Gender gender) {
         this.gender = gender;
         return this;
     }
 
-    public BigDecimal getKilograms() {
-        return kilograms;
-    }
-
-    public UserEntity setKilograms(BigDecimal kilograms) {
+  public UserEntity setKilograms(BigDecimal kilograms) {
         this.kilograms = kilograms;
         return this;
     }
 
-    public WorkoutState getWorkoutState() {
-        return workoutState;
-    }
-
-    public UserEntity setWorkoutState(WorkoutState workoutState) {
+  public UserEntity setWorkoutState(WorkoutState workoutState) {
         this.workoutState = workoutState;
         return this;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public List<RecordEntity> getRecords() {
-        return records;
-    }
-
-    public UserEntity setRecords(List<RecordEntity> records) {
+  public UserEntity setRecords(List<RecordEntity> records) {
         this.records = records;
         return this;
     }
@@ -122,7 +102,12 @@ public class UserEntity {
         return this;
     }
 
-    public String getEmail() {
+  public UserEntity setRefreshToken(RefreshToken refreshToken) {
+    this.refreshToken = refreshToken;
+    return this;
+  }
+
+  public String getEmail() {
         return email;
     }
 

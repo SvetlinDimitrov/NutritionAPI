@@ -12,10 +12,10 @@
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="username" type="varchar(50)"/>
-            <column name="email" type="varchar(50)">
+            <column name="email" type="varchar(250)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password" type="varchar(50)">
+            <column name="password" type="varchar(250)">
                 <constraints nullable="false"/>
             </column>
             <column name="kilograms" type="DECIMAL(19,2)"/>

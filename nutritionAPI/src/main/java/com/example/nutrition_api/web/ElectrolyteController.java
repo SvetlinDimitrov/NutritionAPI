@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController 
-@RequestMapping("/nutritionApi/v1/electrolyte")
+@RequestMapping("/api/v1/electrolyte")
 @RequiredArgsConstructor
 public class ElectrolyteController implements ElectrolyteControllerDocs {
 
