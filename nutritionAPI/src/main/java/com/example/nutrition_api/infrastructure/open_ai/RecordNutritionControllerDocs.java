@@ -1,6 +1,6 @@
 package com.example.nutrition_api.infrastructure.open_ai;
 
-import com.example.nutrition_api.domain.record.dto.NutrientChangeDto;
+import com.example.nutrition_api.domain.record.dto.NutrientUpdateRequest;
 import com.example.nutrition_api.domain.record.dto.NutritionIntakeView;
 import com.example.nutrition_api.domain.record.dto.RecordView;
 import com.example.nutrition_api.infrastructure.exceptions.IncorrectNutrientChangeException;
@@ -52,7 +52,7 @@ public interface RecordNutritionControllerDocs {
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
   NutritionIntakeView edit(
-      @Valid @RequestBody NutrientChangeDto dto,
+      @Valid @RequestBody NutrientUpdateRequest dto,
       BindingResult result,
       @PathVariable Long day,
       Principal principal

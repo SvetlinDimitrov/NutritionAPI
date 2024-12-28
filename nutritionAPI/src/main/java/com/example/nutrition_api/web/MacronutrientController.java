@@ -1,7 +1,7 @@
 package com.example.nutrition_api.web;
 
 import com.example.nutrition_api.domain.macros.dto.MacronutrientView;
-import com.example.nutrition_api.domain.macros.service.MacronutrientServiceImp;
+import com.example.nutrition_api.domain.macros.service.MacronutrientService;
 import com.example.nutrition_api.infrastructure.exceptions.MacronutrientNotFoundException;
 import com.example.nutrition_api.infrastructure.open_ai.MacronutrientControllerDocs;
 import java.util.List;
@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MacronutrientController implements MacronutrientControllerDocs {
 
-    private final MacronutrientServiceImp macronutrientService;
+  private final MacronutrientService macronutrientService;
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<MacronutrientView> getAll() {
-        return macronutrientService.getAllMacrosView();
-    }
+  @GetMapping
+  @ResponseStatus(HttpStatus.OK)
+  public List<MacronutrientView> getAll() {
+    return macronutrientService.getAll();
+  }
 
-    @GetMapping("/{name}")
-    @ResponseStatus(HttpStatus.OK)
-    public MacronutrientView getByName(@PathVariable String name) throws MacronutrientNotFoundException {
-        return macronutrientService.getMacroViewByName(name);
-    }
+  @GetMapping("/{name}")
+  @ResponseStatus(HttpStatus.OK)
+  public MacronutrientView getByName(@PathVariable String name) throws MacronutrientNotFoundException {
+    return macronutrientService.getByName(name);
+  }
 
 }

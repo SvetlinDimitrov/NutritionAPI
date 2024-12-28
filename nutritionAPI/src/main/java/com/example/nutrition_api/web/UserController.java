@@ -1,10 +1,10 @@
 package com.example.nutrition_api.web;
 
-import com.example.nutrition_api.domain.users.dto.EditUserDto;
-import com.example.nutrition_api.domain.users.dto.RegisterUserDto;
+import com.example.nutrition_api.domain.users.dto.UserCreateRequest;
+import com.example.nutrition_api.domain.users.dto.UserUpdateRequest;
 import com.example.nutrition_api.domain.users.dto.UserView;
-import com.example.nutrition_api.domain.users.entity.UserEntity;
-import com.example.nutrition_api.domain.users.service.UserServiceImp;
+import com.example.nutrition_api.domain.users.entity.User;
+import com.example.nutrition_api.domain.users.service.UserService;
 import com.example.nutrition_api.infrastructure.exceptions.WrongUserCredentialsException;
 import com.example.nutrition_api.infrastructure.open_ai.UserControllerDocs;
 import jakarta.validation.Valid;
@@ -25,35 +25,35 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController implements UserControllerDocs {
 
-    private final UserServiceImp userServiceImp;
+  private final UserService userService;
 
-    @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@Valid @RequestBody RegisterUserDto userDto,
-                                  BindingResult result) throws WrongUserCredentialsException {
-        if (result.hasErrors()) {
-            throw new WrongUserCredentialsException(result.getFieldErrors());
-        }
-        userServiceImp.register(userDto);
+  @PostMapping("/register")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void create(@Valid @RequestBody UserCreateRequest userDto,
+      BindingResult result) throws WrongUserCredentialsException {
+    if (result.hasErrors()) {
+      throw new WrongUserCredentialsException(result.getFieldErrors());
     }
+    userService.create(userDto);
+  }
 
-    @GetMapping("/details")
-    @ResponseStatus(HttpStatus.OK)
-    public UserView get(Principal principal) {
-        String email = principal.getName();
-        return userServiceImp.findByEmailView(email);
-    }
+  @GetMapping("/details")
+  @ResponseStatus(HttpStatus.OK)
+  public UserView get(Principal principal) {
+    String email = principal.getName();
+    return userService.findByEmailView(email);
+  }
 
-    @PatchMapping("/details")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public UserView edit(Principal principal, @RequestBody EditUserDto userDto) {
-        String email = principal.getName();
-        UserEntity user = userServiceImp.findByEmail(email);
-        Long userId = user.getId();
+  @PatchMapping("/details")
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  public UserView edit(Principal principal, @RequestBody UserUpdateRequest userDto) {
+    String email = principal.getName();
+    User user = userService.findByEmail(email);
+    Long userId = user.getId();
 
-        userServiceImp.editUserEntity(userDto, userId);
+    userService.edit(userDto, userId);
 
-        return userServiceImp.getUserViewById(userId);
-    }
+    return userService.getById(userId);
+  }
 
 }

@@ -12,6 +12,7 @@ public record NutritionIntakeView(
     BigDecimal lowerBoundIntake,
 
     BigDecimal upperBoundIntake,
+
     BigDecimal dailyConsumed,
 
     String measurement,

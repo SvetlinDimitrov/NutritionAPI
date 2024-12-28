@@ -1,12 +1,12 @@
 package com.example.nutrition_api.domain.record.service;
 
-import com.example.nutrition_api.domain.record.dto.NutrientChangeDto;
+import com.example.nutrition_api.domain.record.dto.NutrientUpdateRequest;
 import com.example.nutrition_api.domain.record.dto.NutritionIntakeView;
 import com.example.nutrition_api.domain.record.dto.RecordView;
-import com.example.nutrition_api.domain.record.entity.NutritionIntakeEntity;
-import com.example.nutrition_api.domain.record.entity.RecordEntity;
+import com.example.nutrition_api.domain.record.entity.NutritionIntake;
+import com.example.nutrition_api.domain.record.entity.Record;
 import com.example.nutrition_api.domain.record.repository.RecordRepository;
-import com.example.nutrition_api.domain.users.entity.UserEntity;
+import com.example.nutrition_api.domain.users.entity.User;
 import com.example.nutrition_api.domain.users.enums.Gender;
 import com.example.nutrition_api.domain.users.repository.UserRepository;
 import com.example.nutrition_api.infrastructure.exceptions.IncorrectNutrientChangeException;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class RecordServiceImp {
+public class RecordServiceImp implements RecordService {
 
   private final RecordRepository recordRepository;
   private final UserRepository userRepository;
@@ -34,31 +34,31 @@ public class RecordServiceImp {
     this.converter = converter;
   }
 
-  public List<RecordView> getAllViewsByUserId(Long userId) {
-    UserEntity user = userRepository.findById(userId)
+  public List<RecordView> getAll(Long userId) {
+    User user = userRepository.findById(userId)
         .orElseThrow(() -> new UsernameNotFoundException(userId.toString()));
     return user.getRecords().stream()
         .map(converter::toView)
         .toList();
   }
 
-  public RecordView getViewByRecordId(Long day) throws RecordNotFoundException {
-    return recordRepository.findById(day)
+  public RecordView getById(Long id) throws RecordNotFoundException {
+    return recordRepository.findById(id)
         .map(converter::toView)
-        .orElseThrow(() -> new RecordNotFoundException(day.toString()));
+        .orElseThrow(() -> new RecordNotFoundException(id.toString()));
   }
 
   @Transactional
-  public NutritionIntakeView updateRecordById(Long day, NutrientChangeDto dto, UserEntity user)
+  public NutritionIntakeView updateById(Long day, NutrientUpdateRequest dto, User user)
       throws RecordNotFoundException, IncorrectNutrientChangeException {
 
-    RecordEntity record = user.getRecords()
+    Record record = user.getRecords()
         .stream()
         .filter(r -> r.getId().equals(day))
         .findAny()
         .orElseThrow(() -> new RecordNotFoundException(day.toString()));
 
-    NutritionIntakeEntity intake = record.getDailyIntakeViews()
+    NutritionIntake intake = record.getDailyIntakeViews()
         .stream()
         .filter(nutrient -> nutrient.getNutrientName().equals(dto.name()))
         .findFirst()
@@ -70,11 +70,23 @@ public class RecordServiceImp {
     return converter.toView(intake);
   }
 
+  @Transactional
+  public void deleteById(Long id, User user) throws RecordNotFoundException {
+
+    user.getRecords()
+        .stream()
+        .filter(r -> r.getId().equals(id))
+        .findAny()
+        .orElseThrow(() -> new RecordNotFoundException(id.toString()));
+
+    recordRepository.deleteById(id);
+  }
+
   public RecordView addNewRecordByUserId(Long userId) {
-    UserEntity user = userRepository.findById(userId)
+    User user = userRepository.findById(userId)
         .orElseThrow(() -> new UsernameNotFoundException(userId.toString()));
 
-    RecordEntity record = createRecord(user);
+    Record record = create(user);
 
     user.getRecords().add(record);
     userRepository.save(user);
@@ -82,8 +94,8 @@ public class RecordServiceImp {
     return converter.toView(user.getRecords().get(user.getRecords().size() - 1));
   }
 
-  public RecordEntity createRecord(UserEntity user) {
-    RecordEntity record = new RecordEntity();
+  public Record create(User user) {
+    Record record = new Record();
     record.setUser(user);
     BigDecimal BMR = getBmr(user);
 
@@ -101,7 +113,7 @@ public class RecordServiceImp {
     return record;
   }
 
-  private BigDecimal getBmr(UserEntity user) {
+  private BigDecimal getBmr(User user) {
     BigDecimal BMR;
 
     if (user.getGender().equals(Gender.MALE)) {
@@ -116,17 +128,5 @@ public class RecordServiceImp {
           .subtract(new BigDecimal("4.330").add(new BigDecimal(user.getAge())));
     }
     return BMR;
-  }
-
-  @Transactional
-  public void deleteById(Long day, UserEntity user) throws RecordNotFoundException {
-
-    user.getRecords()
-        .stream()
-        .filter(r -> r.getId().equals(day))
-        .findAny()
-        .orElseThrow(() -> new RecordNotFoundException(day.toString()));
-
-    recordRepository.deleteById(day);
   }
 }

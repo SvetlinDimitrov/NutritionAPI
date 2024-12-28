@@ -1,13 +1,13 @@
 package com.example.nutrition_api.infrastructure.security.dto;
 
-import com.example.nutrition_api.domain.users.entity.UserEntity;
+import com.example.nutrition_api.domain.users.entity.User;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public record CustomUserDetails(UserEntity user) implements UserDetails {
+public record CustomUserDetails(User user) implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

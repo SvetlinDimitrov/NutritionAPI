@@ -1,6 +1,6 @@
 package com.example.nutrition_api.infrastructure.security.service;
 
-import com.example.nutrition_api.domain.users.service.UserServiceImp;
+import com.example.nutrition_api.domain.users.service.UserService;
 import com.example.nutrition_api.infrastructure.security.dto.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-  private UserServiceImp userService;
+  private UserService userService;
 
   @Autowired
-  public void setUserService(@Lazy UserServiceImp userService) {
+  public void setUserService(@Lazy UserService userService) {
     this.userService = userService;
   }
 

@@ -13,7 +13,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
-public class VitaminServiceImp {
+public class VitaminServiceImp implements VitaminService {
 
   private final Map<String, Vitamin> vitaminMap = new LinkedHashMap<>();
   private final ViewConverter converter;
@@ -22,14 +22,14 @@ public class VitaminServiceImp {
     this.converter = converter;
   }
 
-  public List<VitaminView> getVitamins() {
+  public List<VitaminView> getAll() {
     return vitaminMap
         .values()
         .stream()
         .map(converter::toView).toList();
   }
 
-  public VitaminView getVitaminViewByName(String name) throws VitaminNotFoundException {
+  public VitaminView getByName(String name) throws VitaminNotFoundException {
 
     if (vitaminMap.containsKey(name)) {
       return converter.toView(vitaminMap.get(name));

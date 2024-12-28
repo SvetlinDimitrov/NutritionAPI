@@ -1,11 +1,11 @@
 package com.example.nutrition_api.web;
 
-import com.example.nutrition_api.domain.record.dto.NutrientChangeDto;
+import com.example.nutrition_api.domain.record.dto.NutrientUpdateRequest;
 import com.example.nutrition_api.domain.record.dto.NutritionIntakeView;
 import com.example.nutrition_api.domain.record.dto.RecordView;
-import com.example.nutrition_api.domain.record.service.RecordServiceImp;
-import com.example.nutrition_api.domain.users.entity.UserEntity;
-import com.example.nutrition_api.domain.users.service.UserServiceImp;
+import com.example.nutrition_api.domain.record.service.RecordService;
+import com.example.nutrition_api.domain.users.entity.User;
+import com.example.nutrition_api.domain.users.service.UserService;
 import com.example.nutrition_api.infrastructure.exceptions.IncorrectNutrientChangeException;
 import com.example.nutrition_api.infrastructure.exceptions.RecordNotFoundException;
 import com.example.nutrition_api.infrastructure.open_ai.RecordNutritionControllerDocs;
@@ -31,62 +31,62 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RecordNutritionController implements RecordNutritionControllerDocs {
 
-    private final RecordServiceImp recordService;
-    private final UserServiceImp userServiceImp;
+  private final RecordService recordService;
+  private final UserService userServiceImp;
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('COMPLETED')")
-    public List<RecordView> getAll(Principal principal) {
-        UserEntity user = userServiceImp.findByEmail(principal.getName());
-        return recordService.getAllViewsByUserId(user.getId());
+  @GetMapping
+  @ResponseStatus(HttpStatus.OK)
+  @PreAuthorize("hasAnyRole('COMPLETED')")
+  public List<RecordView> getAll(Principal principal) {
+    User user = userServiceImp.findByEmail(principal.getName());
+    return recordService.getAll(user.getId());
+  }
+
+  @GetMapping("/{day}")
+  @ResponseStatus(HttpStatus.OK)
+  @PreAuthorize("hasAnyRole('COMPLETED')")
+  public RecordView getById(@PathVariable Long day) throws RecordNotFoundException {
+    return recordService.getById(day);
+  }
+
+  @PatchMapping("/edit/{day}")
+  @ResponseStatus(HttpStatus.CREATED)
+  @PreAuthorize("hasAnyRole('COMPLETED')")
+  public NutritionIntakeView edit(
+      @Valid @RequestBody NutrientUpdateRequest dto,
+      BindingResult result,
+      @PathVariable Long day,
+      Principal principal
+  ) throws IncorrectNutrientChangeException, RecordNotFoundException {
+    if (result.hasErrors()) {
+      throw new IncorrectNutrientChangeException(result.getFieldErrors());
     }
 
-    @GetMapping("/{day}")
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyRole('COMPLETED')")
-    public RecordView getById(@PathVariable Long day) throws RecordNotFoundException {
-        return recordService.getViewByRecordId(day);
-    }
+    String mail = principal.getName();
+    User user = userServiceImp.findByEmail(mail);
 
-    @PatchMapping("/edit/{day}")
-    @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('COMPLETED')")
-    public NutritionIntakeView edit(
-        @Valid @RequestBody NutrientChangeDto dto,
-        BindingResult result,
-        @PathVariable Long day,
-        Principal principal
-    ) throws IncorrectNutrientChangeException, RecordNotFoundException {
-        if (result.hasErrors()) {
-            throw new IncorrectNutrientChangeException(result.getFieldErrors());
-        }
-
-        String mail = principal.getName();
-        UserEntity user = userServiceImp.findByEmail(mail);
-
-        return recordService.updateRecordById(day, dto, user);
-    }
+    return recordService.updateById(day, dto, user);
+  }
 
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('COMPLETED')")
-    public RecordView create(Principal principal) {
-        String email = principal.getName();
-        UserEntity user = userServiceImp.findByEmail(email);
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  @PreAuthorize("hasAnyRole('COMPLETED')")
+  public RecordView create(Principal principal) {
+    String email = principal.getName();
+    User user = userServiceImp.findByEmail(email);
 
-        return recordService.addNewRecordByUserId(user.getId());
-    }
+    return recordService.addNewRecordByUserId(user.getId());
+  }
 
 
-    @DeleteMapping("/{day}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('COMPLETED')")
-    public void delete(@PathVariable Long day, Principal principal) throws RecordNotFoundException {
-        String email = principal.getName();
-        UserEntity user = userServiceImp.findByEmail(email);
-        recordService.deleteById(day, user);
-    }
+  @DeleteMapping("/{day}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @PreAuthorize("hasAnyRole('COMPLETED')")
+  public void delete(@PathVariable Long day, Principal principal) throws RecordNotFoundException {
+    String email = principal.getName();
+    User user = userServiceImp.findByEmail(email);
+    recordService.deleteById(day, user);
+  }
 
 }

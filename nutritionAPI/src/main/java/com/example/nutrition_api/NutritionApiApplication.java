@@ -8,8 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class NutritionApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NutritionApiApplication.class, args);
-	}
-
+  public static void main(String[] args) {
+    SpringApplication.run(NutritionApiApplication.class, args);
+  }
 }
