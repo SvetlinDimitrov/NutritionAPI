@@ -7,6 +7,7 @@ import com.example.nutrition_api.domain.users.dto.UserView;
 import com.example.nutrition_api.domain.users.entity.UserEntity;
 import com.example.nutrition_api.domain.users.service.UserServiceImp;
 import com.example.nutrition_api.infrastructure.exceptions.WrongUserCredentialsException;
+import com.example.nutrition_api.infrastructure.open_ai.UserControllerDocs;
 import com.example.nutrition_api.infrastructure.security.dto.JWT;
 import com.example.nutrition_api.infrastructure.security.service.JwtServiceImp;
 import com.example.nutrition_api.infrastructure.security.service.UserDetailsImp;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/nutritionApi/v1/user")
 @RequiredArgsConstructor
-public class UserController {
+public class UserController implements UserControllerDocs {
 
     private final JwtServiceImp jwtUtil;
     private final UserServiceImp userServiceImp;
