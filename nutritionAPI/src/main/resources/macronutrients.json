@@ -1,0 +1,205 @@
+{
+  "macronutrients": [
+    {
+      "name": "Carbohydrates",
+      "description": "The amount of carbohydrates you should consume depends on various factors, including your age, gender, activity level, health goals, and individual metabolic needs. Carbohydrate needs can vary widely from person to person.",
+      "types": [
+        {
+          "key": "Simple Carbohydrates",
+          "value": "These are made up of one or two sugar molecules. Simple carbs are found in foods like fruits (fructose), milk (lactose), and table sugar (sucrose). They are quickly digested and can lead to rapid spikes in blood sugar levels."
+        },
+        {
+          "key": "Complex Carbohydrates",
+          "value": "These consist of longer chains of sugar molecules. They are found in foods like whole grains (e.g., brown rice, quinoa, oats), legumes (beans, lentils), and vegetables. Complex carbs are broken down more slowly, providing sustained energy and helping to stabilize blood sugar levels."
+        }
+      ],
+      "functions": [
+        {
+          "key": "Energy Source",
+          "value": "Carbohydrates are the body's primary and most efficient source of energy. When you consume carbs, they are broken down into glucose, which is used by cells for fuel."
+        },
+        {
+          "key": "Brain Function",
+          "value": "The brain relies heavily on glucose for energy. Consuming adequate carbohydrates helps support cognitive function, memory, and mood."
+        },
+        {
+          "key": "Muscle Glycogen",
+          "value": "Carbohydrates are stored in the muscles and liver as glycogen. During exercise, muscle glycogen serves as a readily available source of energy."
+        },
+        {
+          "key": "Preventing Protein Breakdown",
+          "value": "Adequate carbohydrate intake spares protein from being used as an energy source. This is important for preserving muscle mass."
+        }
+      ],
+      "sources": [
+        {
+          "key": "Grains",
+          "value": "Whole grains like brown rice, quinoa, whole wheat, and oats provide complex carbohydrates, fiber, and various nutrients."
+        },
+        {
+          "key": "Fruits",
+          "value": "Fruits contain natural sugars along with vitamins, minerals, and fiber. Berries, apples, citrus fruits, and bananas are popular choices."
+        },
+        {
+          "key": "Vegetables",
+          "value": "Starchy vegetables (potatoes, corn) and non-starchy vegetables (leafy greens, broccoli, peppers) are rich in carbs, fiber, vitamins, and minerals."
+        },
+        {
+          "key": "Legumes",
+          "value": "Beans, lentils, chickpeas, and other legumes offer both carbohydrates and protein."
+        },
+        {
+          "key": "Dairy",
+          "value": "Dairy products contain lactose, a natural sugar. Choose low-fat or non-fat options for reduced saturated fat."
+        }
+      ],
+      "dietaryConsiderations": [
+        {
+          "key": "Fiber",
+          "value": "Many carbohydrate-rich foods are also high in dietary fiber, which aids digestion, supports a healthy gut, and helps control appetite."
+        },
+        {
+          "key": "Glycemic Index (GI)",
+          "value": "The GI measures how quickly a carbohydrate-containing food raises blood sugar levels. Foods with a low GI (complex carbs) lead to gradual increases in blood sugar, while high-GI foods (simple carbs) cause rapid spikes."
+        },
+        {
+          "key": "Added Sugars",
+          "value": "Be mindful of added sugars in processed foods and sugary beverages. Consuming too much added sugar can lead to health issues."
+        }
+      ],
+      "activeState": 0.50,
+      "inactiveState": 0.50
+    },
+    {
+      "name": "Protein",
+      "description": "Protein is one of the three macronutrients essential for human health, alongside carbohydrates and fats. Proteins are made up of amino acids, which are the building blocks of the body. These amino acids play crucial roles in various bodily functions, including muscle repair, immune function, enzyme production, and hormone regulation.",
+      "types": [],
+      "functions": [
+        {
+          "key": "Muscle Health",
+          "value": "Protein is vital for building, repairing, and maintaining muscles. It's especially important for individuals engaged in physical activity, as exercise can cause muscle tissue breakdown that requires repair."
+        },
+        {
+          "key": "Cell Structure",
+          "value": "Proteins are the structural components of cells, tissues, and organs. They help maintain the integrity and functionality of these structures."
+        },
+        {
+          "key": "Enzymes",
+          "value": "Many enzymes are proteins that catalyze biochemical reactions in the body, allowing essential processes like digestion and metabolism to occur efficiently."
+        },
+        {
+          "key": "Hormones",
+          "value": "Some hormones, such as insulin and growth hormone, are proteins that regulate various physiological processes."
+        },
+        {
+          "key": "Immune Function",
+          "value": "Antibodies, which are proteins, play a critical role in the immune system by identifying and neutralizing foreign invaders like bacteria and viruses."
+        },
+        {
+          "key": "Transport",
+          "value": "Some proteins act as carriers, transporting nutrients, oxygen, and other molecules throughout the body."
+        }
+      ],
+      "sources": [
+        {
+          "key": "Animal Sources",
+          "value": "Meat, poultry, fish, eggs, dairy products, and seafood are rich in high-quality protein. These sources provide all essential amino acids in appropriate proportions."
+        },
+        {
+          "key": "Plant Sources",
+          "value": "Legumes (beans, lentils, peas), nuts, seeds, tofu, tempeh, and whole grains are good sources of plant-based protein. Combining different plant protein sources can help ensure a complete range of amino acids."
+        }
+      ],
+      "dietaryConsiderations": [
+        {
+          "key": "Quality of Protein Sources",
+          "value": "Choose a variety of protein sources to ensure a balance of essential amino acids. Animal-based sources are often complete proteins, while plant-based sources may require combining different sources."
+        },
+        {
+          "key": "Protein Intake",
+          "value": "Recommendations vary based on factors such as age, gender, activity level, and goals. For general health, a common guideline is about 0.8 grams of protein per kilogram of body weight per day."
+        },
+        {
+          "key": "Protein and Weight Management",
+          "value": "Protein-rich foods can help control appetite and contribute to feelings of fullness."
+        },
+        {
+          "key": "Individual Needs and Goals",
+          "value": "Dietary protein needs vary widely based on factors such as age, gender, activity level, metabolism, and health status. Consider working with a registered dietitian to determine your personalized protein requirements."
+        },
+        {
+          "key": "Limit Processed Meats",
+          "value": "Processed meats (such as sausages, bacon, and deli meats) are often high in salt, saturated fats, and additives. Limiting their consumption supports overall health."
+        }
+      ],
+      "activeState": 0.25,
+      "inactiveState": 0.15
+    },
+    {
+      "name": "Fat",
+      "description": "",
+      "types": [
+        {
+          "key": "Saturated Fats",
+          "value": "These fats are found in animal products and some plant oils like coconut and palm oil. Consuming high amounts can raise cholesterol levels."
+        },
+        {
+          "key": "Monounsaturated Fats",
+          "value": "Found in olive oil, avocados, nuts, and seeds, these fats are heart-healthy and can help lower LDL cholesterol."
+        },
+        {
+          "key": "Polyunsaturated Fats",
+          "value": "Includes omega-3 and omega-6 fatty acids. Omega-3s are found in fatty fish, flaxseeds, and walnuts."
+        },
+        {
+          "key": "Trans Fats",
+          "value": "Primarily found in partially hydrogenated oils, trans fats raise bad cholesterol and increase heart disease risk."
+        }
+      ],
+      "functions": [
+        {
+          "key": "Energy Source",
+          "value": "Fats are a concentrated source of energy, providing more than twice the calories per gram compared to carbohydrates and protein."
+        },
+        {
+          "key": "Nutrient Absorption",
+          "value": "Fats are necessary for the absorption of fat-soluble vitamins (A, D, E, K) and certain antioxidants."
+        },
+        {
+          "key": "Cell Structure",
+          "value": "Fats are essential components of cell membranes, helping maintain their integrity and allowing cells to function properly."
+        },
+        {
+          "key": "Insulation and Protection",
+          "value": "Fats serve as insulation to regulate body temperature and protect vital organs by acting as a cushion."
+        },
+        {
+          "key": "Hormone Production",
+          "value": "Fats are involved in the production of hormones, including sex hormones and hormones related to stress and inflammation."
+        }
+      ],
+      "sources": [
+        {
+          "key": "Plant-Based Sources",
+          "value": "Nuts, seeds, avocados, oils (olive, sunflower, flaxseed)."
+        },
+        {
+          "key": "Animal-Based Sources",
+          "value": "Fatty fish (salmon, mackerel), meat, poultry, and full-fat dairy products."
+        }
+      ],
+      "dietaryConsiderations": [
+        {
+          "key": "Balancing Fats",
+          "value": "Include healthy fats (monounsaturated, polyunsaturated) and limit trans fats and excessive saturated fats."
+        },
+        {
+          "key": "Heart Health",
+          "value": "Omega-3 fatty acids, found in fatty fish and flaxseed, support cardiovascular health."
+        }
+      ],
+      "activeState": 0.30,
+      "inactiveState": 0.20
+    }
+  ]
+}

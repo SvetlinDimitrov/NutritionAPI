@@ -14,25 +14,19 @@ import com.example.nutrition_api.infrastructure.exceptions.RecordNotFoundExcepti
 import com.example.nutrition_api.infrastructure.mappers.ViewConverter;
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class RecordServiceImp implements RecordService {
 
   private final RecordRepository recordRepository;
   private final UserRepository userRepository;
   private final NutrientIntakeService nutrientIntakeService;
   private final ViewConverter converter;
-
-  public RecordServiceImp(RecordRepository recordRepository, UserRepository userRepository,
-      NutrientIntakeService nutrientIntakeService, ViewConverter converter) {
-    this.recordRepository = recordRepository;
-    this.userRepository = userRepository;
-    this.nutrientIntakeService = nutrientIntakeService;
-    this.converter = converter;
-  }
 
   public List<RecordView> getAll(Long userId) {
     User user = userRepository.findById(userId)
@@ -91,7 +85,7 @@ public class RecordServiceImp implements RecordService {
     user.getRecords().add(record);
     userRepository.save(user);
 
-    return converter.toView(user.getRecords().get(user.getRecords().size() - 1));
+    return converter.toView(user.getRecords().getLast());
   }
 
   public Record create(User user) {

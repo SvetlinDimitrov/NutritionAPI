@@ -9,12 +9,23 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Getter
 @Entity
 @Table(name = "nutrition_intakes")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(exclude = {"record"})
+@ToString(exclude = {"record"})
+@Builder
 public class NutritionIntake {
 
   @Id
@@ -35,66 +46,4 @@ public class NutritionIntake {
   @ManyToOne
   @JoinColumn(name = "record_id")
   private Record record;
-
-  public NutritionIntake setDailyConsumed(BigDecimal dailyConsumed) {
-    this.dailyConsumed = dailyConsumed;
-    return this;
-  }
-
-  public NutritionIntake setRecord(Record record) {
-    this.record = record;
-    return this;
-  }
-
-  public NutritionIntake setId(Long id) {
-    this.id = id;
-    return this;
-  }
-
-  public NutritionIntake setNutrientName(String nutrientName) {
-    this.nutrientName = nutrientName;
-    return this;
-  }
-
-  public NutritionIntake setNutrientType(String nutrientType) {
-    this.nutrientType = nutrientType;
-    return this;
-  }
-
-  public NutritionIntake setLowerBoundIntake(BigDecimal lowerBoundIntake) {
-    this.lowerBoundIntake = lowerBoundIntake;
-    return this;
-  }
-
-  public NutritionIntake setUpperBoundIntake(BigDecimal upperBoundIntake) {
-    this.upperBoundIntake = upperBoundIntake;
-    return this;
-  }
-
-  public NutritionIntake setMeasurement(String measurement) {
-    this.measurement = measurement;
-    return this;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    NutritionIntake that = (NutritionIntake) o;
-    return Objects.equals(id, that.id) && Objects.equals(nutrientName, that.nutrientName)
-        && Objects.equals(nutrientType, that.nutrientType) && Objects.equals(dailyConsumed,
-        that.dailyConsumed) && Objects.equals(lowerBoundIntake, that.lowerBoundIntake)
-        && Objects.equals(upperBoundIntake, that.upperBoundIntake) && Objects.equals(measurement,
-        that.measurement) && Objects.equals(record, that.record);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, nutrientName, nutrientType, dailyConsumed, lowerBoundIntake,
-        upperBoundIntake, measurement, record);
-  }
 }

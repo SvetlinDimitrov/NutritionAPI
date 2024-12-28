@@ -1,0 +1,221 @@
+{
+  "electrolytes": [
+    {
+      "name": "Sodium",
+      "description": "Sodium is a vital mineral and electrolyte that plays a central role in maintaining various physiological functions in the body. It's essential for regulating fluid balance, nerve transmission, muscle function, and blood pressure. While sodium is important for health, excessive intake can lead to health issues like high blood pressure and increased risk of heart disease.",
+      "functions": [
+        {
+          "key": "Fluid Balance",
+          "value": "Sodium helps regulate the balance of fluids inside and outside cells. It's a major contributor to osmotic pressure, which determines the movement of water between cells and their surroundings."
+        },
+        {
+          "key": "Nerve Transmission",
+          "value": "Sodium is essential for generating electrical signals that allow nerve cells to communicate with each other and with muscles. This is critical for muscle contraction, sensation, and other nervous system functions."
+        },
+        {
+          "key": "Muscle Contraction",
+          "value": "Sodium is involved in muscle contraction, including the contractions of skeletal muscles and the heart."
+        },
+        {
+          "key": "Blood Pressure Regulation",
+          "value": "Sodium levels influence blood volume and blood pressure. Excess sodium intake can cause the body to retain more water, leading to increased blood volume and higher blood pressure."
+        }
+      ],
+      "sources": [
+        { "key": "Table salt", "value": "sodium chloride" },
+        { "key": "Processed and packaged foods", "value": "canned soups, snacks, sauces" },
+        { "key": "-", "value": "Fast food and restaurant meals" },
+        { "key": "Some natural foods", "value": "dairy products, meat, seafood" }
+      ],
+      "healthConsiderations": [
+        {
+          "key": "High Blood Pressure",
+          "value": "Consuming too much sodium can lead to increased blood pressure, a major risk factor for heart disease and stroke."
+        },
+        {
+          "key": "Cardiovascular Health",
+          "value": "High sodium intake is associated with an increased risk of heart disease and stroke."
+        },
+        {
+          "key": "Fluid Retention",
+          "value": "Excess sodium can lead to water retention, causing swelling and bloating."
+        }
+      ],
+      "femaleLowerBoundIntake": 2300,
+      "femaleHigherBoundIntake": 2300,
+      "maleLowerBoundIntake": 2300,
+      "maleHigherBoundIntake": 2300,
+      "measure": "milligrams (mg)"
+    },
+    {
+      "name": "Potassium",
+      "description": "Potassium is an essential mineral and electrolyte that plays a critical role in maintaining various bodily functions. It works in tandem with sodium to help regulate fluid balance, nerve transmission, muscle function, and blood pressure. Potassium is abundant in many foods, and maintaining a proper balance of potassium in the body is crucial for overall health.",
+      "functions": [
+        {
+          "key": "Fluid Balance",
+          "value": "Potassium is a key player in maintaining fluid balance within cells and their surroundings. It helps regulate osmotic pressure, which determines the movement of water in and out of cells."
+        },
+        {
+          "key": "Nerve Transmission",
+          "value": "Potassium is essential for generating electrical signals that enable nerve cells to communicate with each other and with muscles. This is vital for proper muscle function and sensation."
+        },
+        {
+          "key": "Muscle Contraction",
+          "value": "Potassium plays a central role in muscle contraction. Adequate levels of potassium are necessary for muscles, including the heart, to contract and relax properly."
+        },
+        {
+          "key": "Blood Pressure Regulation",
+          "value": "Potassium intake is closely linked to blood pressure regulation. It helps counteract the effects of sodium by promoting the excretion of sodium through urine, which can help lower blood pressure."
+        }
+      ],
+      "sources": [
+        { "key": "Fruits", "value": "bananas, oranges, melons, avocados" },
+        { "key": "Vegetables", "value": "spinach, potatoes, tomatoes" },
+        { "key": "Legumes", "value": "beans, lentils" },
+        { "key": "Dairy products", "value": "milk, yogurt" },
+        { "key": "-", "value": "Nuts and seeds" },
+        { "key": "Whole grains", "value": "brown rice, whole wheat" },
+        { "key": "Fish", "value": "salmon, tuna" }
+      ],
+      "healthConsiderations": [
+        {
+          "key": "-",
+          "value": "Maintaining a proper balance of potassium is important for overall health, but excessive intake of potassium supplements can be harmful, especially for individuals with certain medical conditions like kidney problems. Kidneys play a critical role in regulating potassium levels in the body, and compromised kidney function can lead to potassium imbalances."
+        }
+      ],
+      "femaleLowerBoundIntake": 3500,
+      "femaleHigherBoundIntake": 4700,
+      "maleLowerBoundIntake": 3500,
+      "maleHigherBoundIntake": 4700,
+      "measure": "milligrams (mg)"
+    },
+    {
+      "name": "Calcium",
+      "description": "Calcium is a vital mineral that plays a fundamental role in maintaining strong bones and teeth, supporting muscle and nerve function, and facilitating various cellular processes throughout the body. It's one of the most abundant minerals in the human body and is essential for overall health.",
+      "functions": [
+        {
+          "key": "Bone and Teeth Health",
+          "value": "Calcium is a primary building block for bones and teeth. It provides strength and rigidity to the skeletal system and helps prevent conditions like osteoporosis, which is characterized by weakened bones."
+        },
+        {
+          "key": "Muscle Contraction",
+          "value": "Calcium is crucial for muscle contraction, including both skeletal muscles and the heart. It helps regulate the contraction and relaxation of muscles."
+        },
+        {
+          "key": "Nerve Function",
+          "value": "Calcium plays a role in nerve transmission by facilitating the release of neurotransmitters, which are chemicals that transmit signals between nerve cells."
+        },
+        {
+          "key": "Blood Clotting",
+          "value": "Calcium is involved in the blood clotting process. It's necessary for the activation of certain proteins that help form blood clots to stop bleeding."
+        },
+        {
+          "key": "Cellular Signaling",
+          "value": "Calcium ions serve as important signaling molecules within cells. They are involved in numerous cellular processes, including enzyme activation and gene expression."
+        }
+      ],
+      "sources": [
+        { "key": "Dairy products", "value": "milk, yogurt, cheese" },
+        { "key": "Fortified plant-based milk alternatives", "value": "soy milk, almond milk" },
+        { "key": "Leafy green vegetables", "value": "collard greens, broccoli, spinach" },
+        { "key": "Nuts and seeds", "value": "almonds, chia seeds" },
+        { "key": "-", "value": "Fortified cereals and breads" },
+        { "key": "Fish with soft, edible bones", "value": "sardines, canned salmon" }
+      ],
+      "healthConsiderations": [
+        {
+          "key": "-",
+          "value": "Calcium intake is essential, but other factors can influence its absorption and utilization in the body. For instance, vitamin D is crucial for calcium absorption in the intestines. Additionally, certain conditions like lactose intolerance or dairy allergies may require alternative sources of calcium."
+        }
+      ],
+      "femaleLowerBoundIntake": 1000,
+      "femaleHigherBoundIntake": 1000,
+      "maleLowerBoundIntake": 1000,
+      "maleHigherBoundIntake": 1000,
+      "measure": "milligrams (mg)"
+    },
+    {
+      "name": "Magnesium",
+      "description": "Magnesium is a crucial mineral that is involved in a wide range of physiological processes within the body. It plays a vital role in supporting muscle and nerve function, maintaining a healthy immune system, regulating heart rhythm, and promoting bone health, among other functions. Magnesium is required for over 300 enzymatic reactions, making it essential for overall health and well-being.",
+      "functions": [
+        {
+          "key": "Muscle and Nerve Function",
+          "value": "Magnesium is involved in the regulation of muscle contractions and nerve impulses. It helps muscles contract and relax properly and aids in the transmission of nerve signals."
+        },
+        {
+          "key": "Energy Production",
+          "value": "Magnesium is a co-factor in many enzymatic reactions involved in energy metabolism. It's necessary for the conversion of food into energy at the cellular level."
+        },
+        {
+          "key": "Bone Health",
+          "value": "Magnesium is essential for bone health as it plays a role in bone mineralization. It works alongside other minerals like calcium and vitamin D to support strong and healthy bones."
+        },
+        {
+          "key": "Heart Health",
+          "value": "Magnesium helps regulate heart rhythm and supports the function of the cardiovascular system. It helps maintain a healthy heart rate and blood pressure."
+        },
+        {
+          "key": "Protein Synthesis",
+          "value": "Magnesium is involved in the synthesis of proteins, which are essential for various cellular functions and tissue repair."
+        }
+      ],
+      "sources": [
+        { "key": "Leafy green vegetables", "value": "spinach, kale" },
+        { "key": "Legumes", "value": "black beans, lentils" },
+        { "key": "Nuts and seeds", "value": "almonds, sunflower seeds" },
+        { "key": "-", "value": "Whole grains" },
+        { "key": "Fish", "value": "salmon, mackerel" },
+        { "key": "-", "value": "Dark chocolate" },
+        { "key": "Fortified foods", "value": "certain cereals" }
+      ],
+      "healthConsiderations": [
+        {
+          "key": "-",
+          "value": "Magnesium deficiency is relatively common and can lead to symptoms such as muscle cramps, fatigue, and irregular heartbeat. Severe deficiency can have more serious consequences. Additionally, magnesium supplements can cause diarrhea if taken in excess."
+        }
+      ],
+      "femaleLowerBoundIntake": 310,
+      "femaleHigherBoundIntake": 320,
+      "maleLowerBoundIntake": 400,
+      "maleHigherBoundIntake": 420,
+      "measure": "milligrams (mg)"
+    },
+    {
+      "name": "Chloride",
+      "description": "Chloride is an essential electrolyte that plays a crucial role in maintaining fluid balance, pH levels, and proper functioning of the digestive system. It's commonly found alongside sodium in the form of sodium chloride (table salt) and is necessary for various physiological processes.",
+      "functions": [
+        {
+          "key": "Fluid Balance",
+          "value": "Chloride helps maintain fluid balance by working with sodium and potassium to regulate the movement of water in and out of cells."
+        },
+        {
+          "key": "Acid-Base Balance",
+          "value": "Chloride contributes to the regulation of the body's acid-base balance, which is crucial for maintaining pH levels within a narrow range for optimal cellular function."
+        },
+        {
+          "key": "Digestion",
+          "value": "Chloride is a component of stomach acid (hydrochloric acid), which is necessary for breaking down food and absorbing nutrients in the digestive system."
+        }
+      ],
+      "sources": [
+        { "key": "Table salt", "value": "sodium chloride" },
+        { "key": "Processed foods", "value": "canned soups, snacks" },
+        { "key": "Fast foods", "value": "-" },
+        { "key": "Seaweed", "value": "-" },
+        { "key": "Rye", "value": "-" },
+        { "key": "Vegetables", "value": "lettuce, tomatoes, celery" }
+      ],
+      "healthConsiderations": [
+        {
+          "key": "-",
+          "value": "Excessive chloride intake is usually linked to high sodium intake and can contribute to high blood pressure. Conversely, a deficiency, though rare, can occur in cases of severe dehydration or excessive fluid loss."
+        }
+      ],
+      "femaleLowerBoundIntake": 1800,
+      "femaleHigherBoundIntake": 2300,
+      "maleLowerBoundIntake": 1800,
+      "maleHigherBoundIntake": 2300,
+      "measure": "milligrams (mg)"
+    }
+  ]
+}
