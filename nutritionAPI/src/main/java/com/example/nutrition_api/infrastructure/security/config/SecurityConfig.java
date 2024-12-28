@@ -30,14 +30,14 @@ public class SecurityConfig {
       "/swagger-ui/**",
       "/webjars/**",
       "/swagger-ui.html",
-      "/nutritionApi/user/register",
-      "/nutritionApi/user/login",
-      "/nutritionApi/electrolyte",
-      "/nutritionApi/electrolyte/{name}",
-      "/nutritionApi/macronutrient",
-      "/nutritionApi/macronutrient/{name}",
-      "/nutritionApi/vitamin",
-      "/nutritionApi/vitamin/{name}"
+      "/nutritionApi/v1/user/register",
+      "/nutritionApi/v1/user/login",
+      "/nutritionApi/v1/electrolyte",
+      "/nutritionApi/v1/electrolyte/{name}",
+      "/nutritionApi/v1/macronutrient",
+      "/nutritionApi/v1/macronutrient/{name}",
+      "/nutritionApi/v1/vitamin",
+      "/nutritionApi/v1/vitamin/{name}"
   };
 
   @Bean
@@ -53,7 +53,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             request -> request
                 .requestMatchers(WHITE_LIST).permitAll()
-                .requestMatchers("/nutritionApi/records/**").hasRole(UserDetails.COMPLETED.name())
+                .requestMatchers("/nutritionApi/v1/records/**").hasRole(UserDetails.COMPLETED.name())
                 .anyRequest().authenticated()
         )
 

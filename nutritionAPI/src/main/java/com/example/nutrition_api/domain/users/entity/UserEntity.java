@@ -37,8 +37,10 @@ public class UserEntity {
 
     @Column(name = "kilograms")
     private BigDecimal kilograms;
+
     @Column(name = "height")
     private BigDecimal height;
+
     @Column(name = "age")
     private Integer age;
 

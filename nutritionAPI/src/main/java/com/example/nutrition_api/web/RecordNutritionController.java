@@ -8,9 +8,11 @@ import com.example.nutrition_api.domain.users.entity.UserEntity;
 import com.example.nutrition_api.domain.users.service.UserServiceImp;
 import com.example.nutrition_api.infrastructure.exceptions.IncorrectNutrientChangeException;
 import com.example.nutrition_api.infrastructure.exceptions.RecordNotFoundException;
+import com.example.nutrition_api.infrastructure.open_ai.RecordNutritionControllerDocs;
 import jakarta.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,19 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/nutritionApi/v1/records")
-public class RecordNutritionController {
+@RequiredArgsConstructor
+public class RecordNutritionController implements RecordNutritionControllerDocs {
 
     private final RecordServiceImp recordService;
     private final UserServiceImp userServiceImp;
 
-    public RecordNutritionController(RecordServiceImp recordService, UserServiceImp userServiceImp) {
-        this.recordService = recordService;
-        this.userServiceImp = userServiceImp;
-    }
-
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<RecordView> getAllRecords(Principal principal) {
+    public List<RecordView> getAll(Principal principal) {
         UserEntity user = userServiceImp.findByEmail(principal.getName());
         return recordService.getAllViewsByUserId(user.getId());
     }
@@ -50,10 +48,12 @@ public class RecordNutritionController {
 
     @PatchMapping("/edit/{day}")
     @ResponseStatus(HttpStatus.CREATED)
-    public NutritionIntakeView changeNutrientByRecordDay(@Valid @RequestBody NutrientChangeDto dto,
-                                                         BindingResult result,
-                                                         @PathVariable Long day,
-                                                         Principal principal) throws IncorrectNutrientChangeException, RecordNotFoundException {
+    public NutritionIntakeView edit(
+        @Valid @RequestBody NutrientChangeDto dto,
+        BindingResult result,
+        @PathVariable Long day,
+        Principal principal
+    ) throws IncorrectNutrientChangeException, RecordNotFoundException {
         if (result.hasErrors()) {
             throw new IncorrectNutrientChangeException(result.getFieldErrors());
         }
@@ -67,7 +67,7 @@ public class RecordNutritionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RecordView createNewRecord(Principal principal) {
+    public RecordView create(Principal principal) {
         String email = principal.getName();
         UserEntity user = userServiceImp.findByEmail(email);
 
@@ -77,7 +77,7 @@ public class RecordNutritionController {
 
     @DeleteMapping("/{day}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteRecord(@PathVariable Long day, Principal principal) throws RecordNotFoundException {
+    public void delete(@PathVariable Long day, Principal principal) throws RecordNotFoundException {
         String email = principal.getName();
         UserEntity user = userServiceImp.findByEmail(email);
         recordService.deleteById(day, user);

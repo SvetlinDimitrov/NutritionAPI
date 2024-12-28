@@ -12,6 +12,7 @@ import com.example.nutrition_api.infrastructure.security.service.JwtServiceImp;
 import com.example.nutrition_api.infrastructure.security.service.UserDetailsImp;
 import jakarta.validation.Valid;
 import java.security.Principal;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -25,19 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/nutritionApi/v1/user")
+@RequiredArgsConstructor
 public class UserController {
 
     private final JwtServiceImp jwtUtil;
     private final UserServiceImp userServiceImp;
 
-    public UserController(JwtServiceImp jwtUtil, UserServiceImp userServiceImp) {
-        this.jwtUtil = jwtUtil;
-        this.userServiceImp = userServiceImp;
-    }
-
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUserAccount(@Valid @RequestBody RegisterUserDto userDto,
+    public void create(@Valid @RequestBody RegisterUserDto userDto,
                                   BindingResult result) throws WrongUserCredentialsException {
         if (result.hasErrors()) {
             throw new WrongUserCredentialsException(result.getFieldErrors());
@@ -65,15 +62,14 @@ public class UserController {
 
     @GetMapping("/details")
     @ResponseStatus(HttpStatus.OK)
-    public UserView getUserDetails(Principal principal) {
+    public UserView get(Principal principal) {
         String email = principal.getName();
         return userServiceImp.findByEmailView(email);
     }
 
     @PatchMapping("/details")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public UserView editUserProfile(Principal principal, @RequestBody EditUserDto userDto) {
-
+    public UserView edit(Principal principal, @RequestBody EditUserDto userDto) {
         String email = principal.getName();
         UserEntity user = userServiceImp.findByEmail(email);
         Long userId = user.getId();
