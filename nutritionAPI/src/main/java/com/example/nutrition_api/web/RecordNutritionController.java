@@ -6,8 +6,6 @@ import com.example.nutrition_api.domain.record.dto.RecordView;
 import com.example.nutrition_api.domain.record.service.RecordService;
 import com.example.nutrition_api.domain.users.entity.User;
 import com.example.nutrition_api.domain.users.service.UserService;
-import com.example.nutrition_api.infrastructure.exceptions.IncorrectNutrientChangeException;
-import com.example.nutrition_api.infrastructure.exceptions.RecordNotFoundException;
 import com.example.nutrition_api.infrastructure.open_ai.RecordNutritionControllerDocs;
 import jakarta.validation.Valid;
 import java.security.Principal;
@@ -15,7 +13,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -45,7 +42,7 @@ public class RecordNutritionController implements RecordNutritionControllerDocs 
   @GetMapping("/{day}")
   @ResponseStatus(HttpStatus.OK)
   @PreAuthorize("hasAnyRole('COMPLETED')")
-  public RecordView getById(@PathVariable Long day) throws RecordNotFoundException {
+  public RecordView getById(@PathVariable Long day) {
     return recordService.getById(day);
   }
 
@@ -54,14 +51,8 @@ public class RecordNutritionController implements RecordNutritionControllerDocs 
   @PreAuthorize("hasAnyRole('COMPLETED')")
   public NutritionIntakeView edit(
       @Valid @RequestBody NutrientUpdateRequest dto,
-      BindingResult result,
       @PathVariable Long day,
-      Principal principal
-  ) throws IncorrectNutrientChangeException, RecordNotFoundException {
-    if (result.hasErrors()) {
-      throw new IncorrectNutrientChangeException(result.getFieldErrors());
-    }
-
+      Principal principal) {
     String mail = principal.getName();
     User user = userServiceImp.findByEmail(mail);
 
@@ -83,7 +74,7 @@ public class RecordNutritionController implements RecordNutritionControllerDocs 
   @DeleteMapping("/{day}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @PreAuthorize("hasAnyRole('COMPLETED')")
-  public void delete(@PathVariable Long day, Principal principal) throws RecordNotFoundException {
+  public void delete(@PathVariable Long day, Principal principal) {
     String email = principal.getName();
     User user = userServiceImp.findByEmail(email);
     recordService.deleteById(day, user);

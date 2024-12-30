@@ -1,5 +1,8 @@
 package com.example.nutrition_api.domain.record.service;
 
+import static com.example.nutrition_api.infrastructure.exceptions.ExceptionMessages.NUTRITION_TO_UPDATE_NOT_FOUND;
+import static com.example.nutrition_api.infrastructure.exceptions.ExceptionMessages.RECORD_NOT_FOUND;
+
 import com.example.nutrition_api.domain.record.dto.NutrientUpdateRequest;
 import com.example.nutrition_api.domain.record.dto.NutritionIntakeView;
 import com.example.nutrition_api.domain.record.dto.RecordView;
@@ -8,14 +11,14 @@ import com.example.nutrition_api.domain.record.entity.Record;
 import com.example.nutrition_api.domain.record.repository.RecordRepository;
 import com.example.nutrition_api.domain.users.entity.User;
 import com.example.nutrition_api.domain.users.enums.Gender;
-import com.example.nutrition_api.domain.users.repository.UserRepository;
-import com.example.nutrition_api.infrastructure.exceptions.IncorrectNutrientChangeException;
-import com.example.nutrition_api.infrastructure.exceptions.RecordNotFoundException;
+import com.example.nutrition_api.domain.users.service.UserService;
+import com.example.nutrition_api.infrastructure.exceptions.throwable.NotFoundException;
 import com.example.nutrition_api.infrastructure.mappers.ViewConverter;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,40 +26,45 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RecordServiceImp implements RecordService {
 
+  private UserService userService;
   private final RecordRepository recordRepository;
-  private final UserRepository userRepository;
   private final NutrientIntakeService nutrientIntakeService;
   private final ViewConverter converter;
 
+  @Autowired
+  public void setUserService(@Lazy UserService userService) {
+    this.userService = userService;
+  }
+
   public List<RecordView> getAll(Long userId) {
-    User user = userRepository.findById(userId)
-        .orElseThrow(() -> new UsernameNotFoundException(userId.toString()));
-    return user.getRecords().stream()
+
+    return userService.findById(userId)
+        .getRecords()
+        .stream()
         .map(converter::toView)
         .toList();
   }
 
-  public RecordView getById(Long id) throws RecordNotFoundException {
+  public RecordView getById(Long id) {
     return recordRepository.findById(id)
         .map(converter::toView)
-        .orElseThrow(() -> new RecordNotFoundException(id.toString()));
+        .orElseThrow(() -> new NotFoundException(RECORD_NOT_FOUND));
   }
 
   @Transactional
-  public NutritionIntakeView updateById(Long day, NutrientUpdateRequest dto, User user)
-      throws RecordNotFoundException, IncorrectNutrientChangeException {
+  public NutritionIntakeView updateById(Long day, NutrientUpdateRequest dto, User user) {
 
     Record record = user.getRecords()
         .stream()
         .filter(r -> r.getId().equals(day))
         .findAny()
-        .orElseThrow(() -> new RecordNotFoundException(day.toString()));
+        .orElseThrow(() -> new NotFoundException(RECORD_NOT_FOUND));
 
     NutritionIntake intake = record.getDailyIntakeViews()
         .stream()
         .filter(nutrient -> nutrient.getNutrientName().equals(dto.name()))
         .findFirst()
-        .orElseThrow(() -> new IncorrectNutrientChangeException("catch me"));
+        .orElseThrow(() -> new NotFoundException(NUTRITION_TO_UPDATE_NOT_FOUND));
 
     intake.setDailyConsumed(intake.getDailyConsumed().add(dto.measure()));
     recordRepository.save(record);
@@ -65,25 +73,24 @@ public class RecordServiceImp implements RecordService {
   }
 
   @Transactional
-  public void deleteById(Long id, User user) throws RecordNotFoundException {
+  public void deleteById(Long id, User user) {
 
     user.getRecords()
         .stream()
         .filter(r -> r.getId().equals(id))
         .findAny()
-        .orElseThrow(() -> new RecordNotFoundException(id.toString()));
+        .orElseThrow(() -> new NotFoundException(RECORD_NOT_FOUND));
 
     recordRepository.deleteById(id);
   }
 
   public RecordView addNewRecordByUserId(Long userId) {
-    User user = userRepository.findById(userId)
-        .orElseThrow(() -> new UsernameNotFoundException(userId.toString()));
+    User user = userService.findById(userId);
 
     Record record = create(user);
 
     user.getRecords().add(record);
-    userRepository.save(user);
+    userService.save(user);
 
     return converter.toView(user.getRecords().getLast());
   }

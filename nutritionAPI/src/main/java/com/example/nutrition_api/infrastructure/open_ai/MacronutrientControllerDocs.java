@@ -1,7 +1,6 @@
 package com.example.nutrition_api.infrastructure.open_ai;
 
 import com.example.nutrition_api.domain.macros.dto.MacronutrientView;
-import com.example.nutrition_api.infrastructure.exceptions.MacronutrientNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,6 +29,5 @@ public interface MacronutrientControllerDocs {
       @ApiResponse(responseCode = "404", description = "Macronutrient not found",
           content = @Content)
   })
-  MacronutrientView getByName(@PathVariable String name)
-      throws MacronutrientNotFoundException;
+  MacronutrientView getByName(@PathVariable String name);
 }

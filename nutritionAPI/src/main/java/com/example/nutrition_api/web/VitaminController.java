@@ -2,7 +2,6 @@ package com.example.nutrition_api.web;
 
 import com.example.nutrition_api.domain.vitamin.dto.VitaminView;
 import com.example.nutrition_api.domain.vitamin.service.VitaminService;
-import com.example.nutrition_api.infrastructure.exceptions.VitaminNotFoundException;
 import com.example.nutrition_api.infrastructure.open_ai.VitaminControllerDocs;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,7 @@ public class VitaminController implements VitaminControllerDocs {
 
   @GetMapping("/{name}")
   @ResponseStatus(HttpStatus.OK)
-  public VitaminView getByName(@PathVariable String name) throws VitaminNotFoundException {
+  public VitaminView getByName(@PathVariable String name) {
     return vitaminService.getByName(name);
   }
 

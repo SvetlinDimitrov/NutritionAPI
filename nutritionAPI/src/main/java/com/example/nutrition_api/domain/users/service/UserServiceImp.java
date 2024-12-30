@@ -73,6 +73,11 @@ public class UserServiceImp implements UserService {
     fillUserWithCompleteDetails(user);
   }
 
+  @Override
+  public void save(User user) {
+    userRepository.save(user);
+  }
+
   private void fillUserWithCompleteDetails(User entity) {
     if (entity.getKilograms() != null && entity.getWorkoutState() != null && entity.getGender() != null && entity.getHeight() != null && entity.getAge() != null && (entity.getRecords() == null || entity.getRecords().isEmpty())) {
       entity.setUserDetails(UserDetails.COMPLETED);

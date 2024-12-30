@@ -3,7 +3,6 @@ package com.example.nutrition_api.infrastructure.open_ai;
 import com.example.nutrition_api.domain.users.dto.UserCreateRequest;
 import com.example.nutrition_api.domain.users.dto.UserUpdateRequest;
 import com.example.nutrition_api.domain.users.dto.UserView;
-import com.example.nutrition_api.infrastructure.exceptions.WrongUserCredentialsException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -14,7 +13,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.security.Principal;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Tag(name = "User Controller", description = "Operations related to user management")
@@ -35,8 +33,7 @@ public interface UserControllerDocs {
           )
       )
   )
-  void create(@Valid @RequestBody UserCreateRequest userDto, BindingResult result)
-      throws WrongUserCredentialsException;
+  void create(@Valid @RequestBody UserCreateRequest userDto);
 
   @Operation(summary = "Get user details", description = "Retrieve the details of the logged-in user")
   @ApiResponses(value = {
