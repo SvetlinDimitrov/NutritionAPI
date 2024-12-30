@@ -7,7 +7,7 @@ import com.example.nutrition_api.domain.users.entity.User;
 
 public interface UserService {
 
-  boolean notUsedEmail(String email);
+  boolean uniqueEmail(String email);
 
   void create(UserCreateRequest userDto);
 

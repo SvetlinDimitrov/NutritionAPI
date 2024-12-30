@@ -5,7 +5,7 @@ import static com.example.nutrition_api.infrastructure.exceptions.ExceptionMessa
 import com.example.nutrition_api.domain.vitamin.dto.VitaminView;
 import com.example.nutrition_api.domain.vitamin.entity.Vitamin;
 import com.example.nutrition_api.infrastructure.exceptions.throwable.NotFoundException;
-import com.example.nutrition_api.infrastructure.mappers.ViewConverter;
+import com.example.nutrition_api.infrastructure.mappers.VitaminMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -23,18 +23,19 @@ import org.springframework.stereotype.Service;
 public class VitaminServiceImp implements VitaminService {
 
   private final Map<String, Vitamin> vitaminMap = new LinkedHashMap<>();
-  private final ViewConverter converter;
+  private final VitaminMapper mapper;
 
   public List<VitaminView> getAll() {
     return vitaminMap
         .values()
         .stream()
-        .map(converter::toView).toList();
+        .map(mapper::toView)
+        .toList();
   }
 
   public VitaminView getByName(String name) {
     return Optional.ofNullable(vitaminMap.get(name))
-        .map(converter::toView)
+        .map(mapper::toView)
         .orElseThrow(() -> new NotFoundException(VITAMIN_NOT_FOUND, String.join(",", vitaminMap.keySet())));
   }
 

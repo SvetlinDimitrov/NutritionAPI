@@ -5,7 +5,7 @@ import static com.example.nutrition_api.infrastructure.exceptions.ExceptionMessa
 import com.example.nutrition_api.domain.macros.dto.MacronutrientView;
 import com.example.nutrition_api.domain.macros.entity.Macronutrient;
 import com.example.nutrition_api.infrastructure.exceptions.throwable.NotFoundException;
-import com.example.nutrition_api.infrastructure.mappers.ViewConverter;
+import com.example.nutrition_api.infrastructure.mappers.MacronutrientMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class MacronutrientServiceImp implements MacronutrientService {
 
   private final Map<String, Macronutrient> macronutrientMap = new LinkedHashMap<>();
-  private final ViewConverter converter;
+  private final MacronutrientMapper mapper;
 
   public List<Macronutrient> findAll() {
     return macronutrientMap.values().stream().toList();
@@ -33,13 +33,13 @@ public class MacronutrientServiceImp implements MacronutrientService {
     return macronutrientMap
         .values()
         .stream()
-        .map(converter::toView)
+        .map(mapper::toView)
         .toList();
   }
 
   public MacronutrientView getByName(String name) {
     return Optional.ofNullable(macronutrientMap.get(name))
-        .map(converter::toView)
+        .map(mapper::toView)
         .orElseThrow(() -> new NotFoundException(MACRONUTRIENT_NOT_FOUND, String.join(",", macronutrientMap.keySet())));
   }
 

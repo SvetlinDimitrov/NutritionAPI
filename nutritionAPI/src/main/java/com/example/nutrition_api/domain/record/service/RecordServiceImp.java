@@ -13,7 +13,8 @@ import com.example.nutrition_api.domain.users.entity.User;
 import com.example.nutrition_api.domain.users.enums.Gender;
 import com.example.nutrition_api.domain.users.service.UserService;
 import com.example.nutrition_api.infrastructure.exceptions.throwable.NotFoundException;
-import com.example.nutrition_api.infrastructure.mappers.ViewConverter;
+import com.example.nutrition_api.infrastructure.mappers.NutritionIntakeMapper;
+import com.example.nutrition_api.infrastructure.mappers.RecordMapper;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,8 @@ public class RecordServiceImp implements RecordService {
   private UserService userService;
   private final RecordRepository recordRepository;
   private final NutrientIntakeService nutrientIntakeService;
-  private final ViewConverter converter;
+  private final RecordMapper recordMapper;
+  private final NutritionIntakeMapper nutrientIntakeMapper;
 
   @Autowired
   public void setUserService(@Lazy UserService userService) {
@@ -41,13 +43,13 @@ public class RecordServiceImp implements RecordService {
     return userService.findById(userId)
         .getRecords()
         .stream()
-        .map(converter::toView)
+        .map(recordMapper::toView)
         .toList();
   }
 
   public RecordView getById(Long id) {
     return recordRepository.findById(id)
-        .map(converter::toView)
+        .map(recordMapper::toView)
         .orElseThrow(() -> new NotFoundException(RECORD_NOT_FOUND));
   }
 
@@ -69,7 +71,7 @@ public class RecordServiceImp implements RecordService {
     intake.setDailyConsumed(intake.getDailyConsumed().add(dto.measure()));
     recordRepository.save(record);
 
-    return converter.toView(intake);
+    return nutrientIntakeMapper.toView(intake);
   }
 
   @Transactional
@@ -92,7 +94,8 @@ public class RecordServiceImp implements RecordService {
     user.getRecords().add(record);
     userService.save(user);
 
-    return converter.toView(user.getRecords().getLast());
+    return recordMapper.toView(user.getRecords()
+        .getLast());
   }
 
   public Record create(User user) {

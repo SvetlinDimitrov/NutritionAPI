@@ -4,7 +4,7 @@ import com.example.nutrition_api.domain.electrolyte.dto.ElectrolyteView;
 import com.example.nutrition_api.domain.electrolyte.entity.Electrolyte;
 import com.example.nutrition_api.infrastructure.exceptions.ExceptionMessages;
 import com.example.nutrition_api.infrastructure.exceptions.throwable.NotFoundException;
-import com.example.nutrition_api.infrastructure.mappers.ViewConverter;
+import com.example.nutrition_api.infrastructure.mappers.ElectrolyteMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class ElectrolyteServiceImp implements ElectrolyteService {
 
   private final Map<String, Electrolyte> electrolyteEntityMap = new LinkedHashMap<>();
-  private final ViewConverter converter;
+  private final ElectrolyteMapper mapper;
 
   public List<Electrolyte> findAll() {
     return electrolyteEntityMap.values().stream().toList();
@@ -32,13 +32,13 @@ public class ElectrolyteServiceImp implements ElectrolyteService {
     return electrolyteEntityMap
         .values()
         .stream()
-        .map(converter::toView)
+        .map(mapper::toView)
         .toList();
   }
 
   public ElectrolyteView getByName(String name) {
     return Optional.ofNullable(electrolyteEntityMap.get(name))
-        .map(converter::toView)
+        .map(mapper::toView)
         .orElseThrow(() -> new NotFoundException(ExceptionMessages.ELECTROLYTE_NOT_FOUND, String.join(",", electrolyteEntityMap.keySet())));
   }
 
