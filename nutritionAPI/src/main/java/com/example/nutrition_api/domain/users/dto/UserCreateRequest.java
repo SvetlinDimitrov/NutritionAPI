@@ -1,8 +1,8 @@
 package com.example.nutrition_api.domain.users.dto;
 
+import com.example.nutrition_api.domain.users.annotations.UniqueEmail;
 import com.example.nutrition_api.domain.users.enums.Gender;
 import com.example.nutrition_api.domain.users.enums.WorkoutState;
-import com.example.nutrition_api.infrastructure.exceptions.emailChecker.NotUsedEmailConstraint;
 import com.example.nutrition_api.infrastructure.security.annotations.ValidPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +14,7 @@ public record UserCreateRequest(
         @Size(min = 4 , max = 50)
         String username,
 
-        @NotUsedEmailConstraint
+        @UniqueEmail
         @NotBlank
         @Email
         @Size(min = 4 , max = 250)

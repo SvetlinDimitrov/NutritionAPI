@@ -3,8 +3,6 @@ package com.example.nutrition_api.infrastructure.open_ai;
 import com.example.nutrition_api.domain.record.dto.NutrientUpdateRequest;
 import com.example.nutrition_api.domain.record.dto.NutritionIntakeView;
 import com.example.nutrition_api.domain.record.dto.RecordView;
-import com.example.nutrition_api.infrastructure.exceptions.IncorrectNutrientChangeException;
-import com.example.nutrition_api.infrastructure.exceptions.RecordNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,7 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.security.Principal;
 import java.util.List;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -40,7 +37,7 @@ public interface RecordNutritionControllerDocs {
       @ApiResponse(responseCode = "404", description = "Record not found", content = @Content),
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
-  RecordView getById(@PathVariable Long day) throws RecordNotFoundException;
+  RecordView getById(Long day);
 
   @Operation(summary = "Edit record", description = "Edit a nutrition record for a specific day")
   @ApiResponses(value = {
@@ -53,10 +50,7 @@ public interface RecordNutritionControllerDocs {
   })
   NutritionIntakeView edit(
       @Valid @RequestBody NutrientUpdateRequest dto,
-      BindingResult result,
-      @PathVariable Long day,
-      Principal principal
-  ) throws IncorrectNutrientChangeException, RecordNotFoundException;
+      @PathVariable Long day, Principal principal);
 
   @Operation(summary = "Create record", description = "Create a new nutrition record for the logged-in user")
   @ApiResponses(value = {
@@ -73,5 +67,5 @@ public interface RecordNutritionControllerDocs {
       @ApiResponse(responseCode = "404", description = "Record not found", content = @Content),
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
-  void delete(@PathVariable Long day, Principal principal) throws RecordNotFoundException;
+  void delete(Long day, Principal principal);
 }

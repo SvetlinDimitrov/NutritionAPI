@@ -2,7 +2,6 @@ package com.example.nutrition_api.web;
 
 import com.example.nutrition_api.domain.macros.dto.MacronutrientView;
 import com.example.nutrition_api.domain.macros.service.MacronutrientService;
-import com.example.nutrition_api.infrastructure.exceptions.MacronutrientNotFoundException;
 import com.example.nutrition_api.infrastructure.open_ai.MacronutrientControllerDocs;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,7 @@ public class MacronutrientController implements MacronutrientControllerDocs {
 
   @GetMapping("/{name}")
   @ResponseStatus(HttpStatus.OK)
-  public MacronutrientView getByName(@PathVariable String name) throws MacronutrientNotFoundException {
+  public MacronutrientView getByName(@PathVariable String name) {
     return macronutrientService.getByName(name);
   }
 

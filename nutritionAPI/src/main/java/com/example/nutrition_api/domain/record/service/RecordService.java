@@ -5,20 +5,17 @@ import com.example.nutrition_api.domain.record.dto.NutritionIntakeView;
 import com.example.nutrition_api.domain.record.dto.RecordView;
 import com.example.nutrition_api.domain.record.entity.Record;
 import com.example.nutrition_api.domain.users.entity.User;
-import com.example.nutrition_api.infrastructure.exceptions.IncorrectNutrientChangeException;
-import com.example.nutrition_api.infrastructure.exceptions.RecordNotFoundException;
 import java.util.List;
 
 public interface RecordService {
 
   List<RecordView> getAll(Long userId);
 
-  RecordView getById(Long id) throws RecordNotFoundException;
+  RecordView getById(Long id);
 
-  NutritionIntakeView updateById(Long day, NutrientUpdateRequest dto, User user)
-      throws RecordNotFoundException, IncorrectNutrientChangeException;
+  NutritionIntakeView updateById(Long day, NutrientUpdateRequest dto, User user);
 
-  void deleteById(Long id, User user) throws RecordNotFoundException;
+  void deleteById(Long id, User user);
 
   RecordView addNewRecordByUserId(Long userId);
 
