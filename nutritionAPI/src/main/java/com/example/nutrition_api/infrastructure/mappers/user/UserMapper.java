@@ -6,9 +6,14 @@ import com.example.nutrition_api.domain.users.dto.UserView;
 import com.example.nutrition_api.domain.users.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-@Mapper(componentModel = "spring", uses = PasswordEncoderComponent.class, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(
+    componentModel = "spring",
+    uses = PasswordEncoderComponent.class,
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+)
 public interface UserMapper {
 
   UserView toView(User entity);
@@ -17,5 +22,5 @@ public interface UserMapper {
   @Mapping(target = "kilograms", source = "kg")
   User toEntity(UserCreateRequest dto);
 
-  User updateEntity(User entity, UserUpdateRequest dto);
+  User updateEntity(@MappingTarget User entity, UserUpdateRequest dto);
 }

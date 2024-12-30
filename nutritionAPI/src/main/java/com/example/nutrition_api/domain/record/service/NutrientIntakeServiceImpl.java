@@ -65,7 +65,14 @@ public class NutrientIntakeServiceImpl implements NutrientIntakeService {
   }
 
   private NutritionIntake createNutritionIntake(String nutrientName, String nutrientType, String measurement, BigDecimal lowerBoundIntake, BigDecimal upperBoundIntake, Record record) {
-    return NutritionIntake.builder().nutrientName(nutrientName).nutrientType(nutrientType).measurement(measurement).lowerBoundIntake(lowerBoundIntake).upperBoundIntake(upperBoundIntake).record(record).build();
+    NutritionIntake nutritionIntake = new NutritionIntake();
+    nutritionIntake.setNutrientName(nutrientName);
+    nutritionIntake.setNutrientType(nutrientType);
+    nutritionIntake.setMeasurement(measurement);
+    nutritionIntake.setLowerBoundIntake(lowerBoundIntake);
+    nutritionIntake.setUpperBoundIntake(upperBoundIntake);
+    nutritionIntake.setRecord(record);
+    return nutritionIntake;
   }
 
   private Boolean inactiveState(WorkoutState state) {

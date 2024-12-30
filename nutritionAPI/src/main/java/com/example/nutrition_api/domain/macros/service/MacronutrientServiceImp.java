@@ -4,17 +4,10 @@ import static com.example.nutrition_api.infrastructure.exceptions.ExceptionMessa
 
 import com.example.nutrition_api.domain.macros.dto.MacronutrientView;
 import com.example.nutrition_api.domain.macros.entity.Macronutrient;
+import com.example.nutrition_api.domain.macros.repository.MacronutrientRepository;
 import com.example.nutrition_api.infrastructure.exceptions.throwable.NotFoundException;
 import com.example.nutrition_api.infrastructure.mappers.MacronutrientMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.annotation.PostConstruct;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,43 +15,26 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MacronutrientServiceImp implements MacronutrientService {
 
-  private final Map<String, Macronutrient> macronutrientMap = new LinkedHashMap<>();
+  private final MacronutrientRepository macronutrientRepository;
   private final MacronutrientMapper mapper;
 
   public List<Macronutrient> findAll() {
-    return macronutrientMap.values().stream().toList();
+    return macronutrientRepository.findAll();
   }
 
   public List<MacronutrientView> getAll() {
-    return macronutrientMap
-        .values()
+    return macronutrientRepository.findAll()
         .stream()
         .map(mapper::toView)
         .toList();
   }
 
   public MacronutrientView getByName(String name) {
-    return Optional.ofNullable(macronutrientMap.get(name))
+    return macronutrientRepository.get(name)
         .map(mapper::toView)
-        .orElseThrow(() -> new NotFoundException(MACRONUTRIENT_NOT_FOUND, String.join(",", macronutrientMap.keySet())));
-  }
-
-  @PostConstruct
-  public void initData() {
-    ObjectMapper objectMapper = new ObjectMapper();
-    try (InputStream inputStream = getClass().getResourceAsStream("/macronutrients.json")) {
-      if (inputStream == null) {
-        throw new IOException("Macronutrient JSON file not found.");
-      }
-
-      Map<String, List<Macronutrient>> map = objectMapper.readValue(inputStream, new TypeReference<>() {});
-      List<Macronutrient> macronutrients = map.get("macronutrients");
-
-      for (Macronutrient macronutrient : macronutrients) {
-        macronutrientMap.put(macronutrient.getName(), macronutrient);
-      }
-    } catch (IOException e) {
-      throw new RuntimeException("Failed to initialize macronutrient data", e);
-    }
+        .orElseThrow(() -> new NotFoundException(MACRONUTRIENT_NOT_FOUND, String.join(",", macronutrientRepository.findAll()
+            .stream()
+            .map(Macronutrient::getName)
+            .toList())));
   }
 }

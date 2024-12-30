@@ -25,7 +25,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"record"})
 @ToString(exclude = {"record"})
-@Builder
 public class NutritionIntake {
 
   @Id
