@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {NutritionIntakeMapper.class})
 public interface RecordMapper {
 
-  @Mapping(source = "id", target = "day")
   @Mapping(source = "dailyCalories", target = "dailyCaloriesToConsume")
   @Mapping(source = "user.id", target = "userID")
   @Mapping(source = "user.username", target = "userName")

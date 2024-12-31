@@ -1,7 +1,13 @@
 package com.example.nutrition_api.infrastructure.security.service;
 
+import static com.example.nutrition_api.infrastructure.exceptions.ExceptionMessages.REFRESH_TOKEN_EXPIRED;
+import static com.example.nutrition_api.infrastructure.exceptions.ExceptionMessages.REFRESH_TOKEN_NOT_FOUND;
+
 import com.example.nutrition_api.domain.users.entity.User;
 import com.example.nutrition_api.domain.users.service.UserService;
+import com.example.nutrition_api.infrastructure.exceptions.throwable.BadRequestException;
+import com.example.nutrition_api.infrastructure.exceptions.throwable.NotFoundException;
+import com.example.nutrition_api.infrastructure.mappers.RefreshTokenMapper;
 import com.example.nutrition_api.infrastructure.security.config.JwtConfig;
 import com.example.nutrition_api.infrastructure.security.dto.AccessTokenView;
 import com.example.nutrition_api.infrastructure.security.dto.AuthenticationResponse;
@@ -28,26 +34,23 @@ public class JwtServiceImpl implements JwtService {
 
   private final RefreshTokenRepository refreshTokenRepository;
   private final UserService userService;
-  //  private final RefreshTokenMapper refreshTokenMapper;
+  private final RefreshTokenMapper refreshTokenMapper;
   private final JwtConfig jwtConfig;
-//  private final UserMapper userMapper;
 
   public AuthenticationResponse refreshToken(UUID token) {
     RefreshToken refreshToken = refreshTokenRepository
         .findById(token)
-//        .orElseThrow(() -> new NotFoundException(REFRESH_TOKEN_NOT_FOUND, token.toString()));
-        .orElseThrow(() -> new IllegalArgumentException("Refresh token not found"));
+        .orElseThrow(() -> new NotFoundException(REFRESH_TOKEN_NOT_FOUND, token.toString()));
 
     if (refreshToken.getExpiryDate().isBefore(LocalDateTime.now())) {
       refreshTokenRepository.delete(refreshToken);
-//      throw new BadRequestException(REFRESH_TOKEN_EXPIRED);
-      throw new IllegalArgumentException("Refresh token expired");
+      throw new BadRequestException(REFRESH_TOKEN_EXPIRED);
     }
 
     var accessTokenView = generateAccessToken(refreshToken.getUser());
-//    var refreshTokenView = refreshTokenMapper.toView(refreshToken);
+    var refreshTokenView = refreshTokenMapper.toView(refreshToken);
 
-    return new AuthenticationResponse(accessTokenView, null);
+    return new AuthenticationResponse(accessTokenView, refreshTokenView);
   }
 
   public AuthenticationResponse generateToken(String email) {
@@ -118,7 +121,6 @@ public class JwtServiceImpl implements JwtService {
     refreshToken.setUser(user);
     refreshToken.setExpiryDate(expiryDate);
 
-//    return refreshTokenMapper.toView(refreshTokenRepository.save(refreshToken));
-    return null;
+    return refreshTokenMapper.toView(refreshTokenRepository.save(refreshToken));
   }
 }

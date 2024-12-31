@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record RecordView(
-        Long day,
+        Long id,
 
         List<NutritionIntakeView> dailyIntakeViews,
 

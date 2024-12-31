@@ -27,9 +27,9 @@ public interface RecordNutritionControllerDocs {
               schema = @Schema(implementation = RecordView[].class))}),
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
-  List<RecordView> getAll(Principal principal);
+  List<RecordView> getAll();
 
-  @Operation(summary = "Get record by day", description = "Retrieve a nutrition record by its day")
+  @Operation(summary = "Get record by id", description = "Retrieve a nutrition record by its id")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Found the record",
           content = {@Content(mediaType = "application/json",
@@ -37,9 +37,9 @@ public interface RecordNutritionControllerDocs {
       @ApiResponse(responseCode = "404", description = "Record not found", content = @Content),
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
-  RecordView getById(Long day);
+  RecordView getById(Long id);
 
-  @Operation(summary = "Edit record", description = "Edit a nutrition record for a specific day")
+  @Operation(summary = "Edit record", description = "Edit a nutrition record for a specific id")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Record edited",
           content = {@Content(mediaType = "application/json",
@@ -50,7 +50,7 @@ public interface RecordNutritionControllerDocs {
   })
   NutritionIntakeView edit(
       @Valid @RequestBody NutrientUpdateRequest dto,
-      @PathVariable Long day, Principal principal);
+      @PathVariable Long id);
 
   @Operation(summary = "Create record", description = "Create a new nutrition record for the logged-in user")
   @ApiResponses(value = {
@@ -59,13 +59,13 @@ public interface RecordNutritionControllerDocs {
               schema = @Schema(implementation = RecordView.class))}),
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
-  RecordView create(Principal principal);
+  RecordView create();
 
-  @Operation(summary = "Delete record", description = "Delete a nutrition record by its day")
+  @Operation(summary = "Delete record", description = "Delete a nutrition record by its id")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "Record deleted"),
       @ApiResponse(responseCode = "404", description = "Record not found", content = @Content),
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
-  void delete(Long day, Principal principal);
+  void delete(Long id);
 }

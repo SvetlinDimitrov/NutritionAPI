@@ -43,7 +43,7 @@ public interface UserControllerDocs {
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
   @SecurityRequirement(name = "bearerAuth")
-  UserView get(Principal principal);
+  UserView get();
 
   @Operation(summary = "Edit user details", description = "Edit the details of the logged-in user")
   @ApiResponses(value = {
@@ -54,5 +54,5 @@ public interface UserControllerDocs {
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
   @SecurityRequirement(name = "bearerAuth")
-  UserView edit(Principal principal, @RequestBody UserUpdateRequest userDto);
+  UserView edit(@RequestBody UserUpdateRequest userDto);
 }

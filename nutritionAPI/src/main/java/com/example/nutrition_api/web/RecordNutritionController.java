@@ -4,11 +4,8 @@ import com.example.nutrition_api.domain.record.dto.NutrientUpdateRequest;
 import com.example.nutrition_api.domain.record.dto.NutritionIntakeView;
 import com.example.nutrition_api.domain.record.dto.RecordView;
 import com.example.nutrition_api.domain.record.service.RecordService;
-import com.example.nutrition_api.domain.users.entity.User;
-import com.example.nutrition_api.domain.users.service.UserService;
 import com.example.nutrition_api.infrastructure.open_ai.RecordNutritionControllerDocs;
 import jakarta.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,55 +26,42 @@ import org.springframework.web.bind.annotation.RestController;
 public class RecordNutritionController implements RecordNutritionControllerDocs {
 
   private final RecordService recordService;
-  private final UserService userServiceImp;
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
   @PreAuthorize("hasAnyRole('COMPLETED')")
-  public List<RecordView> getAll(Principal principal) {
-    User user = userServiceImp.findByEmail(principal.getName());
-    return recordService.getAll(user.getId());
+  public List<RecordView> getAll() {
+    return recordService.getAll();
   }
 
-  @GetMapping("/{day}")
+  @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   @PreAuthorize("hasAnyRole('COMPLETED')")
-  public RecordView getById(@PathVariable Long day) {
-    return recordService.getById(day);
+  public RecordView getById(@PathVariable Long id) {
+    return recordService.getById(id);
   }
 
-  @PatchMapping("/edit/{day}")
+  @PatchMapping("/edit/{id}")
   @ResponseStatus(HttpStatus.CREATED)
   @PreAuthorize("hasAnyRole('COMPLETED')")
-  public NutritionIntakeView edit(
-      @Valid @RequestBody NutrientUpdateRequest dto,
-      @PathVariable Long day,
-      Principal principal) {
-    String mail = principal.getName();
-    User user = userServiceImp.findByEmail(mail);
-
-    return recordService.updateById(day, dto, user);
+  public NutritionIntakeView edit(@Valid @RequestBody NutrientUpdateRequest dto, @PathVariable Long id) {
+    return recordService.updateById(id, dto);
   }
 
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   @PreAuthorize("hasAnyRole('COMPLETED')")
-  public RecordView create(Principal principal) {
-    String email = principal.getName();
-    User user = userServiceImp.findByEmail(email);
-
-    return recordService.addNewRecordByUserId(user.getId());
+  public RecordView create() {
+    return recordService.addNewRecordByUserId();
   }
 
 
-  @DeleteMapping("/{day}")
+  @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @PreAuthorize("hasAnyRole('COMPLETED')")
-  public void delete(@PathVariable Long day, Principal principal) {
-    String email = principal.getName();
-    User user = userServiceImp.findByEmail(email);
-    recordService.deleteById(day, user);
+  public void delete(@PathVariable Long id) {
+    recordService.deleteById(id);
   }
 
 }

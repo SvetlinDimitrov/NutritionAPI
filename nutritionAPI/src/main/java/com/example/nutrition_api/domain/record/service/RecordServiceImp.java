@@ -1,101 +1,73 @@
 package com.example.nutrition_api.domain.record.service;
 
-import static com.example.nutrition_api.infrastructure.exceptions.ExceptionMessages.NUTRITION_TO_UPDATE_NOT_FOUND;
 import static com.example.nutrition_api.infrastructure.exceptions.ExceptionMessages.RECORD_NOT_FOUND;
 
 import com.example.nutrition_api.domain.record.dto.NutrientUpdateRequest;
 import com.example.nutrition_api.domain.record.dto.NutritionIntakeView;
 import com.example.nutrition_api.domain.record.dto.RecordView;
-import com.example.nutrition_api.domain.record.entity.NutritionIntake;
 import com.example.nutrition_api.domain.record.entity.Record;
 import com.example.nutrition_api.domain.record.repository.RecordRepository;
 import com.example.nutrition_api.domain.users.entity.User;
 import com.example.nutrition_api.domain.users.enums.Gender;
-import com.example.nutrition_api.domain.users.service.UserService;
 import com.example.nutrition_api.infrastructure.exceptions.throwable.NotFoundException;
-import com.example.nutrition_api.infrastructure.mappers.NutritionIntakeMapper;
 import com.example.nutrition_api.infrastructure.mappers.RecordMapper;
+import com.example.nutrition_api.infrastructure.security.service.UserDetailsServiceImpl;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class RecordServiceImp implements RecordService {
 
-  private UserService userService;
-  private final RecordRepository recordRepository;
+  private final UserDetailsServiceImpl securityService;
   private final NutrientIntakeService nutrientIntakeService;
-  private final RecordMapper recordMapper;
-  private final NutritionIntakeMapper nutrientIntakeMapper;
+  private final RecordRepository repository;
+  private final RecordMapper mapper;
 
-  @Autowired
-  public void setUserService(@Lazy UserService userService) {
-    this.userService = userService;
-  }
+  public List<RecordView> getAll() {
+    var loggedInUser = securityService.getLoggedInUser();
 
-  public List<RecordView> getAll(Long userId) {
-
-    return userService.findById(userId)
-        .getRecords()
+    return repository.findAllByUser_Email(loggedInUser.getEmail())
         .stream()
-        .map(recordMapper::toView)
+        .map(mapper::toView)
         .toList();
   }
 
   public RecordView getById(Long id) {
-    return recordRepository.findById(id)
-        .map(recordMapper::toView)
+    var loggedInUser = securityService.getLoggedInUser();
+
+    return repository.findByIdAndUser_Email(id, loggedInUser.getEmail())
+        .map(mapper::toView)
         .orElseThrow(() -> new NotFoundException(RECORD_NOT_FOUND));
   }
 
-  @Transactional
-  public NutritionIntakeView updateById(Long day, NutrientUpdateRequest dto, User user) {
+  public NutritionIntakeView updateById(Long recordId, NutrientUpdateRequest dto) {
+    var loggedInUser = securityService.getLoggedInUser();
 
-    Record record = user.getRecords()
-        .stream()
-        .filter(r -> r.getId().equals(day))
-        .findAny()
+    var record = repository.findByIdAndUser_Email(recordId, loggedInUser.getEmail())
         .orElseThrow(() -> new NotFoundException(RECORD_NOT_FOUND));
 
-    NutritionIntake intake = record.getDailyIntakeViews()
-        .stream()
-        .filter(nutrient -> nutrient.getNutrientName().equals(dto.name()))
-        .findFirst()
-        .orElseThrow(() -> new NotFoundException(NUTRITION_TO_UPDATE_NOT_FOUND));
-
-    intake.setDailyConsumed(intake.getDailyConsumed().add(dto.measure()));
-    recordRepository.save(record);
-
-    return nutrientIntakeMapper.toView(intake);
+    return nutrientIntakeService.update(dto, record.getId());
   }
 
-  @Transactional
-  public void deleteById(Long id, User user) {
+  public void deleteById(Long id) {
+    var loggedInUser = securityService.getLoggedInUser();
 
-    user.getRecords()
-        .stream()
-        .filter(r -> r.getId().equals(id))
-        .findAny()
-        .orElseThrow(() -> new NotFoundException(RECORD_NOT_FOUND));
+    if (!repository.existsByUser_Email(loggedInUser.getEmail())) {
+      throw new NotFoundException(RECORD_NOT_FOUND);
+    }
 
-    recordRepository.deleteById(id);
+    repository.deleteById(id);
   }
 
-  public RecordView addNewRecordByUserId(Long userId) {
-    User user = userService.findById(userId);
+  public RecordView addNewRecordByUserId() {
+    var loggedInUser = securityService.getLoggedInUser();
 
-    Record record = create(user);
+    Record record = create(loggedInUser);
 
-    user.getRecords().add(record);
-    userService.save(user);
-
-    return recordMapper.toView(user.getRecords()
-        .getLast());
+    return mapper.toView(repository.save(record));
   }
 
   public Record create(User user) {

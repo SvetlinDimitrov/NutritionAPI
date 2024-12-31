@@ -9,15 +9,15 @@ import java.util.List;
 
 public interface RecordService {
 
-  List<RecordView> getAll(Long userId);
+  List<RecordView> getAll();
 
   RecordView getById(Long id);
 
-  NutritionIntakeView updateById(Long day, NutrientUpdateRequest dto, User user);
+  NutritionIntakeView updateById(Long day, NutrientUpdateRequest dto);
 
-  void deleteById(Long id, User user);
+  void deleteById(Long id);
 
-  RecordView addNewRecordByUserId(Long userId);
+  RecordView addNewRecordByUserId();
 
   Record create(User user);
 }

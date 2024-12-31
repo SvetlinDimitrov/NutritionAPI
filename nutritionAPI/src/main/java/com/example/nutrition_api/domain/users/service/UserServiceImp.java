@@ -8,6 +8,7 @@ import com.example.nutrition_api.domain.users.entity.User;
 import com.example.nutrition_api.domain.users.enums.UserDetails;
 import com.example.nutrition_api.domain.users.repository.UserRepository;
 import com.example.nutrition_api.infrastructure.mappers.user.UserMapper;
+import com.example.nutrition_api.infrastructure.security.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,11 @@ public class UserServiceImp implements UserService {
 
   private final UserRepository userRepository;
   private final RecordService recordService;
+  private final UserDetailsServiceImpl securityService;
   private final UserMapper mapper;
 
-  public boolean uniqueEmail(String email) {
-    return userRepository.findByEmail(email).isEmpty();
+  public boolean existsByEmail(String email) {
+    return userRepository.existsByEmail(email);
   }
 
   public void create(UserCreateRequest userDto) {
@@ -31,29 +33,24 @@ public class UserServiceImp implements UserService {
   }
 
   public User findByEmail(String email) {
-    return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("no user found with the given email"));
+    return userRepository.findByEmail(email)
+        .orElseThrow(() -> new UsernameNotFoundException("no user found with the given email"));
   }
 
-  public UserView findByEmailView(String email) {
-    return mapper.toView(findByEmail(email));
-  }
+  public UserView edit(UserUpdateRequest userDto) {
+    var loggedInUser = securityService.getLoggedInUser();
 
-  public User findById(Long id) {
-    return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("no user found with the given id"));
-  }
+    var userToUpdate = fillUserWithCompleteDetails(mapper.updateEntity(loggedInUser, userDto));
 
-  public UserView getById(Long userId) {
-    return mapper.toView(findById(userId));
-  }
-
-  public void edit(UserUpdateRequest userDto, Long userId) {
-    User userToUpdate = fillUserWithCompleteDetails(mapper.updateEntity(findById(userId), userDto));
-
-    userRepository.save(userToUpdate);
+    return mapper.toView(userRepository.save(userToUpdate));
   }
 
   public void save(User user) {
     userRepository.save(user);
+  }
+
+  public UserView getLoggedInUser() {
+    return mapper.toView(securityService.getLoggedInUser());
   }
 
   private User fillUserWithCompleteDetails(User entity) {
