@@ -70,7 +70,7 @@ public class User {
   @Enumerated(EnumType.STRING)
   private UserDetails userDetails = UserDetails.NOT_COMPLETED;
 
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE , CascadeType.PERSIST})
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
   private List<Record> records = new ArrayList<>();
 
   @OneToOne(mappedBy = "user", cascade = {CascadeType.REMOVE})

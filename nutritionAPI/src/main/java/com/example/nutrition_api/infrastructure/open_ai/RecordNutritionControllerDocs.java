@@ -11,8 +11,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import java.security.Principal;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,11 +23,10 @@ public interface RecordNutritionControllerDocs {
   @Operation(summary = "Get all records", description = "Retrieve a list of all nutrition records for the logged-in user")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Found the records",
-          content = {@Content(mediaType = "application/json",
-              schema = @Schema(implementation = RecordView[].class))}),
+          content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Page.class))}),
       @ApiResponse(responseCode = "403", description = "Unauthorized", content = @Content)
   })
-  List<RecordView> getAll();
+  Page<RecordView> getAll(Pageable pageable);
 
   @Operation(summary = "Get record by id", description = "Retrieve a nutrition record by its id")
   @ApiResponses(value = {

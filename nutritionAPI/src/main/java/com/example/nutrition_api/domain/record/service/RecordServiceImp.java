@@ -13,8 +13,9 @@ import com.example.nutrition_api.infrastructure.exceptions.throwable.NotFoundExc
 import com.example.nutrition_api.infrastructure.mappers.RecordMapper;
 import com.example.nutrition_api.infrastructure.security.service.UserDetailsServiceImpl;
 import java.math.BigDecimal;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,36 +27,28 @@ public class RecordServiceImp implements RecordService {
   private final RecordRepository repository;
   private final RecordMapper mapper;
 
-  public List<RecordView> getAll() {
+  public Page<RecordView> getAll(Pageable pageable) {
     var loggedInUser = securityService.getLoggedInUser();
 
-    return repository.findAllByUser_Email(loggedInUser.getEmail())
-        .stream()
-        .map(mapper::toView)
-        .toList();
+    return repository.findAllByUser_Email(loggedInUser.getEmail(), pageable)
+        .map(mapper::toView);
   }
 
   public RecordView getById(Long id) {
-    var loggedInUser = securityService.getLoggedInUser();
-
-    return repository.findByIdAndUser_Email(id, loggedInUser.getEmail())
+    return repository.findById(id)
         .map(mapper::toView)
         .orElseThrow(() -> new NotFoundException(RECORD_NOT_FOUND));
   }
 
   public NutritionIntakeView updateById(Long recordId, NutrientUpdateRequest dto) {
-    var loggedInUser = securityService.getLoggedInUser();
-
-    var record = repository.findByIdAndUser_Email(recordId, loggedInUser.getEmail())
+    var record = repository.findById(recordId)
         .orElseThrow(() -> new NotFoundException(RECORD_NOT_FOUND));
 
     return nutrientIntakeService.update(dto, record.getId());
   }
 
   public void deleteById(Long id) {
-    var loggedInUser = securityService.getLoggedInUser();
-
-    if (!repository.existsByUser_Email(loggedInUser.getEmail())) {
+    if (!repository.existsById(id)) {
       throw new NotFoundException(RECORD_NOT_FOUND);
     }
 
@@ -86,7 +79,11 @@ public class RecordServiceImp implements RecordService {
     record.setDailyCalories(caloriesPerDay);
     record.setDailyIntakeViews(nutrientIntakeService
         .create(user.getGender(), caloriesPerDay, user.getWorkoutState(), record));
-    return record;
+    return repository.save(record);
+  }
+
+  public boolean existsByRecordIdAndUserEmail(Long recordId, String userEmail) {
+    return repository.existsByIdAndUser_Email(recordId, userEmail);
   }
 
   private BigDecimal getBmr(User user) {

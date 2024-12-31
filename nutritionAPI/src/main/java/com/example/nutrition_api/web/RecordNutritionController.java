@@ -6,8 +6,9 @@ import com.example.nutrition_api.domain.record.dto.RecordView;
 import com.example.nutrition_api.domain.record.service.RecordService;
 import com.example.nutrition_api.infrastructure.open_ai.RecordNutritionControllerDocs;
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,21 +30,21 @@ public class RecordNutritionController implements RecordNutritionControllerDocs 
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  @PreAuthorize("hasAnyRole('COMPLETED')")
-  public List<RecordView> getAll() {
-    return recordService.getAll();
+  @PreAuthorize("hasRole('COMPLETED')")
+  public Page<RecordView> getAll(Pageable pageable) {
+    return recordService.getAll(pageable);
   }
 
   @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  @PreAuthorize("hasAnyRole('COMPLETED')")
+  @PreAuthorize("hasAnyRole('COMPLETED') && @userPermissionEvaluator.recordUserOwner(authentication, #id)")
   public RecordView getById(@PathVariable Long id) {
     return recordService.getById(id);
   }
 
   @PatchMapping("/edit/{id}")
   @ResponseStatus(HttpStatus.CREATED)
-  @PreAuthorize("hasAnyRole('COMPLETED')")
+  @PreAuthorize("hasAnyRole('COMPLETED') && @userPermissionEvaluator.recordUserOwner(authentication, #id)")
   public NutritionIntakeView edit(@Valid @RequestBody NutrientUpdateRequest dto, @PathVariable Long id) {
     return recordService.updateById(id, dto);
   }
@@ -59,7 +60,7 @@ public class RecordNutritionController implements RecordNutritionControllerDocs 
 
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @PreAuthorize("hasAnyRole('COMPLETED')")
+  @PreAuthorize("hasAnyRole('COMPLETED') && @userPermissionEvaluator.recordUserOwner(authentication, #id)")
   public void delete(@PathVariable Long id) {
     recordService.deleteById(id);
   }
