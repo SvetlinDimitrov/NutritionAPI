@@ -14,16 +14,7 @@ All you need to do is clone my repository and run the project.Nothing more;
 + https://github.com/SvetlinDimitrov/NutritionAPI.git
 
 ## Prerequisites
-+ Java JDK (version 17)
-+ Spring Boot (version 3.1.2)
-+ Spring Boot (dependency-management version 1.1.2)
-+ spring-boot-starter-data-jpa
-+ spring-boot-starter-security
-+ spring-boot-starter-web
-+ spring-boot-starter-validation
-+ java-jwt:4.4.0
-+ mysql-connector-j
-+ hsqldb (Integration Tests)
++ Java JDK (version 21)
 
 ## Usage
 If you don't have registration, you can still access information on all types of vitamins, electrolytes, and the basic macronutrients. This includes details on how much you need to consume and everything about them.
@@ -33,10 +24,21 @@ Then, when you successfully register and log in, you will be able to modify your
 You can visit your record, add consumed nutrition to it, start a new record, or even delete one. This API uses JWT tokens for authorization."
 
 ## API Documentation
-+ [Full Documentation using Postman](https://documenter.getpostman.com/view/26519722/2s9Y5U1Qv7#b0047059-4965-448a-a3c7-34e758e58193)
-+ [Download the Postman Collection](https://drive.google.com/u/0/uc?id=1XA30k0EBNxh0CHhxyMlmldgqel79OSzN&export=download)
+The API documentation is generated using SpringDoc OpenAPI. You can view the API documentation 
+by navigating to the following URL in your web browser: http://localhost:8080/swagger-ui.html
 
+## Running the Application with Docker Compose
 
-## Contributing
-There are a few TODOs that I haven't managed to resolve.
+To run both the database and the application simultaneously, you can use the provided `docker-compose.yml` file. This file sets up the necessary services and configurations.
 
+### Steps to Run
+
+1. Ensure you have Docker and Docker Compose installed on your machine.
+2. Navigate to the directory containing the `docker-compose.yml` file.
+3. Run the following command to start the services:
+
+   ```sh
+   docker-compose up
+   ```
+
+This command will start both the MySQL database and the Spring Boot application. The application will be accessible at `http://localhost:8080`.
