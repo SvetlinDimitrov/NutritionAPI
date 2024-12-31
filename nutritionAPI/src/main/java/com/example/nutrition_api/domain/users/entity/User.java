@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +34,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"records", "refreshToken"})
 @ToString(exclude = {"records", "refreshToken"})
-@Builder
 public class User {
 
   @Id
@@ -72,9 +70,9 @@ public class User {
   @Enumerated(EnumType.STRING)
   private UserDetails userDetails = UserDetails.NOT_COMPLETED;
 
-  @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+  @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
   private List<Record> records = new ArrayList<>();
 
-  @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+  @OneToOne(mappedBy = "user", cascade = {CascadeType.REMOVE})
   private RefreshToken refreshToken;
 }

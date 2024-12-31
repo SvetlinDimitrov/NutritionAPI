@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,6 +21,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
   private static final String[] WHITE_LIST = {
@@ -33,8 +35,8 @@ public class SecurityConfig {
       "/swagger-ui/**",
       "/webjars/**",
       "/swagger-ui.html",
-      "/api/v1/user/register",
-      "/api/v1/auth",
+      "/api/v1/user",
+      "/api/v1/auth/**",
       "/api/v1/electrolyte",
       "/api/v1/electrolyte/{name}",
       "/api/v1/macronutrient",

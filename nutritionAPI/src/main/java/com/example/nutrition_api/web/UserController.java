@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,29 +26,23 @@ public class UserController implements UserControllerDocs {
 
   private final UserService userService;
 
-  @PostMapping("/register")
+  @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public void create(@Valid @RequestBody UserCreateRequest userDto) {
     userService.create(userDto);
   }
 
-  @GetMapping("/details")
+  @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  public UserView get(Principal principal) {
-    String email = principal.getName();
-    return userService.findByEmailView(email);
+  @PreAuthorize("isAuthenticated()")
+  public UserView get() {
+    return userService.getLoggedInUser();
   }
 
-  @PatchMapping("/details")
+  @PatchMapping
   @ResponseStatus(HttpStatus.ACCEPTED)
-  public UserView edit(Principal principal, @RequestBody UserUpdateRequest userDto) {
-    String email = principal.getName();
-    User user = userService.findByEmail(email);
-    Long userId = user.getId();
-
-    userService.edit(userDto, userId);
-
-    return userService.getById(userId);
+  @PreAuthorize("isAuthenticated()")
+  public UserView edit(@RequestBody UserUpdateRequest userDto) {
+    return userService.edit(userDto);
   }
-
 }

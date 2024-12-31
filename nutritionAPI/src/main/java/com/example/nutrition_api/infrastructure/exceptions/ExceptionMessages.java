@@ -6,6 +6,8 @@ public enum ExceptionMessages {
   VITAMIN_NOT_FOUND("Vitamin not found. Searchable: %s", "Vitamin not found"),
   RECORD_NOT_FOUND("Record not found", "Record not found"),
   NUTRITION_TO_UPDATE_NOT_FOUND("Nutrition to update not found", "Nutrition to update not found"),
+  REFRESH_TOKEN_NOT_FOUND("Refresh token %s not found", "Refresh token not found"),
+  USER_NOT_FOUND("User not found with id: %s", "User not found"),
   REFRESH_TOKEN_EXPIRED("Refresh token expired", "Refresh token expired");
 
   public final String message;

@@ -4,13 +4,11 @@ import com.example.nutrition_api.domain.record.dto.NutrientUpdateRequest;
 import com.example.nutrition_api.domain.record.dto.NutritionIntakeView;
 import com.example.nutrition_api.domain.record.dto.RecordView;
 import com.example.nutrition_api.domain.record.service.RecordService;
-import com.example.nutrition_api.domain.users.entity.User;
-import com.example.nutrition_api.domain.users.service.UserService;
 import com.example.nutrition_api.infrastructure.open_ai.RecordNutritionControllerDocs;
 import jakarta.validation.Valid;
-import java.security.Principal;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,55 +27,42 @@ import org.springframework.web.bind.annotation.RestController;
 public class RecordNutritionController implements RecordNutritionControllerDocs {
 
   private final RecordService recordService;
-  private final UserService userServiceImp;
 
   @GetMapping
   @ResponseStatus(HttpStatus.OK)
-  @PreAuthorize("hasAnyRole('COMPLETED')")
-  public List<RecordView> getAll(Principal principal) {
-    User user = userServiceImp.findByEmail(principal.getName());
-    return recordService.getAll(user.getId());
+  @PreAuthorize("hasRole('COMPLETED')")
+  public Page<RecordView> getAll(Pageable pageable) {
+    return recordService.getAll(pageable);
   }
 
-  @GetMapping("/{day}")
+  @GetMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
-  @PreAuthorize("hasAnyRole('COMPLETED')")
-  public RecordView getById(@PathVariable Long day) {
-    return recordService.getById(day);
+  @PreAuthorize("hasAnyRole('COMPLETED') && @userPermissionEvaluator.recordUserOwner(authentication, #id)")
+  public RecordView getById(@PathVariable Long id) {
+    return recordService.getById(id);
   }
 
-  @PatchMapping("/edit/{day}")
+  @PatchMapping("/edit/{id}")
   @ResponseStatus(HttpStatus.CREATED)
-  @PreAuthorize("hasAnyRole('COMPLETED')")
-  public NutritionIntakeView edit(
-      @Valid @RequestBody NutrientUpdateRequest dto,
-      @PathVariable Long day,
-      Principal principal) {
-    String mail = principal.getName();
-    User user = userServiceImp.findByEmail(mail);
-
-    return recordService.updateById(day, dto, user);
+  @PreAuthorize("hasAnyRole('COMPLETED') && @userPermissionEvaluator.recordUserOwner(authentication, #id)")
+  public NutritionIntakeView edit(@Valid @RequestBody NutrientUpdateRequest dto, @PathVariable Long id) {
+    return recordService.updateById(id, dto);
   }
 
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   @PreAuthorize("hasAnyRole('COMPLETED')")
-  public RecordView create(Principal principal) {
-    String email = principal.getName();
-    User user = userServiceImp.findByEmail(email);
-
-    return recordService.addNewRecordByUserId(user.getId());
+  public RecordView create() {
+    return recordService.addNewRecordByUserId();
   }
 
 
-  @DeleteMapping("/{day}")
+  @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @PreAuthorize("hasAnyRole('COMPLETED')")
-  public void delete(@PathVariable Long day, Principal principal) {
-    String email = principal.getName();
-    User user = userServiceImp.findByEmail(email);
-    recordService.deleteById(day, user);
+  @PreAuthorize("hasAnyRole('COMPLETED') && @userPermissionEvaluator.recordUserOwner(authentication, #id)")
+  public void delete(@PathVariable Long id) {
+    recordService.deleteById(id);
   }
 
 }
